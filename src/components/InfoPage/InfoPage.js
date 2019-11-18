@@ -1,4 +1,5 @@
 import React from 'react';
+import DrawerNav from '../DrawerNav/DrawerNav'
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -7,6 +8,8 @@ import React from 'react';
 
 const InfoPage = () => (
   <div>
+              <DrawerNav />
+
     <p>
       Info Page
     </p>

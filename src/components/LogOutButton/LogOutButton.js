@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const LogOutButton = props => (
-  <button
+  <ExitToAppIcon
     // This button shows up in multiple locations and is styled differently
     // because it's styled differently depending on where it is used, the className
     // is passed to it from it's parents through React props
@@ -10,7 +11,7 @@ const LogOutButton = props => (
     onClick={() => props.dispatch({ type: 'LOGOUT' })}
   >
     Log Out
-  </button>
+  </ExitToAppIcon>
 );
 
 // This component doesn't need 'mapStateToProps'
