@@ -15,26 +15,29 @@ import { connect } from 'react-redux';
 const users = [{ name: "Iris" }, { name: "Anna" }, { name: "Gao" }, { name: "Kathleen" }]
 
 class GroupForm extends Component {
+    state = {
+        name: '',
+        img_url: '',
+        users: ''
+    }
     componentDidMount() {
-        // this.refreshFeedback()
         this.props.dispatch({ type: "GET_GROUP" });
-
     }
 
-    // refreshFeedback = () => {
-    //     this.props.dispatch({ type: "GET_GROUP", payload: {
-    //         name: this.state.name,
-    //         img_url: this.state.img_url}})
-    // }
 
     onBack = () => {
         this.props.history.push('/home')
     }
 
+    handleChangeFor = (property, event) => {
+        this.setState({
+            ...this.state,
+            [property]: event.target.value
+        })
+    }
 
-    state = {
-       name: '',
-       img_url: ''
+    onSubmitAdd = () => {
+        this.props.dispatch({ type: 'ADD_GROUP', payload: this.state });
     }
 
     deleteButton = (item) => {
@@ -47,18 +50,11 @@ class GroupForm extends Component {
         })
     }
 
-    handleChangeFor = (property, event) => {
-        this.setState({
-            ...this.state,
-            [property]: event.target.value
-        })
-    }
 
     saveButton = (item) => {
         this.props.dispatch({ type: "EDIT_ITEM", payload: item })
 
     };
-
 
     render() {
         return (
@@ -71,18 +67,22 @@ class GroupForm extends Component {
                             id="standard-required"
                             label="Group Name"
                             margin="normal"
-                            onChange={this.onChangeName}></TextField>
+                            value={this.state.name}
+                            onChange={(event) => this.handleChangeFor('name', event)}></TextField>
 
                         <TextField
                             id="standard"
                             label="Image URL:"
                             margin="normal"
-                            onChange={this.onChangeImage}></TextField>
+                            value={this.state.img_url}
+                            onChange={(event) => this.handleChangeFor('img_url', event)}></TextField>
 
                         <Autocomplete
                             multiple
                             id="tags-filled"
                             options={users.map(name => name.name)}
+                            value={this.users}
+                            onChange={(event) => this.handleChangeFor('users', event)}
                             renderTags={(value, getTagProps) =>
                                 value.map((option, index) => (
                                     <Chip color="primary" label={option} {...getTagProps({ index })}
@@ -98,13 +98,14 @@ class GroupForm extends Component {
                                 />
                             )} />
                         <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-                        <Button onClick={this.onSubmit} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
-
-
+                        <Button onClick={this.onSubmitAdd} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
 
                     </Grid>
-
                 </Grid>
+                {this.props.groupReducer.map((group, i) =>
+                    <Button color="primary" onClick={this.onEachList} key={i}>{group.name}</Button>)}
+                <pre> {JSON.stringify(this.state, null, 2)}</pre>
+
                 <pre> {JSON.stringify(this.props.groupReducer, null, 2)}</pre>
                 {/* <ul>
                     {this.props.groupReducer.map((group, i) =>

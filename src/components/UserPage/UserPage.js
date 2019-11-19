@@ -5,6 +5,7 @@ import DrawerNav from '../DrawerNav/DrawerNav'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
 import ListItem from '../ListItems/ListItems'
+import GroupList from '../GroupList/GroupList'
 // this could also be written with destructuring parameters as:
 // const UserPage = ({ user }) => (
 // and then instead of `props.user.username` you could use `user.username`
@@ -21,9 +22,6 @@ class UserPage extends Component {
     this.props.history.push('/Groupform')
   }
 
-onEachList = () => {
-  console.log('going into list');
-}
   // get for groups and put in componenet did mount
   render() {
     return (
@@ -33,9 +31,8 @@ onEachList = () => {
           <CreateIcon onClick={this.onCreate} />
           <h1 id="welcome">
             Welcome, {this.props.user.username}!
-    </h1>
+          </h1>
           <div><h1>Groups</h1></div>
-
           <TextField onSubmit={this.onCreate}
             id="standard"
             label="Add Groups"
@@ -50,9 +47,8 @@ onEachList = () => {
             }}
           >
           </TextField>
-          <h1>Group:{this.props.groupReducer.name}</h1>
-            {this.props.groupReducer.map((group,i) => 
-            <Button color="primary" onClick={this.onEachList} key={i}>{group.name}</Button>)}
+          <GroupList />
+
           {/* <ListItem /> */}
           <p>Your ID is: {this.props.user.id} </p>
         </div>

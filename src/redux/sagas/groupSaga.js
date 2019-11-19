@@ -11,8 +11,5 @@ function* groupSaga() {
     }
   }
 
-//   function* groupSaga() {
-//     yield takeLatest('', fetchGroupSaga);
-//   }
   export default groupSaga;
   

@@ -17,12 +17,18 @@ router.get('/', (req, res) => {
 });
 
 /**
- * POST route template
+ * POST route to add a group for the logged in user
  */
-router.post('/', (req, res) => {
-
+router.post('/', rejectUnauthenticated, (req, res) => {
+    const queryText = 'INSERT INTO "group"("name", "img_src") VALUES ($1, $2);';
+    pool.query(queryText, [req.body.name, req.body.img_src])
+    .then(result=> {
+        res.sendStatus(200)
+    }).catch(error=> {
+        console.log('error in adding user server', error)
+        res.sendStatus(500)
+    })
 });
 
 module.exports = router;
-
 
