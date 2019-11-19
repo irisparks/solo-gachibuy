@@ -1,5 +1,5 @@
 const groupReducer = (state = [], action) => {
-    console.log('inget')
+    console.log('in get groupReducer')
     switch (action.type) {
       case 'SET_GROUP':
         return action.payload;

@@ -1,75 +1,67 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { TextField, InputAdornment, Button } from '@material-ui/core'
-import DrawerNav from '../DrawerNav/DrawerNav'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CreateIcon from '@material-ui/icons/Create';
+import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import SaveIcon from '@material-ui/icons/Save';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-// this could also be written with destructuring parameters as:
-// const UserPage = ({ user }) => (
-// and then instead of `props.user.username` you could use `user.username`
+class List extends Component {
 
-class ListView extends Component {
+    state = {
+        listItems: "",
+        createdDate: '',
+        shoppingDate: '',
+        listSaved: false,
+    }
+    // cancel create list goes back to list view
+    onCancel = () => {
+        this.props.history.push('/list')
+    }
 
-  componentDidMount() {
-    // this.props.dispatch({ type: "GET_GROUP" });
 
-  }
+    onChangeList = (event) => {
+        console.log(...this.state.listItems)
+        this.setState({
+            // ...this.state.listItems,
+            //colleection of eveyrthing and that list
+            listItems: event.target.value
+
+        })
+    }
+
+    onSubmit = () => {
+
+        this.setState({
+            listSaved: !false
+        })
+        console.log('onSave')
+        // ...this.state,
+
+    }
+    render() {
+        console.log("state: ", this.state)
+        return (
+            <>
+                        <>Created On: {this.state.createdDate}
+                            Shopping Date: {this.state.shoppingDate}
+                            <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                            <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
+                            <Button onClick={this.onDelete} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button></>
+                
 
 
-  onBack = () => {
-    this.props.history.push('/home')
-  }
 
-  onCreate = () => {
-    console.log('create list hit');
-    this.props.history.push('/Listform')
-  }
-
-  // get for groups and put in componenet did mount
-  render() {
-    return (
-      <>
-        <div>
-          <DrawerNav />
-          <h1>GROUP NAME</h1>
-          <CreateIcon onClick={this.onCreate} />
-
-          <TextField onSubmit={this.onCreate}
-            id="standard"
-            label="Add List"
-            margin="normal"
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AddCircleOutlineIcon color="primary" />
-                </InputAdornment>
-              )
-            }}
-          >
-          </TextField>
-          <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-
-          <div><h1>Lists</h1></div>
-
-          <p>Your ID is: {this.props.user.id} </p>
-        </div>
-        <pre> {JSON.stringify(this.props.groupReducer, null, 2)}</pre>
-        <pre> {JSON.stringify(this.props.user.username, null, 2)}</pre>
-      </>
-    )
-  }
-}
-// const mapStateToProps = state => ({
-//   user: state.user,
-// });
-
-const mapReduxStateToProps = (reduxState) => {
-  return reduxState
+                    <Grid container spacing={24} style={{ padding: 24 }} />
+                    <pre> {JSON.stringify(this.state, null, 2)}</pre>
+            </>
+        )
+    }
 }
 
-export default connect(mapReduxStateToProps)(ListView);
 
-
+export default List;

@@ -9,6 +9,8 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ListView from '../ListView/ListView'
+
 class ListItem extends Component {
 
     state = {
@@ -67,24 +69,26 @@ class ListItem extends Component {
                                 onChange={this.onChangeList}
                                 value={this.state.listItem} />
                         )} />
-                    Created On:<TextField></TextField>
-                    Shopping Date:<TextField></TextField>
-                    {this.state.listSaved == false ? <>
 
-                        <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<CancelIcon />} color="primary" >Cancel</Button>
 
-                        <Button onClick={this.onSubmit} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Save</Button> </>
-
+                    {/* conditonal rendering for save button click */}
+                    {this.state.listSaved == false ?
+                        <>Created On:<TextField></TextField>
+                            Shopping Date:<TextField></TextField>
+                            <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<CancelIcon />} color="primary" >Cancel</Button>
+                            <Button onClick={this.onSubmit} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Save</Button> </>
                         :
+                        <ListView />
 
-                        <>
-                                                <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-
-                            <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
-
-                            <Button onClick={this.onDelete} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button>
-                        </>
+                        // <>Created On: {this.state.createdDate}
+                        //     Shopping Date: {this.state.shoppingDate}
+                        //     <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                        //     <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
+                        //     <Button onClick={this.onDelete} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button></>
                     }
+
+
+
 
                     <Grid container spacing={24} style={{ padding: 24 }} />
                     <pre> {JSON.stringify(this.state, null, 2)}</pre>

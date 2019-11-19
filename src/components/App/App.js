@@ -12,7 +12,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import ListView from '../ListView/ListView'
+import ListView from '../ListPage/ListPage'
 import ListItems from '../ListForm/ListForm'
 
 import './App.css';

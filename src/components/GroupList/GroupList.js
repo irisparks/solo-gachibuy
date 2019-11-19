@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, InputAdornment, Button } from '@material-ui/core'
-import ListView from '../ListView/ListView'
+import ListView from '../ListPage/ListPage'
 import { Link } from 'react-router-dom';
 
 class GroupList extends Component {
