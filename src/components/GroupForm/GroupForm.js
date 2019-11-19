@@ -102,8 +102,7 @@ class GroupForm extends Component {
 
                     </Grid>
                 </Grid>
-                {this.props.groupReducer.map((group, i) =>
-                    <Button color="primary" onClick={this.onEachList} key={i}>{group.name}</Button>)}
+            
                 <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
                 <pre> {JSON.stringify(this.props.groupReducer, null, 2)}</pre>

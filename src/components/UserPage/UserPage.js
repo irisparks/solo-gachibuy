@@ -32,7 +32,6 @@ class UserPage extends Component {
           <h1 id="welcome">
             Welcome, {this.props.user.username}!
           </h1>
-          <div><h1>Groups</h1></div>
           <TextField onSubmit={this.onCreate}
             id="standard"
             label="Add Groups"
@@ -47,6 +46,8 @@ class UserPage extends Component {
             }}
           >
           </TextField>
+          <div><h1>Groups</h1></div>
+
           <GroupList />
 
           {/* <ListItem /> */}

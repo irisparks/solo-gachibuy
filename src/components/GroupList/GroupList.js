@@ -1,33 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, InputAdornment, Button } from '@material-ui/core'
-import DrawerNav from '../DrawerNav/DrawerNav'
-
-// this could also be written with destructuring parameters as:
-// const UserPage = ({ user }) => (
-// and then instead of `props.user.username` you could use `user.username`
+import ListView from '../ListView/ListView'
+import { Link } from 'react-router-dom';
 
 class GroupList extends Component {
 
-onEachList = () => {
-  console.log('going into list');
-}
-  render() {
-    return (
-      <>
-        <div>
-          <DrawerNav />
-        
-            {this.props.groupReducer.map((group,i) => 
-            <Button color="primary" onClick={this.onEachList} key={i}>{group.name}</Button>)}
-        </div>
-      </>
-    )
-  }
+
+    render() {
+        return (
+            <>
+                <div>
+
+                    {this.props.groupReducer.map((group, i) =>
+                        <Link className="list-link" to="/list">
+                            <Button color="primary" onClick={this.onEachList} key={i}>{group.name}</Button>
+                        </Link>
+                    )}
+                </div>
+            </>
+        )
+    }
 }
 
 const mapReduxStateToProps = (reduxState) => {
-  return reduxState
+    return reduxState
 }
 
 export default connect(mapReduxStateToProps)(GroupList);

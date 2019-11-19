@@ -5,37 +5,20 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
-
-const users = [{ name: "Iris" }, { name: "Anna" }, { name: "Gao" }, { name: "Kathleen" }]
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 class ListItem extends Component {
 
     state = {
-        groupname: "",
-        image_url: "",
-        users: "",
-        showError: false,
         listItems: "",
+        createdDate: '',
+        shoppingDate: '',
+    }
+// cancel create list goes back to list view
+    onCancel = () => {
+        this.props.history.push('/list')
     }
 
-    onChangeName = (event) => {
-        this.setState({
-            groupname: event.target.value
-        })
-    }
-
-    onChangeImage = (event) => {
-        this.setState({
-            image_url: event.target.value
-        })
-    }
-
-    onChangeUser = (event) => {
-        const user = event.target.innerText;
-        // const users = this.state
-        // keeps track of the collection of users
-        this.setState({ users: user })
-    }
 
     onChangeList = (event) => {
         console.log(...this.state.listItems)
@@ -43,12 +26,12 @@ class ListItem extends Component {
             // ...this.state.listItems,
             //colleection of eveyrthing and that list
             listItems: event.target.value
-            
+
         })
     }
 
     onSubmit = () => {
-        console.log('onSubmit')
+        console.log('onSave')
         // ...this.state,
 
     }
@@ -56,8 +39,9 @@ class ListItem extends Component {
         console.log("state: ", this.state)
         return (
             <>
-
                 <div className="Inputs">
+                <h1>GROUP NAME</h1>
+
                     <Autocomplete
                         multiple
                         id="tags-filled"
@@ -72,11 +56,16 @@ class ListItem extends Component {
                                 variant="outlined"
                                 label="List Items"
                                 margin="normal"
-                                fullWidth 
+                                fullWidth
                                 onChange={this.onChangeList}
-                                value={this.state.listItem}/>
+                                value={this.state.listItem} />
                         )} />
-                    <Button onClick={this.onSubmit} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
+                        Created On:<TextField></TextField>
+                        Shopping Date:<TextField></TextField>
+
+                    <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Cancel</Button>
+
+                    <Button onClick={this.onSubmit} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Save</Button>
 
                     <Grid container spacing={24} style={{ padding: 24 }} />
                     <pre> {JSON.stringify(this.state, null, 2)}</pre>
