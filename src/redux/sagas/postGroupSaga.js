@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 function* postGroupSaga(action) {
-  console.log('inpost')
+  console.log('in post group saga')
     try {
         yield axios.post("/api/group", action.payload)
         yield put({type:"GET_GROUP"});

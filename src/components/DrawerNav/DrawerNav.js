@@ -62,6 +62,11 @@ function ResponsiveDrawer(props) {
         </ListItem>
 
         <ListItem button>
+          <Link to ="/list">
+            <ListItemText primary="My Lists" />
+          </Link>
+        </ListItem>
+        <ListItem button>
           <Link to="/info">
             <ListItemText primary="Info Page" />
           </Link>

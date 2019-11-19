@@ -45,6 +45,10 @@ class ListItem extends Component {
         // ...this.state,
 
     }
+
+    onSubmitAdd = () => {
+        this.props.dispatch({ type: 'ADD_GROUP', payload: this.state });
+    }
     render() {
         console.log("state: ", this.state)
         return (
@@ -52,7 +56,7 @@ class ListItem extends Component {
                 <div className="Inputs">
                     <h1>GROUP NAME</h1>
 
-                    <Autocomplete
+                    {/* <Autocomplete
                         multiple
                         id="tags-filled"
                         freeSolo
@@ -69,31 +73,26 @@ class ListItem extends Component {
                                 fullWidth
                                 onChange={this.onChangeList}
                                 value={this.state.listItem} />
-                        )} />
+                        )} /> */}
 
+<ListView />
 
                     {/* conditonal rendering for save button click */}
-                    {this.state.listSaved == false ?
+                    {/* {this.state.listSaved == false ?
                         <>Created On:<TextField></TextField>
                             Shopping Date:<TextField></TextField>
                             <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<CancelIcon />} color="primary" >Cancel</Button>
-                            <Button onClick={this.onSubmit} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Save</Button> </>
+                            <Button onClick={this.onSubmitAdd} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Save</Button> </>
                         :
                         <ListView />
-
-                        // <>Created On: {this.state.createdDate}
-                        //     Shopping Date: {this.state.shoppingDate}
-                        //     <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-                        //     <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
-                        //     <Button onClick={this.onDelete} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button></>
                     }
-
+ */}
 
 
 
                     <Grid container spacing={24} style={{ padding: 24 }} />
-                    <pre> {JSON.stringify(this.state, null, 2)}</pre>
-                    <pre> {JSON.stringify(this.props.listReducer, null, 2)}</pre>
+                    {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
+                    {/* <pre> {JSON.stringify(this.props.listReducer, null, 2)}</pre> */}
 
                 </div>
             </>

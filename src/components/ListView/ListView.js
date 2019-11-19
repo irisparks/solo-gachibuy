@@ -41,8 +41,9 @@ class ListView extends Component {
         })
         console.log('onSave')
         // ...this.state,
-
     }
+
+    
     render() {
         console.log("state: ", this.state)
         return (
@@ -60,8 +61,7 @@ class ListView extends Component {
 
 
                     <Grid container spacing={24} style={{ padding: 24 }} />
-                    <pre> {JSON.stringify(this.state, null, 2)}</pre>
-                    <pre> {JSON.stringify(this.props.listReducer.date_created, null, 2)}</pre>
+                    {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
 
             </>
         )
