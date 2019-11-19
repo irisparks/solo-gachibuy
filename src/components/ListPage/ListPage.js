@@ -5,10 +5,8 @@ import DrawerNav from '../DrawerNav/DrawerNav'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { Link } from 'react-router-dom';
 
-// this could also be written with destructuring parameters as:
-// const UserPage = ({ user }) => (
-// and then instead of `props.user.username` you could use `user.username`
 
 class ListView extends Component {
 
@@ -53,7 +51,14 @@ class ListView extends Component {
           <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
 
           <div><h1>Lists</h1></div>
+          <div>
 
+{this.props.listReducer.map((list, i) =>
+    <Link className="list-link" to="/listform">
+        <Button color="primary" onClick={this.onEachList} key={i}>{list.list_name}</Button>
+    </Link>
+)}
+</div>
           <p>Your ID is: {this.props.user.id} </p>
         </div>
         <pre> {JSON.stringify(this.props.listReducer, null, 2)}</pre>
