@@ -12,6 +12,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const groupRouter = require('./routes/group.router');
 const listRouter = require('./routes/list.router');
+const itemRouter = require('./routes/item.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,6 +29,8 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/group', groupRouter);
 app.use('/api/list', listRouter);
+app.use('/api/item', itemRouter);
+
 
 
 

@@ -10,6 +10,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListView from '../ListView/ListView'
+import { connect } from 'react-redux';
 
 class ListItem extends Component {
 
@@ -92,11 +93,17 @@ class ListItem extends Component {
 
                     <Grid container spacing={24} style={{ padding: 24 }} />
                     <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                    <pre> {JSON.stringify(this.props.listReducer, null, 2)}</pre>
+
                 </div>
             </>
         )
     }
 }
-
-
-export default ListItem;
+const mapReduxStateToProps = (reduxState) => {
+    return reduxState
+  }
+  
+  export default connect(mapReduxStateToProps)(ListItem);
+  
+  

@@ -9,18 +9,18 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Item from '../Item/Item'
 
-class List extends Component {
+// VIEW WHEN A LIST IS SAVED
+class ListView extends Component {
 
     state = {
         listItems: "",
         createdDate: '',
         shoppingDate: '',
         listSaved: false,
-    }
-    // cancel create list goes back to list view
-    onCancel = () => {
-        this.props.history.push('/list')
     }
 
 
@@ -47,9 +47,12 @@ class List extends Component {
         console.log("state: ", this.state)
         return (
             <>
-                        <>Created On: {this.state.createdDate}
-                            Shopping Date: {this.state.shoppingDate}
-                            <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                    <Item />    <>
+                    Created On: {this.props.listReducer.date_created}
+                            Shopping Date: {this.props.listReducer.shopping_date}
+                            <Link className="list-link" to="/list">
+                            <Button variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>    </Link>
+
                             <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
                             <Button onClick={this.onDelete} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button></>
                 
@@ -58,10 +61,18 @@ class List extends Component {
 
                     <Grid container spacing={24} style={{ padding: 24 }} />
                     <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                    <pre> {JSON.stringify(this.props.listReducer.date_created, null, 2)}</pre>
+
             </>
         )
     }
 }
 
+const mapReduxStateToProps = (reduxState) => {
+    return reduxState
+  }
+  
+  export default connect(mapReduxStateToProps)(ListView);
+  
+  
 
-export default List;
