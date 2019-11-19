@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, InputAdornment, Button } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CreateIcon from '@material-ui/icons/Create';
 import { Link } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
@@ -13,13 +11,15 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListView from '../ListView/ListView'
-
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import EditIcon from '@material-ui/icons/Edit';
 class Item extends Component {
     state = {
         listItems: "",
         createdDate: '',
         shoppingDate: '',
         listSaved: false,
+        itemCompleted: true, 
     }
     componentDidMount() {
         this.props.dispatch({ type: "GET_ITEM" });
@@ -41,8 +41,17 @@ class Item extends Component {
     }
     handleClick = () => {
         console.info('You clicked the Chip.');
+        this.setState({
+            itemCompleted: !this.state.itemCompleted
+        })
       };
   
+      onDelete = () => {
+          console.log ('delete list item')
+      }
+      onEdit = () => {
+          console.log('edit list item')
+      }
 
     render() {
         return (
@@ -66,19 +75,35 @@ class Item extends Component {
                                 onChange={this.onChangeList}
                                 value={this.state.listItem} />
                         )} /> <Button color="primary" variant="outlined" onClick={this.onSubmitAdd}>Submit</Button>
-                    {/* <DrawerNav /> */}
-                    <h1>ITEMS</h1>
+              
+              
+               <h1>ITEMS</h1>
                   
 
                     {this.props.itemReducer.map((list, i) =>
                         <>
                             <div key={i}>
+                                {this.state.itemCompleted  ? 
                                 <Chip color="primary" variant="outlined" label={list.item_name} onClick={this.handleClick} />
-                                <Button color="primary">edit</Button>
-                                <Button color="primary">delete</Button>
+                                :
+                                <Chip color="primary"  label={list.item_name} onClick={this.handleClick} />
+
+    }
+                                <EditIcon onClick={this.onEdit} color="primary"/>
+                                <DeleteIcon onClick={this.onDelete} color="primary"/>
                             </div>
                         </>
                     )}
+
+
+
+Created On: {this.props.listReducer.date_created}
+                    Shopping Date: {this.props.listReducer.shopping_date}
+                    <Link className="list-link" to="/list">
+                        <Button variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>    </Link>
+
+                    <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
+                    <Button onClick={this.onDeleteGroup} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button>
 
                 </div>
                 <pre> {JSON.stringify(this.state, null, 2)}</pre>

@@ -9,8 +9,8 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ListView from '../ListView/ListView'
 import { connect } from 'react-redux';
+import Item from '../Item/Item'
 
 class ListItem extends Component {
 
@@ -25,17 +25,6 @@ class ListItem extends Component {
         this.props.history.push('/list')
     }
 
-
-    onChangeList = (event) => {
-        console.log(...this.state.listItems)
-        this.setState({
-            // ...this.state.listItems,
-            //colleection of eveyrthing and that list
-            listItems: event.target.value
-
-        })
-    }
-
     onSubmit = () => {
 
         this.setState({
@@ -46,9 +35,7 @@ class ListItem extends Component {
 
     }
 
-    onSubmitAdd = () => {
-        this.props.dispatch({ type: 'ADD_GROUP', payload: this.state });
-    }
+
     render() {
         console.log("state: ", this.state)
         return (
@@ -56,26 +43,7 @@ class ListItem extends Component {
                 <div className="Inputs">
                     <h1>GROUP NAME</h1>
 
-                    {/* <Autocomplete
-                        multiple
-                        id="tags-filled"
-                        freeSolo
-                        renderTags={(value, getTagProps) =>
-                            value.map((option, index) => (
-                                <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
-
-                            ))}
-                        renderInput={params => (
-                            <TextField  {...params}
-                                variant="outlined"
-                                label="List Items"
-                                margin="normal"
-                                fullWidth
-                                onChange={this.onChangeList}
-                                value={this.state.listItem} />
-                        )} /> */}
-
-<ListView />
+<Item />
 
                     {/* conditonal rendering for save button click */}
                     {/* {this.state.listSaved == false ?
