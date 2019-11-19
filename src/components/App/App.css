@@ -16,6 +16,16 @@ body {
     padding: 25px;
     border-radius: 2px;
 } */
+/* .login {
+    text-align: center;
+    background-image: url('../images/background_1.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+  } */
+
 
 input {
     margin: 5px;

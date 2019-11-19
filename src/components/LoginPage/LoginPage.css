@@ -12,8 +12,45 @@ h1 {
 .login {
   overflow: hidden;
   background-color: #00acb0;
+  text-align: center;
+  background-image: url('../images/background_2.png');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 50vh;
 }
 
 .Avatar {
     text-align: center;
 }
+
+/* .App {
+    text-align: center;
+    background-image: url('greenimage.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  .App-header {
+    background-color: #5c8d89;
+    min-height: 70px;
+    padding: 20px;
+    color: white;
+  }
+  
+  .App-title {
+    font-size: 1.5em;
+  }
+  
+  .App-intro {
+    font-size: large;
+  }
+  
+  .slide{
+    width: 50%;
+    margin: auto;
+  } */

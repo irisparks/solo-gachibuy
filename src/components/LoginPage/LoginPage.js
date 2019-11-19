@@ -46,8 +46,6 @@ class LoginPage extends Component {
         <div className="login">
           <Typography component="h1" variant="h9">
             Gachi-Buy        </Typography>
-          <h1>Gachi-Buy</h1>
-        </div>
 
         <div>
           {this.props.errors.loginMessage && (
@@ -171,6 +169,8 @@ class LoginPage extends Component {
           </button>
           </center> */}
         </div>
+        </div>
+
       </>
     );
   }
