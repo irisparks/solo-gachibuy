@@ -39,6 +39,8 @@ class ItemItem extends Component {
     render() {
         return (
             <>
+
+            {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
                 {this.state.showComplete ? <>
                     <Chip key={this.props.key} variant="outlined" color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
                     <EditIcon onClick={this.onEdit} color="primary" />
