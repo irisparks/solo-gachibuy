@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, InputAdornment, Button } from '@material-ui/core'
-import ListView from '../ListPage/ListPage'
+import ListView from '../ListView/ListView'
 import { Link } from 'react-router-dom';
 
 class GroupList extends Component {
@@ -11,12 +11,15 @@ class GroupList extends Component {
         return (
             <>
                 <div>
-
-                    {this.props.groupReducer.map((group, i) =>
+                    <ul>
+                        <li>
                         <Link className="list-link" to="/list">
-                            <Button color="primary" onClick={this.onEachList} key={i}>{group.name}</Button>
+                            <Button color="primary" onClick={this.onEachList} key={this.props.group.key}>{this.props.group.name}</Button>
                         </Link>
-                    )}
+                        </li>
+                        </ul>
+                        
+                
                 </div>
             </>
         )
