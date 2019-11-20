@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, InputAdornment, Button } from '@material-ui/core'
-import ListView from '../ListPage/ListPage'
+import ListView from '../ListView/ListView'
 import { Link } from 'react-router-dom';
 import Item from '../Item/Item'
 

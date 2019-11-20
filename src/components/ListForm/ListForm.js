@@ -41,7 +41,7 @@ class ListItem extends Component {
         return (
             <>
                 <div className="Inputs">
-                    <h1>GROUP NAME</h1>
+                    <h1>GROUP NAME (in listform)</h1>
 
 <Item />
 
