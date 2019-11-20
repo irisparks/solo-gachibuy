@@ -25,7 +25,21 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     .then(result=> {
         res.sendStatus(200)
     }).catch(error=> {
-        console.log('error in adding user server', error)
+        console.log('error in post item error:', error)
+        res.sendStatus(500)
+    })
+});
+
+/**
+ * Delete an item if it's something the logged in user added
+ */
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = 'DELETE FROM "item" WHERE "id" = $1;';
+    pool.query(queryText, [req.params.id])
+    .then(() => {
+        res.sendStatus(200)
+    }).catch(error => {
+        console.log('error in delete item error:', error)
         res.sendStatus(500)
     })
 });
