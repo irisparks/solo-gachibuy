@@ -17,23 +17,37 @@ class ItemItem extends Component {
         showComplete: true,
     }
 
-      // function onPhotoClick to setState to False for Conditional Rendering
+    // function onPhotoClick to setState to False for Conditional Rendering
 
-      onCompleteClick = () => {
+    onCompleteClick = () => {
         this.setState({
             showComplete: !this.state.showComplete
         })
         console.log('clicked on a item');
     }
 
+    onDelete = (item) => {
+        this.props.dispatch({ type: "DELETE_ITEM", payload: item})
+        console.log('delete list item')
+    }
+
+  
+    onEdit = () => {
+        console.log('edit list item')
+    }
+
     render() {
         return (
             <>
-            {this.state.showComplete ? 
-            <Chip key={this.props.key} variant="outlined" color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} /> :
-            <Chip key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} /> }
-
-              <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                {this.state.showComplete ? <>
+                    <Chip key={this.props.key} variant="outlined" color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
+                    <EditIcon onClick={this.onEdit} color="primary" />
+                    <DeleteIcon onClick={()=>this.onDelete(this.props.item.id)} color="primary" /> </> :
+                    <>
+                        <Chip key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
+                        <EditIcon onClick={this.onEdit} color="primary" />
+                        <DeleteIcon onClick={()=>this.onDelete(this.props.item.id)} color="primary" /> </>}
+                <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
             </>
         )

@@ -19,8 +19,8 @@ class Item extends Component {
         createdDate: '',
         shoppingDate: '',
         listSaved: false,
-        itemCompleted: true,
     }
+
     componentDidMount() {
         this.props.dispatch({ type: "GET_ITEM" });
 
@@ -38,19 +38,6 @@ class Item extends Component {
 
     onSubmitAdd = () => {
         this.props.dispatch({ type: 'ADD_ITEM', payload: this.state });
-    }
-    handleClick = () => {
-        console.info('You clicked the Chip.');
-        this.setState({
-            itemCompleted: !this.state.itemCompleted
-        })
-    };
-
-    onDelete = () => {
-        console.log('delete list item')
-    }
-    onEdit = () => {
-        console.log('edit list item')
     }
 
     render() {
@@ -80,24 +67,14 @@ class Item extends Component {
                     <h1>ITEMS</h1>
                     <>
                         <div>
-                            <div>
-                                {/* MAP FUNCTION FOR EACH ITEM  */}
 
-                                {this.props.itemReducer.map((item, i) => <>
-                                   <p>item name:{item.item_name} id: {item.id}</p> <ItemItem item={item} key={i}/></>)}
-                            </div>
-                            {this.state.itemCompleted === true ?
-                                <Chip id={this.props.itemReducer.id} color="primary" variant="outlined" label={this.state.listItems} onClick={this.handleClick} />
-                                :
-                                <Chip id={this.props.item.id} color="primary" label={this.props.item.item_name} onClick={this.handleClick} />
+                            {/* MAP FUNCTION FOR EACH ITEM  */}
 
-                            }
-                            <EditIcon onClick={this.onEdit} color="primary" />
-                            <DeleteIcon onClick={this.onDelete} color="primary" />
+                            {this.props.itemReducer.map((item, i) =>
+                                <ItemItem item={item} key={i} />)}
+
                         </div>
                     </>
-
-
 
 
                     Created On: {this.props.listReducer.date_created}
