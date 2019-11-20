@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar,CssBaseline,Divider,Drawer,Hidden,IconButton,List,ListItem,ListItemText,Toolbar,Typography } from '@material-ui/core';
+import { AppBar, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemText, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import './DrawerNav.css';
+
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
+    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     display: 'flex',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexShrink: 0,
+
     },
   },
   appBar: {
@@ -33,6 +38,7 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    background: 'linear-gradient(45deg, #74ebd5 30%, #acb6e5 90%);',
   },
   content: {
     flexGrow: 1,
@@ -49,6 +55,7 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  {/* <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button> */ }
 
   const drawer = (
     <div>
@@ -56,24 +63,23 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         <ListItem button>
-          <Link to="/home">
-            <HomeIcon /> <ListItemText primary="Home" />
+          <Link to="/home" >
+            <Button startIcon={<HomeIcon />} >Home </Button>
           </Link>
         </ListItem>
-
         <ListItem button>
-          <Link to ="/list">
+          <Link to="/list" variant="body2">
             <ListItemText primary="My Lists" />
           </Link>
         </ListItem>
         <ListItem button>
-          <Link to="/info">
+          <Link to="/info" variant="body2">
             <ListItemText primary="Info Page" />
           </Link>
         </ListItem>
 
         <ListItem button>
-          <Link to="/about">
+          <Link to="/about" variant="body2">
             <ListItemText primary="About" />
           </Link>
         </ListItem>
@@ -82,9 +88,11 @@ function ResponsiveDrawer(props) {
       </List>
       <Divider />
       <List>
-      <LogOutButton />
+        <ListItem button>
+        <LogOutButton />
+        </ListItem>
 
-       
+
       </List>
     </div>
   );
@@ -104,7 +112,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-Gachi-Buy          </Typography>
+            Gachi-Buy          </Typography>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
