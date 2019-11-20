@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, InputAdornment, Button } from '@material-ui/core'
+import { TextField, InputAdornment, Button, Typography } from '@material-ui/core'
 import ListView from '../ListView/ListView'
 import { Link } from 'react-router-dom';
 
@@ -16,9 +16,10 @@ class GroupList extends Component {
                         <Link className="list-link" to="/list">
                             <Button color="primary" onClick={this.onEachList} key={this.props.group.key}>{this.props.group.name}</Button>
                         </Link>
+                        
                         </li>
                         </ul>
-                        
+
                 
                 </div>
             </>
