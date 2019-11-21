@@ -19,6 +19,7 @@ class Item extends Component {
         createdDate: '',
         shoppingDate: '',
         listSaved: false,
+        edit: false
     }
 
     componentDidMount() {
@@ -35,7 +36,19 @@ class Item extends Component {
 
         })
     }
-
+    onEdit = () => {
+        console.log('edit button clicked')
+        this.setState({
+            ...this.state,
+            edit: true
+        })
+    }
+    handleChangeFor = (property, event) => {
+        this.setState({
+            ...this.state,
+            [property]: event.target.value
+        })
+    }
     onSubmitAdd = () => {
         this.props.dispatch({ type: 'ADD_ITEM', payload: this.state });
     }
