@@ -5,7 +5,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import './DrawerNav.css';
 
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
@@ -19,13 +18,13 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexShrink: 0,
-
     },
   },
   appBar: {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
+      background: 'linear-gradient(45deg, #4ac29a, #bdfff3);',
     },
   },
   menuButton: {
@@ -37,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    background: 'linear-gradient(45deg, #74ebd5 30%, #acb6e5 90%);',
+    background: 'linear-gradient(45deg, #4ac29a, #bdfff3);',
   },
   content: {
     flexGrow: 1,

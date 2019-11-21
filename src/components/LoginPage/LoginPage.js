@@ -3,27 +3,45 @@ import { connect } from 'react-redux';
 import './LoginPage.css';
 import { Typography, Box, Container, TextField, CssBaseline, FormControlLabel, Checkbox, Button, Grid, Paper } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { withStyles } from '@material-ui/styles';
-import PropTypes from 'prop-types';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
 
 const styles = {
-  root: {
-    background: 'linear-gradient(45deg, #74ebd5 30%, #acb6e5 90%)',
+  title: {
+    textAlign: 'center',
+    fontSize: '18px',
+    marginTop: '150px',
+    color: '#FFF',
+  },
+  TextField: {
+    borderColor: 'white',
+  },
+  link: {
+    margin: '20px',
+  },
+  button: {
+    marginTop: '5px',
+    background: 'linear-gradient(45deg, #4ac29a, #bdfff3)',
+    color: "white",
     border: 0,
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
     height: 48,
     padding: '0 30px',
   },
   paper: {
-      textAlign: 'center',
-      marin: 'auto',
-      maxWidth: 500,
+    textAlign: 'center',
+    marin: 'auto',
+    maxWidth: 500,
   }
 };
 
-
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#FFF' },
+  },
+});
 class LoginPage extends Component {
   state = {
     username: '',
@@ -52,88 +70,93 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <>
-        <div>
-          <Typography component="h1" variant="h9">
-            Gachi-Buy        </Typography>
+        <div className="background">
+          <div class="overlay">
 
-          <div>
-            {this.props.errors.loginMessage && (
-              <h2
-                role="alert"
-              >
-                {this.props.errors.loginMessage}
-              </h2>
-            )}
+            <Typography component="h1" variant="h9" style={styles.title}>
+              Gachi-Buy        </Typography>
 
-            <Container component="main" maxWidth="xs">
-              <CssBaseline />
-              <div className={classes.paper} >
-                <div className={classes.avatar}>
-                  <LockOutlinedIcon color="secondary" text-align="center" />
-                </div>
-                <Typography component="h1" variant="h5">
-                  Sign in
+            <div>
+              {this.props.errors.loginMessage && (
+                <h2
+                  role="alert"
+                >
+                  {this.props.errors.loginMessage}
+                </h2>
+              )}
+              <ThemeProvider theme={theme}>
+
+                <Container component="main" maxWidth="xs" style={styles.main}>
+                  <CssBaseline />
+                  <div  >
+          
+                    <Typography component="h1" variant="h5" style={styles.title}>
+                      Sign in
         </Typography>
-                <form onSubmit={this.login} className={classes.form}>
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    id="email"
-                    label="Username"
-                    name="username"
-                    autoFocus
-                    type="text"
-                    value={this.state.username}
-                    onChange={this.handleInputChangeFor('username')}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    value={this.state.password}
-                    onChange={this.handleInputChangeFor('password')}
-                  />
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                  />
-                  <Button
-                  className={classes.root}
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    name="submit"
-                    value="Log In"
-                  >
-                    Sign In
+                    <form onSubmit={this.login}>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        id="email"
+                        label="Username"
+                        name="username"
+                        autoFocus
+                        type="text"
+                        value={this.state.username}
+                        style={styles.TextField}
+                        onChange={this.handleInputChangeFor('username')}
+                      />
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        value={this.state.password}
+                        style={styles.TextField}
+
+                        onChange={this.handleInputChangeFor('password')}
+                      />
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
+                      />
+                      <Button
+                        style={styles.button}
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        name="submit"
+                        value="Log In"
+                      >
+                        Sign In
           </Button>
-                  <Grid container>
-                    <Grid item>
-                      <center>
-                        <button
-                          type="button"
-                          onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}
-                        >
-                          Register </button>
-                      </center>
-                    </Grid>
-                  </Grid>
-                </form>
-              </div>
-              <Box mt={8}>
-              </Box>
-            </Container>
-            {/* old form code below */}
-            {/* <form onSubmit={this.login}>
+                      <Grid container>
+                        <Grid item>
+                          <center>
+                            <button
+                              type="button"
+                              onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}
+                            >
+                              Register </button>
+                          </center>
+                        </Grid>
+                      </Grid>
+                    </form>
+                  </div>
+                  <Box mt={8}>
+                  </Box>
+                </Container>
+              </ThemeProvider>
+
+              {/* old form code below */}
+              {/* <form onSubmit={this.login}>
             <h1>Login</h1>
             <div>
               <label htmlFor="username">
@@ -175,6 +198,7 @@ class LoginPage extends Component {
               Register
           </button>
           </center> */}
+            </div>
           </div>
         </div>
 
@@ -182,9 +206,7 @@ class LoginPage extends Component {
     );
   }
 }
-LoginPage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+
 
 // Instead of taking everything from state, we just want the error messages.
 // if you wanted you could write this code like this:
@@ -193,4 +215,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(LoginPage));
+export default connect(mapStateToProps)(LoginPage);
