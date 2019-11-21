@@ -11,10 +11,13 @@ import ListofList from '../ListofList/ListofList'
 class ListView extends Component {
 
   componentDidMount() {
-    this.props.dispatch({ type: "GET_LIST" });
-
+    this.onGet();
   }
 
+  onGet = () => {
+    console.log('PROPS',this.props)
+    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer });
+  }
 
   onBack = () => {
     this.props.history.push('/home')
@@ -31,7 +34,7 @@ class ListView extends Component {
       <>
         <div>
           <DrawerNav />
-          <h1>GROUP NAME (in listview)</h1>
+          <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1>
           <CreateIcon onClick={this.onCreate} />
 
           <TextField onSubmit={this.onCreate}
@@ -54,7 +57,7 @@ class ListView extends Component {
         <ListofList />
           <p>Your ID is: {this.props.user.id} </p>
         </div>
-        <pre> {JSON.stringify(this.props.listReducer, null, 2)}</pre>
+        <pre> {JSON.stringify(this.props.findGroupReducer, null, 2)}</pre>
       </>
     )
   }

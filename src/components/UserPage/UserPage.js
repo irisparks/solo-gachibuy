@@ -5,7 +5,6 @@ import DrawerNav from '../DrawerNav/DrawerNav'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
 import ListItem from '../ListForm/ListForm'
-import GroupList from '../GroupList/GroupList'
 import CardExample from '../GroupList/Card'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -35,7 +34,7 @@ const styles = {
   card: {
     display: 'flex',
     maxWidth: 345,
-    color: "red",
+    color: "blue",
   },
   details: {
     display: 'flex',
@@ -69,6 +68,12 @@ class UserPage extends Component {
   onCreate = () => {
     console.log('create hit');
     this.props.history.push('/Groupform')
+  }
+
+  onGroupClick = (group) => {
+    console.log('clicked on group',)
+    this.props.dispatch({ type: "FIND_GROUP", payload: group });
+    this.props.history.push(`/list`)
   }
 
   // get for groups and put in componenet did mount
@@ -114,16 +119,30 @@ class UserPage extends Component {
                   <Paper style={styles.paper}><h2>Groups</h2></Paper>
                   {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
                   {this.props.groupReducer.map((group, i) =>
-                    <GroupList group={group} key={i} />
+                  <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
+                  <CardContent style={styles.content}>
+                      <Typography component="h5" variant="h5">
+                          {group.name}
+                      </Typography>
+                      <Typography variant="subtitle1" color="textSecondary">
+</Typography>
+                  </CardContent>
+                  {/* <CardMedia
+                      style={styles.cover}
+                      src={this.props.img_src}
+                      title="covertitle"
+                  /> */}
+              </Card>
+                    // <GroupList group={group} key={i} />
                   )}
-                  <CardExample />
+                  {/* <CardExample /> */}
                   <p>Your ID is: {this.props.user.id} </p>
                 </Grid>
               </div>
             </div>
           </div>
           <pre> {JSON.stringify(this.props.groupReducer, null, 2)}</pre>
-          <pre> {JSON.stringify(this.props.user.username, null, 2)}</pre>
+          <pre> {JSON.stringify(this.props.group, null, 2)}</pre>
         </ThemeProvider>
       </>
     )

@@ -53,7 +53,6 @@ export default function MediaControlCard(CardExample) {
       </div>
       <CardMedia
         className={classes.cover}
-        image="../images/background.png"
         title="examlper"
       />
     </Card>

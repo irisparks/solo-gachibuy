@@ -8,11 +8,11 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Link } from 'react-router-dom';
 import ListofList from '../ListofList/ListofList'
 
-class ListView extends Component {
+class ListPage extends Component {
 
   componentDidMount() {
-    this.props.dispatch({ type: "GET_LIST" });
-
+    console.log('findgorup reducer');
+    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer });
   }
 
 
@@ -31,7 +31,7 @@ class ListView extends Component {
       <>
         <div>
           <DrawerNav />
-          <h1>GROUP NAME</h1>
+          <h1>GROUP NAME: LISTPAGEWHEREAMI{this.props.groupReducer} </h1>
           <CreateIcon onClick={this.onCreate} />
 
           <TextField onSubmit={this.onCreate}
@@ -54,7 +54,6 @@ class ListView extends Component {
         <ListofList />
           <p>Your ID is: {this.props.user.id} </p>
         </div>
-        <pre> {JSON.stringify(this.props.listReducer, null, 2)}</pre>
       </>
     )
   }
@@ -64,6 +63,6 @@ const mapReduxStateToProps = (reduxState) => {
   return reduxState
 }
 
-export default connect(mapReduxStateToProps)(ListView);
+export default connect(mapReduxStateToProps)(ListPage);
 
 
