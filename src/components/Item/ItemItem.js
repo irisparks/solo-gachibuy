@@ -15,6 +15,9 @@ import EditIcon from '@material-ui/icons/Edit';
 class ItemItem extends Component {
     state = {
         showComplete: true,
+        edit: false,
+        listItems: "",
+
     }
 
     // function onPhotoClick to setState to False for Conditional Rendering
@@ -27,28 +30,58 @@ class ItemItem extends Component {
     }
 
     onDelete = (item) => {
-        this.props.dispatch({ type: "DELETE_ITEM", payload: item})
+        this.props.dispatch({ type: "DELETE_ITEM", payload: item })
         console.log('delete list item')
     }
 
-  
+
     onEdit = () => {
-        console.log('edit list item')
+        console.log('edit button clicked')
+        this.setState({
+            ...this.state,
+            edit: true
+        })
     }
 
+    handleChangeFor = (property, event) => {
+        this.setState({
+            ...this.state,
+            [property]: event.target.value
+        })
+    }
+
+
+    saveButton = (item) => {
+        this.props.dispatch({ type: "EDIT_ITEM", payload: {id: item.id, ...this.state} })
+            this.setState({
+                ...this.state,
+                edit: false
+            })
+
+    };
     render() {
         return (
             <>
+                {this.props.item.item_name}
+                {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
+                {this.state.edit && <>
+                    <input key={this.props.key} onChange={(event) => this.handleChangeFor("listItems", event)}
+                        value={this.state.listItems} />
+                    <button onClick={() => this.saveButton(this.props.item)}>Save</button></>}
 
-            {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
                 {this.state.showComplete ? <>
-                    <Chip key={this.props.key} variant="outlined" color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
+
+                    {/* <Chip onUpdateInput key={this.props.key} variant="outlined" color="primary" onUpdateInput={this.onEdit} label={this.props.item.item_name} /> */}
                     <EditIcon onClick={this.onEdit} color="primary" />
-                    <DeleteIcon onClick={()=>this.onDelete(this.props.item.id)} color="primary" /> </> :
+                    <DeleteIcon onClick={() => this.onDelete(this.props.item.id)} color="primary" /> </>
+                    :
                     <>
                         <Chip key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
                         <EditIcon onClick={this.onEdit} color="primary" />
-                        <DeleteIcon onClick={()=>this.onDelete(this.props.item.id)} color="primary" /> </>}
+                        <DeleteIcon onClick={() => this.onDelete(this.props.item.id)} color="primary" /> </>}
+
+                {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
+                    value={this.state.listItem} /></>}
                 <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
             </>

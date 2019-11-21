@@ -44,4 +44,20 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     })
 });
 
+
+/**
+ * Update an item if it's something the logged in user added
+ */
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = 'UPDATE "item" SET "item_name" = $1 WHERE "id" = $2;';
+    pool.query(queryText, [req.body.listItems,req.params.id])
+    .then(() => {
+        res.sendStatus(200)
+    }).catch(error => {
+        console.log('error in put', error)
+        res.sendStatus(500)
+    })
+});
+
 module.exports = router;
+
