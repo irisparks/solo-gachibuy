@@ -12,6 +12,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
+
 class ItemItem extends Component {
     state = {
         showComplete: true,
@@ -52,26 +53,40 @@ class ItemItem extends Component {
 
 
     saveButton = (item) => {
-        this.props.dispatch({ type: "EDIT_ITEM", payload: {id: item.id, ...this.state} })
-            this.setState({
-                ...this.state,
-                edit: false
-            })
+        this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state } })
+        this.setState({
+            ...this.state,
+            edit: false
+        })
 
     };
     render() {
         return (
             <>
-                {this.props.item.item_name}
                 {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
                 {this.state.edit && <>
-                    <input key={this.props.key} onChange={(event) => this.handleChangeFor("listItems", event)}
-                        value={this.state.listItems} />
-                    <button onClick={() => this.saveButton(this.props.item)}>Save</button></>}
+                    <Autocomplete
+                        multiple
+                        id="tags-filled"
+                        freeSolo
+                        renderTags={(value, getTagProps) =>
+                            value.map((option, index) => (
+                                <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+
+                            ))}
+                        renderInput={params => (
+                            <TextField  {...params}
+                                variant="outlined"
+                                label="Update"
+                                margin="normal"
+                                onChange={(event) => this.handleChangeFor("listItems", event)}
+                                value={this.state.listItem} />
+                        )} />
+                    <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></>}
 
                 {this.state.showComplete ? <>
 
-                    {/* <Chip onUpdateInput key={this.props.key} variant="outlined" color="primary" onUpdateInput={this.onEdit} label={this.props.item.item_name} /> */}
+                    <Chip onUpdateInput key={this.props.key} variant="outlined" color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
                     <EditIcon onClick={this.onEdit} color="primary" />
                     <DeleteIcon onClick={() => this.onDelete(this.props.item.id)} color="primary" /> </>
                     :
@@ -79,9 +94,9 @@ class ItemItem extends Component {
                         <Chip key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
                         <EditIcon onClick={this.onEdit} color="primary" />
                         <DeleteIcon onClick={() => this.onDelete(this.props.item.id)} color="primary" /> </>}
-
+                {/* 
                 {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
-                    value={this.state.listItem} /></>}
+                    value={this.state.listItem} /></>} */}
                 <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
             </>

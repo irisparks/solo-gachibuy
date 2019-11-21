@@ -11,7 +11,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
 import Item from '../Item/Item'
-
+import ListPage from '../ListPage/ListPage'
 class ListItem extends Component {
 
     state = {
@@ -51,10 +51,9 @@ class ListItem extends Component {
                             Shopping Date:<TextField></TextField>
                             <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<CancelIcon />} color="primary" >Cancel</Button>
                             <Button onClick={this.onSubmitAdd} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Save</Button> </>
-                        :
-                        <ListView />
-                    }
- */}
+                        
+                    } */}
+
 
 
 

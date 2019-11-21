@@ -6,16 +6,24 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET list
  */
-router.get('/', (req, res) => {
-    const queryText = 'SELECT * FROM "list" ORDER BY "id" DESC;'
-    pool.query(queryText)
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in each groups list', req.params.id)
+    const queryText = `SELECT "list"."list_name", "group"."name" FROM "list"
+        JOIN "group" ON "list"."group_id" = "group"."id"
+        WHERE "group"."id" = $1
+        GROUP BY "list"."list_name", "group"."name", "list"."id"
+        ORDER BY "list"."id" ASC;`
+    pool.query(queryText, [req.params.id])
         .then(results => {
             res.send(results.rows);
         }).catch(error => {
             console.log('error in get groups error:', error)
         })
 });
-
+// `SELECT "list"."list_name", "group"."name" FROM "list"
+//     JOIN "group" ON "list"."group_id" = "group"."id"
+//     GROUP BY "list"."list_name", "group"."name", "list"."id"
+//     ORDER BY "list"."id" ASC;`
 /**
  * POST route to add a list for the logged in user
  */
