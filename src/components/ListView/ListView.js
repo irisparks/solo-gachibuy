@@ -15,6 +15,8 @@ class ListView extends Component {
     this.onGet();
   }
 
+  //function to display all of my lists on listview page
+
   onGet = () => {
     console.log('PROPS', this.props)
     this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer });
@@ -30,11 +32,16 @@ class ListView extends Component {
   }
 
   onListClick = (list) => {
-    console.log('clicked on a list', list);
-    this.props.dispatch({ type: "GET_ITEM", payload: list })
-    // this.props.history.push('/item')
+    console.log('clicked on a list');
+    this.props.dispatch({ type: "FIND_LIST", payload: list })
+    this.props.history.push(`/item`)
+
   }
 
+  // onListClickforItems = (item) => {
+  //   console.log('clicked on a list');
+  //   this.props.dispatch({ type: "GET_ITEM", payload: item })
+  // }
   // get for groups and put in componenet did mount
   render() {
     return (
@@ -59,7 +66,7 @@ class ListView extends Component {
           >
           </TextField>
           <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-
+{/* map function to get all my lists */}
           <div><h1>Lists</h1></div>
           {this.props.listReducer.map((list, i) =>
             <>

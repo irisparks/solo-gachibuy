@@ -11,15 +11,16 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+
 const styles = {
   root: {
     flexGrow: 1,
   },
   paper: {
     textAlign: 'center',
-    marin: 'auto',
+    margin: 'auto',
     maxWidth: 500,
-    color: 'orange',
+    color: 'green',
   },
   image: {
     width: 128,
@@ -33,8 +34,8 @@ const styles = {
   },
   card: {
     display: 'flex',
-    maxWidth: 345,
-    color: "blue",
+    maxWidth: 500,
+    color: "olivegreen",
   },
   details: {
     display: 'flex',

@@ -40,9 +40,9 @@ class GroupForm extends Component {
         this.props.dispatch({ type: 'ADD_GROUP', payload: this.state });
     }
 
-    deleteButton = (item) => {
-        this.props.dispatch({ type: "DELETE_ITEM", payload: item })
-    }
+    // deleteButton = (item) => {
+    //     this.props.dispatch({ type: "DELETE_ITEM", payload: item })
+    // }
     editButton = () => {
         this.setState({
             ...this.state,

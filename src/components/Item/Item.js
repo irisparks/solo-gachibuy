@@ -14,42 +14,29 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
 import ItemItem from './ItemItem.js'
 class Item extends Component {
+
+
     state = {
+        showComplete: true,
+        edit: false,
         listItems: "",
-        createdDate: '',
-        shoppingDate: '',
-        listSaved: false,
-        edit: false
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.itemReducer });
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer });
     }
 
     onChangeList = (event) => {
         console.log(...this.state.listItems)
         this.setState({
-            // ...this.state.listItems,
-            //colleection of eveyrthing and that list
             listItems: event.target.value
 
         })
     }
-    onEdit = () => {
-        console.log('edit button clicked')
-        this.setState({
-            ...this.state,
-            edit: true
-        })
-    }
-    handleChangeFor = (property, event) => {
-        this.setState({
-            ...this.state,
-            [property]: event.target.value
-        })
-    }
-    onSubmitAdd = () => {
-        this.props.dispatch({ type: 'ADD_ITEM', payload: this.state });
+
+    onListClickforItems = (item) => {
+        console.log('clicked on a list');
+        this.props.dispatch({ type: "FIND_ITEM", payload: item })
     }
 
     render() {
@@ -82,25 +69,27 @@ class Item extends Component {
 
                             {/* MAP FUNCTION FOR EACH ITEM  */}
 
+
                             {this.props.itemReducer.map((item, i) =>
-                                <ItemItem item={item} key={i} />)}
+                                <>
+                                    <li>{item.item_name}</li>
+                                    {/* <Button onClick ={() => this.onListClickforItems(item)}> SHOW ITEMS CLICK HERE </Button> */}
+                                    <ItemItem item={item} key={i} /> </>)}
 
                         </div>
                     </>
 
 
-                    Created On: {this.props.listReducer.date_created}
+                    {/* Created On: {this.props.listReducer.date_created}
                     Shopping Date: {this.props.listReducer.shopping_date}
                     <Link className="list-link" to="/list">
                         <Button variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>    </Link>
 
                     <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
-                    <Button onClick={this.onDeleteGroup} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button>
+                    <Button onClick={this.onDeleteGroup} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button> */}
 
                 </div>
-                <pre> {JSON.stringify(this.props.findItemReducer, null, 2)}</pre>
-
-                {/* <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre> */}
+                <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre>
             </>
         )
     }

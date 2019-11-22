@@ -19,9 +19,7 @@ class ListItem extends Component {
         shoppingDate: '',
         listSaved: false,
     }
-    // componentDidMount() {
-    //     this.props.dispatch({ type: "GET_ITEM", payload: this.props.itemReducer });
-    // }
+   
 
     // cancel create list goes back to list view
     onCancel = () => {

@@ -14,7 +14,8 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import ListView from '../ListView/ListView'
 import ListForm from '../ListForm/ListForm'
-import ItemView from '../ItemView/ItemView'
+import ItemItem from '../Item/ItemItem'
+import Item from '../Item/Item'
 
 import './App.css';
 
@@ -56,7 +57,7 @@ class App extends Component {
              <ProtectedRoute exact path="/Groupform" component={GroupForm} />
              <ProtectedRoute exact path="/list" component={ListView} />
              <ProtectedRoute exact path="/Listform" component={ListForm} />
-             <ProtectedRoute exact path="/item" component={ItemView} />
+             <ProtectedRoute exact path="/item" component={Item} />
 
 
 

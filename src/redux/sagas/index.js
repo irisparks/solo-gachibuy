@@ -8,7 +8,9 @@ import getListSaga from './getListSaga';
 import getItemSaga from './getItemSaga';
 import postItemSaga from './postItemSaga';
 import deleteItemSaga from './deleteItemSaga';
-import editItemSaga from './editItemSaga'
+import editItemSaga from './editItemSaga';
+import getAllItemsSaga from './getAllItemsSaga'
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -24,6 +26,7 @@ export default function* rootSaga() {
   yield takeEvery('ADD_ITEM',postItemSaga);
   yield takeEvery('DELETE_ITEM',deleteItemSaga);
   yield takeEvery('EDIT_ITEM',editItemSaga);
+  yield takeEvery('ALL_ITEMS',getAllItemsSaga);
 
 
 

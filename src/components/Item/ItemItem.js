@@ -18,15 +18,8 @@ class ItemItem extends Component {
         showComplete: true,
         edit: false,
         listItems: "",
-
     }
-    componentDidMount() {
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.itemReducer });
-    }
-
-
-    // function onPhotoClick to setState to False for Conditional Rendering
-
+ 
     onCompleteClick = () => {
         this.setState({
             showComplete: !this.state.showComplete
@@ -38,7 +31,6 @@ class ItemItem extends Component {
         this.props.dispatch({ type: "DELETE_ITEM", payload: item })
         console.log('delete list item')
     }
-
 
     onEdit = () => {
         console.log('edit button clicked')
@@ -64,9 +56,12 @@ class ItemItem extends Component {
         })
 
     };
+
+
     render() {
         return (
             <>
+
                 {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
                 {this.state.edit && <>
                     <Autocomplete
@@ -92,7 +87,7 @@ class ItemItem extends Component {
 
                     <Chip onUpdateInput key={this.props.key} variant="outlined" color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
                     <EditIcon onClick={this.onEdit} color="primary" />
-                    <DeleteIcon onClick={() => this.onDelete(this.props.item.id)} color="primary" /> </>
+                    <DeleteIcon onClick={(item) => this.onDelete(this.props.item.id)} color="primary" /> </>
                     :
                     <>
                         <Chip key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />

@@ -3,8 +3,8 @@ import { put } from 'redux-saga/effects';
 
 function* deleteItemSaga(action) {
     try {
-        yield axios.delete(`/api/item/${action.payload}`)
-        yield put({type:"GET_ITEM"});
+      const item =  yield axios.delete(`/api/item/${action.payload}`)
+        yield put({type:"GET_ITEM", payload: item.data});
     } catch (error) {
       console.log('delete item request failed', error);
     }

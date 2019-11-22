@@ -10,9 +10,9 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const styles = {
   title: {
     textAlign: 'center',
-    fontSize: '18px',
+    fontSize: '30px',
     marginTop: '150px',
-    color: '#FFF',
+    color: '#FFFF66',
   },
   TextField: {
     borderColor: 'white',
@@ -75,8 +75,8 @@ class LoginPage extends Component {
         <div className="background">
           <div class="overlay">
 
-            <Typography component="h1" variant="h9" style={styles.title}>
-              Gachi-Buy        </Typography>
+            <Typography component="h1" variant="h10" style={styles.title}>
+Gachi-Buy        </Typography>
 
             <div>
               {this.props.errors.loginMessage && (

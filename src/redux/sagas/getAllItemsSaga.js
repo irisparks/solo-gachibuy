@@ -1,10 +1,11 @@
 import { put } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* getItemSaga(action) {
+
+
+  function* getAllItemsSaga() {
     try {
-        console.log('inget itemsaga action:', action)
-        const item = yield axios.get(`/api/item/${action.payload.id}`);
+        const item = yield axios.get(`/api/item/`);
         yield put ({ type: 'SET_ITEM', payload: item.data})
     } catch(error) {
         console.log('error fetching item', error)
@@ -12,8 +13,5 @@ function* getItemSaga(action) {
   }
 
 
-
-
-
-  export default getItemSaga;
+  export default getAllItemsSaga;
   
