@@ -20,6 +20,10 @@ class ItemItem extends Component {
         listItems: "",
 
     }
+    componentDidMount() {
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.itemReducer });
+    }
+
 
     // function onPhotoClick to setState to False for Conditional Rendering
 
@@ -97,7 +101,7 @@ class ItemItem extends Component {
                 {/* 
                 {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
                     value={this.state.listItem} /></>} */}
-                <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                <pre> {JSON.stringify(this.props.reduxState, null, 2)}</pre>
 
             </>
         )

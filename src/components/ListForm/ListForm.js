@@ -11,7 +11,6 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
 import Item from '../Item/Item'
-import ListPage from '../ListPage/ListPage'
 class ListItem extends Component {
 
     state = {
@@ -20,6 +19,10 @@ class ListItem extends Component {
         shoppingDate: '',
         listSaved: false,
     }
+    // componentDidMount() {
+    //     this.props.dispatch({ type: "GET_ITEM", payload: this.props.itemReducer });
+    // }
+
     // cancel create list goes back to list view
     onCancel = () => {
         this.props.history.push('/list')

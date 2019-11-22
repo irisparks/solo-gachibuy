@@ -23,8 +23,7 @@ class Item extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: "GET_ITEM" });
-
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.itemReducer });
     }
 
     onChangeList = (event) => {
@@ -99,7 +98,7 @@ class Item extends Component {
                     <Button onClick={this.onDeleteGroup} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button>
 
                 </div>
-                <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre>
+                <pre> {JSON.stringify(this.props.findItemReducer, null, 2)}</pre>
 
                 {/* <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre> */}
             </>

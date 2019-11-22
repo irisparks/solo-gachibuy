@@ -1,5 +1,5 @@
 const itemReducer = (state = [], action) => {
-    console.log('in get groupReducer')
+    console.log('in get itemReducer')
     switch (action.type) {
       case 'SET_ITEM':
         return action.payload;

@@ -13,7 +13,8 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import ListView from '../ListView/ListView'
-import ListItems from '../ListForm/ListForm'
+import ListForm from '../ListForm/ListForm'
+import ItemView from '../ItemView/ItemView'
 
 import './App.css';
 
@@ -54,7 +55,9 @@ class App extends Component {
             />
              <ProtectedRoute exact path="/Groupform" component={GroupForm} />
              <ProtectedRoute exact path="/list" component={ListView} />
-             <ProtectedRoute exact path="/Listform" component={ListItems} />
+             <ProtectedRoute exact path="/Listform" component={ListForm} />
+             <ProtectedRoute exact path="/item" component={ItemView} />
+
 
 
             {/* If none of the other routes matched, we will show a 404. */}

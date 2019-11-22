@@ -7,7 +7,6 @@ import CreateIcon from '@material-ui/icons/Create';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Link } from 'react-router-dom';
 import ListofList from '../ListofList/ListofList'
-import Item from '../Item/Item'
 
 class ListView extends Component {
 
@@ -29,44 +28,19 @@ class ListView extends Component {
     this.props.history.push('/Listform')
   }
 
-  onListClick = (list) => {
-    console.log('clicked on a list', list);
-    this.props.dispatch({ type: "GET_ITEM", payload: list })
-    // this.props.history.push('/item')
-  }
+//   onGetItem = () => {
+//     console.log('clicked on a list');
+//     this.props.dispatch({ type: "GET_ITEM", payload: this.props.findItemReducer })
+//     // this.props.history.push('/item')
+//   }
 
   // get for groups and put in componenet did mount
   render() {
     return (
       <>
         <div>
-          <DrawerNav />
-          <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1>
-          <CreateIcon onClick={this.onCreate} />
-
-          <TextField onSubmit={this.onCreate}
-            id="standard"
-            label="Add List"
-            margin="normal"
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AddCircleOutlineIcon color="primary" />
-                </InputAdornment>
-              )
-            }}
-          >
-          </TextField>
-          <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-
-          <div><h1>Lists</h1></div>
-          {this.props.listReducer.map((list, i) =>
-            <>
-          <Button onClick={() => this.onListClick(list)}> {list.list_name} </Button> </>)}
-          
-         <Item />
-            < p > Your ID is: {this.props.user.id} </p>
+     
+     IN ITEMVIEW
       </div>
       <pre> {JSON.stringify(this.props.findGroupReducer, null, 2)}</pre>
       </>

@@ -8,7 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in each groups list', req.params.id)
-    const queryText = `SELECT "list"."list_name", "group"."name" FROM "list"
+    const queryText = `SELECT "list".id,"list"."list_name", "group"."name" FROM "list"
         JOIN "group" ON "list"."group_id" = "group"."id"
         WHERE "group"."id" = $1
         GROUP BY "list"."list_name", "group"."name", "list"."id"

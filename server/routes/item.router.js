@@ -6,15 +6,38 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET list
  */
-router.get('/', (req, res) => {
-    const queryText = 'SELECT * FROM "item" ORDER BY "id" DESC;'
-    pool.query(queryText)
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in each lists item', req.params.id)
+
+    const queryText = `SELECT "item"."item_name" FROM "item"
+    JOIN "list_item" ON "list_item".item_id = "item".id
+    JOIN "list" ON "list".id = "list_item".list_id
+    WHERE "list"."id" = $1
+    GROUP BY "list"."id","item".item_name
+    ORDER BY "list"."id" ASC;`
+    pool.query(queryText, [req.params.id])
         .then(results => {
             res.send(results.rows);
         }).catch(error => {
             console.log('error in get items error:', error)
         })
 });
+// router.get('/', rejectUnauthenticated, (req, res) => {
+//     console.log('in each lists item')
+
+//     const queryText = `SELECT "item"."item_name" FROM "item"
+//     JOIN "list_item" ON "list_item".item_id = "item".id
+//     JOIN "list" ON "list".id = "list_item".list_id
+//     WHERE "list"."id" = $1
+//     GROUP BY "list"."id","item".item_name
+//     ORDER BY "list"."id" ASC;`
+//     pool.query(queryText)
+//         .then(results => {
+//             res.send(results.rows);
+//         }).catch(error => {
+//             console.log('error in get items error:', error)
+//         })
+// });
 
 /**
  * POST route to add a list for the logged in user
