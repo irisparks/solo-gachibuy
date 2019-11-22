@@ -46,7 +46,7 @@ class ItemItem extends Component {
             [property]: event.target.value
         })
     }
-
+  
 
     saveButton = (item) => {
         this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state } })

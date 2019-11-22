@@ -13,6 +13,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
 import ItemItem from './ItemItem.js'
+
+// LIST PAGE WITH ITEMS IN IT
 class Item extends Component {
 
 
@@ -34,9 +36,20 @@ class Item extends Component {
         })
     }
 
-    onListClickforItems = (item) => {
-        console.log('clicked on a list');
-        this.props.dispatch({ type: "FIND_ITEM", payload: item })
+    // onListClickforItems = (item) => {
+    //     console.log('clicked on a list');
+    //     this.props.dispatch({ type: "FIND_ITEM", payload: item })
+    // }
+
+
+    onSubmitAdd = () => {
+        console.log('submit button to add new item clicked');
+        this.props.dispatch({ type: 'ADD_ITEM', payload: {
+            listItem: this.state.listItems, 
+            setId: this.props.findListReducer.id
+
+        }
+     });
     }
 
     render() {

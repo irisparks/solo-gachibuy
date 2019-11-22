@@ -25,27 +25,27 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
  * POST route to add a list for the logged in user
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
-    console.log('in post item',req.body)
+    console.log('in post item', req.body)
     const queryText = 'INSERT INTO "item"("item_name") VALUES ($1) RETURNING id';
-    const queryText2= 'INSERT INTO "list_item"("item_id","list_id") VALUES ($1, $2)'
-    pool.query(queryText, [req.body.listItems])
-    .then(result=> {
-        pool.query(queryText2, [result.rows[0].id, req.body.setId.id] )// req.body for setid
-        console.log('posted item name into item table result:', result)
-        .then(result=> {
-            console.log('posted into join list_item successful! result:', result)
+    const queryText2 = 'INSERT INTO "list_item"("item_id","list_id") VALUES ($1, $2)'
+    pool.query(queryText, [req.body.listItem])
+        .then(result => {
+            console.log('posted item name into item table result:', result)
+            pool.query(queryText2, [result.rows[0].id, req.body.setId])// req.body for setid
+                .then(result => {
+                    console.log('posted into join list_item successful! result:', result)
+                    res.sendStatus(200)
+                })
+                .catch(error => {
+                    console.log('error in post item list_item error:', error)
+                    res.sendStatus(500)
+                })
             res.sendStatus(200)
         })
-        .catch(error=> {
-        console.log('error in post item list_item error:', error)
-        res.sendStatus(500)
+        .catch(err => {
+            console.log('error in item post', err)
+            res.sendStatus(500)
         })
-        res.sendStatus(200)
-    })
-    .catch(err => {
-        console.log('error in item post',err)
-        res.sendStatus(500)
-    })
 });
 
 
@@ -56,12 +56,12 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // console.log('in delete item server', req.params.id)
     const queryText = 'DELETE FROM "item" WHERE "id" = $1;';
     pool.query(queryText, [req.params.id])
-    .then(() => {
-        res.sendStatus(200)
-    }).catch(error => {
-        console.log('error in delete item error:', error)
-        res.sendStatus(500)
-    })
+        .then(() => {
+            res.sendStatus(200)
+        }).catch(error => {
+            console.log('error in delete item error:', error)
+            res.sendStatus(500)
+        })
 });
 
 
@@ -70,13 +70,13 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
  */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = 'UPDATE "item" SET "item_name" = $1 WHERE "id" = $2;';
-    pool.query(queryText, [req.body.listItems,req.params.id])
-    .then(() => {
-        res.sendStatus(200)
-    }).catch(error => {
-        console.log('error in put', error)
-        res.sendStatus(500)
-    })
+    pool.query(queryText, [req.body.listItems, req.params.id])
+        .then(() => {
+            res.sendStatus(200)
+        }).catch(error => {
+            console.log('error in put', error)
+            res.sendStatus(500)
+        })
 });
 
 module.exports = router;

@@ -59,8 +59,6 @@ const theme = createMuiTheme({
   },
 });
 
-
-
 class UserPage extends Component {
   componentDidMount() {
     this.props.dispatch({ type: "GET_GROUP" });
