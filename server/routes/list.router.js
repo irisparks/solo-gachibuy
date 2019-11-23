@@ -12,7 +12,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         JOIN "group" ON "list"."group_id" = "group"."id"
         WHERE "group"."id" = $1
         GROUP BY "list"."list_name", "group"."name", "list"."id"
-        ORDER BY "list"."id" ASC;`
+        ORDER BY "list"."id" DESC;`
     pool.query(queryText, [req.params.id])
         .then(results => {
             res.send(results.rows);
