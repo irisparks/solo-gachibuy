@@ -13,21 +13,19 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
 import ItemItem from './ItemItem.js'
+import ItemMap from './ItemMap.js'
 
 // LIST PAGE WITH ITEMS IN IT
 class Item extends Component {
-
 
     state = {
         showComplete: true,
         edit: false,
         listItems: "",
     }
-
     componentDidMount() {
         this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer });
     }
-
     onChangeList = (event) => {
         console.log(...this.state.listItems)
         this.setState({
@@ -35,27 +33,26 @@ class Item extends Component {
 
         })
     }
-
-    // onListClickforItems = (item) => {
-    //     console.log('clicked on a list');
-    //     this.props.dispatch({ type: "FIND_ITEM", payload: item })
-    // }
-
-
     onSubmitAdd = () => {
         console.log('submit button to add new item clicked');
-        this.props.dispatch({ type: 'ADD_ITEM', payload: {
-            listItem: this.state.listItems, 
-            setId: this.props.findListReducer.id
+        this.props.dispatch({
+            type: 'ADD_ITEM', payload: {
+                listItem: this.state.listItems,
+                setId: this.props.findListReducer.id
 
-        }
-     });
+            }
+        });
     }
+    onBack = () => {
+        this.props.history.push('/list')
+      }
 
     render() {
         return (
             <>
                 <div>
+                <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+
                     <Autocomplete
                         multiple
                         id="tags-filled"
@@ -74,23 +71,7 @@ class Item extends Component {
                                 onChange={this.onChangeList}
                                 value={this.state.listItem} />
                         )} /> <Button color="primary" variant="outlined" onClick={this.onSubmitAdd}>Submit</Button>
-
-
-                    <h1>ITEMS</h1>
-                    <>
-                        <div>
-
-                            {/* MAP FUNCTION FOR EACH ITEM  */}
-
-
-                            {this.props.itemReducer.map((item, i) =>
-                                <>
-                                    <li>{item.item_name}</li>
-                                    {/* <Button onClick ={() => this.onListClickforItems(item)}> SHOW ITEMS CLICK HERE </Button> */}
-                                    <ItemItem item={item} key={i} /> </>)}
-
-                        </div>
-                    </>
+                    <ItemMap />
 
 
                     {/* Created On: {this.props.listReducer.date_created}

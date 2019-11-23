@@ -47,7 +47,6 @@ class ItemItem extends Component {
         })
     }
   
-
     saveButton = (item) => {
         this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state } })
         this.setState({
@@ -56,7 +55,6 @@ class ItemItem extends Component {
         })
 
     };
-
 
     render() {
         return (

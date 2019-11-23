@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, InputAdornment, Button } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CreateIcon from '@material-ui/icons/Create';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Link } from 'react-router-dom';
-import ListofList from '../ListofList/ListofList'
-import Item from '../Item/Item'
 
 class ListView extends Component {
 
@@ -48,10 +44,12 @@ class ListView extends Component {
       <>
         <div>
           <DrawerNav />
-          <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1>
-          <CreateIcon onClick={this.onCreate} />
+          <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
 
-          <TextField onSubmit={this.onCreate}
+          <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1>
+          <Button onClick={this.onCreate} startIcon={<CreateIcon/>} > Create New List</Button>
+
+          {/* <TextField onSubmit={this.onCreate}
             id="standard"
             label="Add List"
             margin="normal"
@@ -64,16 +62,14 @@ class ListView extends Component {
               )
             }}
           >
-          </TextField>
-          <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+          </TextField> */}
+
 {/* map function to get all my lists */}
           <div><h1>Lists</h1></div>
           {this.props.listReducer.map((list, i) =>
             <>
           <Button onClick={() => this.onListClick(list)}> {list.list_name} </Button> </>)}
-          
-         <Item />
-            < p > Your ID is: {this.props.user.id} </p>
+                      < p > Your ID is: {this.props.user.id} </p>
       </div>
       <pre> {JSON.stringify(this.props.findGroupReducer, null, 2)}</pre>
       </>
