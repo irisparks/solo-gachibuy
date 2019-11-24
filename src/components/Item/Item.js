@@ -12,8 +12,9 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
-import ItemItem from './ItemItem.js'
-import ItemMap from './ItemMap.js'
+import ItemItem from './ItemItem.js';
+import ItemMap from './ItemMap.js';
+import Swal from 'sweetalert2';
 
 // LIST PAGE WITH ITEMS IN IT
 class Item extends Component {
@@ -45,13 +46,38 @@ class Item extends Component {
     }
     onBack = () => {
         this.props.history.push('/list')
-      }
+    }
+
+    onDelete = (list) => {
+        console.log('clicked delete list!');
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, delete it!'
+        //   }).then((result) => {
+        //     if (result.value) {
+        //       Swal.fire(
+        //         'Deleted!',
+        //         'Your file has been deleted.',
+        //         'success'
+        //       )
+        //     }
+        //   })    
+        this.props.dispatch({
+            type: 'DELETE_LIST', payload: this.props.findListReducer.id
+        })
+    }
 
     render() {
         return (
             <>
                 <div>
-                <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                    <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                    <Button onClick={(list) => this.onDelete(list)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE</Button>
 
                     <Autocomplete
                         multiple

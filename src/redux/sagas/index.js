@@ -9,7 +9,9 @@ import getItemSaga from './getItemSaga';
 import postItemSaga from './postItemSaga';
 import deleteItemSaga from './deleteItemSaga';
 import editItemSaga from './editItemSaga';
-import postListSaga from './postListSaga'
+import postListSaga from './postListSaga';
+import deleteListSaga from './deleteListSaga';
+
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,13 +23,16 @@ import postListSaga from './postListSaga'
 export default function* rootSaga() {
   yield takeEvery('GET_GROUP',groupSaga);
   yield takeEvery('ADD_GROUP',postGroupSaga);
+
   yield takeEvery('GET_LIST',getListSaga);
   yield takeEvery('ADD_LIST',postListSaga);
+  yield takeEvery('DELETE_LIST',deleteListSaga);
+
   yield takeEvery('GET_ITEM',getItemSaga);
   yield takeEvery('ADD_ITEM',postItemSaga);
   yield takeEvery('DELETE_ITEM',deleteItemSaga);
   yield takeEvery('EDIT_ITEM',editItemSaga);
-
+  
 
 
   yield all([
