@@ -30,5 +30,26 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in delete item server', req.params.id)
+    const queryText = 'DELETE FROM "list_item" WHERE "list_id" = $1;';
+    const queryText2 = 'DELETE FROM "list" WHERE "id" = $1;';
+    pool.query(queryText, [req.params.id])
+        .then(result => {
+            console.log('delete successful! deleted:', result)
+            pool.query(queryText2, [req.params.id])
+                .then(result => {
+                    res.sendStatus(200)
+                }).catch(error => {
+                    console.log('error in delete item from "list_item error:', error)
+                    res.sendStatus(500)
+                })
+            res.sendStatus(200)
+        })
+        .catch(error => {
+            console.log('error in delete item from "item" erorr:', error)
+            res.sendStatus(500)
+        })
+});
 module.exports = router;
 

@@ -57,7 +57,7 @@ class Item extends Component {
     }
 
     saveButton = (item) => {
-        this.props.dispatch({ type: "EDIT_LIST", payload: { id: this.props.findList.id, listName: this.state.listName} })
+        this.props.dispatch({ type: "EDIT_LIST", payload: { id: this.props.findListReducer.id, listName: this.state.listName} })
         this.setState({
             ...this.state,
             edit: false
@@ -95,6 +95,8 @@ handleChangeFor = (property, event) => {
                 this.props.dispatch({
                     type: 'DELETE_LIST', payload: this.props.findListReducer.id
                 })
+                this.props.history.push('/list')
+
             } else {
                 //if cancel do nothing
                 Swal.fire(
@@ -115,6 +117,7 @@ handleChangeFor = (property, event) => {
                         <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
                         <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
                         <Button onClick={(list) => this.onDelete(list)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
+                        <h1>LIST: {this.props.findListReducer.list_name}</h1>
                         {this.state.edit && <>
                     <Autocomplete
                         multiple

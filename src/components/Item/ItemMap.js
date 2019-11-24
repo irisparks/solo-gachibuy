@@ -10,7 +10,7 @@ class ItemMap extends Component {
         return (
             <>
 
-                    <h1>ITEMS</h1>
+                    <h1>ITEMS: </h1>
                     <>
                         <div>
                             {/* MAP FUNCTION FOR EACH ITEM  */}

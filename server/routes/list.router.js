@@ -36,10 +36,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 /**
  * Delete an item if it's something the logged in user added
- * queryText to delete item id from join talbe "item_name"
- * queryText2 to delete item id from item table
- * DELETE FROM "list_item" WHERE list_id= 3;
-DELETE FROM "list" WHERE id = 2;
+ * queryText to delete list id from join table "list_item"
+ * queryText2 to delete list id from list table
  */
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in delete item server', req.params.id)
@@ -62,5 +60,21 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500)
         })
 });
+
+/**
+ * Update a list name if it's something the logged in user added
+ */
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = 'UPDATE "list" SET "list_name" = $1 WHERE "id" = $2;';
+    pool.query(queryText, [req.body.listName, req.params.id])
+        .then(() => {
+            res.sendStatus(200)
+        }).catch(error => {
+            console.log('error in put', error)
+            res.sendStatus(500)
+        })
+});
+
 module.exports = router;
+
 

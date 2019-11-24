@@ -51,7 +51,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 /**
  * Delete an item if it's something the logged in user added
- * queryText to delete item id from join talbe "item_name"
+ * queryText to delete item id from join tabke "item_name"
  * queryText2 to delete item id from item table
  */
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
@@ -71,7 +71,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(200)
         })
         .catch(error => {
-            console.log('error in delete item from "item" erorr:', error)
+            console.log('error in delete item from "item" error:', error)
             res.sendStatus(500)
         })
 });
