@@ -11,19 +11,21 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import EditIcon from '@material-ui/icons/Edit';
 import ItemItem from './ItemItem.js';
 import ItemMap from './ItemMap.js';
 import Swal from 'sweetalert2';
+import EditIcon from '@material-ui/icons/Edit';
 
 // LIST PAGE WITH ITEMS IN IT
 class Item extends Component {
 
     state = {
         showComplete: true,
-        edit: false,
+        listName: '',
         listItems: "",
+        edit: false
     }
+
     componentDidMount() {
         this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer });
     }
@@ -40,45 +42,80 @@ class Item extends Component {
             type: 'ADD_ITEM', payload: {
                 listItem: this.state.listItems,
                 setId: this.props.findListReducer.id
-
             }
         });
     }
     onBack = () => {
         this.props.history.push('/list')
     }
-
-    onDelete = (list) => {
-        console.log('clicked delete list!');
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     icon: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Yes, delete it!'
-        //   }).then((result) => {
-        //     if (result.value) {
-        //       Swal.fire(
-        //         'Deleted!',
-        //         'Your file has been deleted.',
-        //         'success'
-        //       )
-        //     }
-        //   })    
-        this.props.dispatch({
-            type: 'DELETE_LIST', payload: this.props.findListReducer.id
+    onEdit = () => {
+        console.log('edit button clicked')
+        this.setState({
+            ...this.state,
+            edit: true
         })
     }
+
+    saveButton = (item) => {
+        this.props.dispatch({ type: "EDIT_LIST", payload: { id: this.props.findList.id, listName: this.state.listName} })
+        this.setState({
+            ...this.state,
+            edit: false
+        })
+
+    };
+
+
+handleChangeFor = (property, event) => {
+    this.setState({
+        ...this.state,
+        [property]: event.target.value
+    })
+  }
+
+    //function to trigger the delete route and delete one feedback from database
+    onDelete = (list) => {
+        console.log('clicked delete list!');
+        //add sweet alert to confirm the deletion
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                );
+                this.props.dispatch({
+                    type: 'DELETE_LIST', payload: this.props.findListReducer.id
+                })
+            } else {
+                //if cancel do nothing
+                Swal.fire(
+                    'Cancelled',
+                    'Did not delete!'
+                )
+            }
+        })
+    }
+
+
 
     render() {
         return (
             <>
                 <div>
-                    <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-                    <Button onClick={(list) => this.onDelete(list)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE</Button>
-
+                 
+                        <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                        <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
+                        <Button onClick={(list) => this.onDelete(list)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
+                        {this.state.edit && <>
                     <Autocomplete
                         multiple
                         id="tags-filled"
@@ -91,23 +128,42 @@ class Item extends Component {
                         renderInput={params => (
                             <TextField  {...params}
                                 variant="outlined"
-                                label="List Items"
+                                label="Update"
                                 margin="normal"
-                                fullWidth
-                                onChange={this.onChangeList}
-                                value={this.state.listItem} />
-                        )} /> <Button color="primary" variant="outlined" onClick={this.onSubmitAdd}>Submit</Button>
-                    <ItemMap />
+                                onChange={(event) => this.handleChangeFor("listName", event)}
+                                value={this.state.listName} 
+                                />
+                        )} />
+                    <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></>}
+                        <Autocomplete
+                            multiple
+                            id="tags-filled"
+                            freeSolo
+                            renderTags={(value, getTagProps) =>
+                                value.map((option, index) => (
+                                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+
+                                ))}
+                            renderInput={params => (
+                                <TextField  {...params}
+                                    variant="outlined"
+                                    label="List Items"
+                                    margin="normal"
+                                    fullWidth
+                                    onChange={this.onChangeList}
+                                    value={this.state.listItem} />
+                            )} /> <Button color="primary" variant="outlined" onClick={this.onSubmitAdd}>Submit</Button>
+                        <ItemMap />
 
 
-                    {/* Created On: {this.props.listReducer.date_created}
+                        {/* Created On: {this.props.listReducer.date_created}
                     Shopping Date: {this.props.listReducer.shopping_date}
                     <Link className="list-link" to="/list">
                         <Button variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>    </Link>
 
                     <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
                     <Button onClick={this.onDeleteGroup} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button> */}
-
+           
                 </div>
                 <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre>
             </>

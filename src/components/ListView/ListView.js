@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
 import CreateIcon from '@material-ui/icons/Create';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { TextField, Button, Chip} from '@material-ui/core'
 
 class ListView extends Component {
+
 
   componentDidMount() {
     this.onGet();
@@ -34,36 +37,19 @@ class ListView extends Component {
     this.props.history.push(`/item`)
   }
 
-  onDelete = (list) => {
-    console.log('clicked delete list!');
-    // Swal.fire({
-    //     title: 'Are you sure?',
-    //     text: "You won't be able to revert this!",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes, delete it!'
-    //   }).then((result) => {
-    //     if (result.value) {
-    //       Swal.fire(
-    //         'Deleted!',
-    //         'Your file has been deleted.',
-    //         'success'
-    //       )
-    //     }
-    //   })    
-    this.props.dispatch({ type: 'DELETE_LIST', payload: list })
-  }
 
-  onTwoDispatches = (list) => {
-    this.onListClick();
-    console.log('in two dipsatches');
-    this.onDelete();
-  }
+
+  // onDelete = (list) => {
+  //   console.log('clicked delete list!');
+  //   this.props.dispatch({ type: 'DELETE_LIST', payload: this.props.findListReducer.id })
+  // }
+  // NEED TO FIGURE OUT HOW TO GET DELETE TO KNOW WHAT LIST IM CLICKING ON?
+
+
   render() {
     return (
       <>
+
         <div>
           <DrawerNav />
           <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
@@ -90,12 +76,14 @@ class ListView extends Component {
           <div><h1>Lists</h1></div>
           {this.props.listReducer.map((list, i) =>
             <>
-              <DeleteIcon onClick={(list) => this.onTwoDispatches(list.id)} color="primary"></DeleteIcon>
-
               <Button onClick={() => this.onListClick(list)}> {list.list_name} </Button>
-            </>)}
+
+              {/* <DeleteIcon onClick={(list) => this.onDelete(list)} color="primary"></DeleteIcon> */}
+             
+              </>)}
           < p > Your ID is: {this.props.user.id} </p>
-        </div>
+            </div>
+      
         <pre> {JSON.stringify(this.props.findGroupReducer, null, 2)}</pre>
       </>
     )

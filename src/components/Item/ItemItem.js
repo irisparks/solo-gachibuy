@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Chip} from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
 import { Link } from 'react-router-dom';
-import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';

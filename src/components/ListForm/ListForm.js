@@ -22,6 +22,7 @@ class ListItem extends Component {
     onCancel = () => {
         this.props.history.push('/list')
     }
+    
     onSubmitList = () => {
         this.props.dispatch({
             type: 'ADD_LIST', payload: {
