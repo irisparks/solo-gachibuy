@@ -28,12 +28,12 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
  * POST route to add a list for the logged in user
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
-    const queryText = 'INSERT INTO "list"("item_name") VALUES ($1);';
-    pool.query(queryText, [req.body.item_name])
+    const queryText = 'INSERT INTO "list"("list_name","group_id") VALUES ($1, $2);';
+    pool.query(queryText, [req.body.list_name, req.body.setListId])
     .then(result=> {
         res.sendStatus(200)
     }).catch(error=> {
-        console.log('error in adding item in server', error)
+        console.log('error in adding list in server', error)
         res.sendStatus(500)
     })
 });

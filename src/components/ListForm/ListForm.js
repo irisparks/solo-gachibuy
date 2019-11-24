@@ -22,12 +22,19 @@ class ListItem extends Component {
     onCancel = () => {
         this.props.history.push('/list')
     }
-    onSubmit = () => {
-        this.props.dispatch({ type: 'ADD_LIST', payload: this.state });
+    onSubmitList = () => {
+        this.props.dispatch({
+            type: 'ADD_LIST', payload: {
+                list_name: this.state.list_name,
+                shoppingDate: this.state.shoppingDate,
+                setListId: this.props.findGroupReducer.id
+            }
+        });
         this.setState({
             listSaved: !false
         })
         console.log('onSave')
+        this.props.history.push('/list')
     }
 
     onListNameChange = (event) => {
@@ -89,7 +96,7 @@ class ListItem extends Component {
                                 value={this.state.shoppingDate} />
                         )} />
                     <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<CancelIcon />} color="primary" >Cancel</Button>
-                    <Button onClick={this.onSubmitAdd} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
+                    <Button onClick={this.onSubmitList} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
                     {/* conditonal rendering for save button click */}
                     {/* {this.state.listSaved == false ?
                         <>Created On:<TextField></TextField>
