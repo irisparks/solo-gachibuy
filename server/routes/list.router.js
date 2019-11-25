@@ -70,7 +70,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         .then(() => {
             res.sendStatus(200)
         }).catch(error => {
-            console.log('error in put', error)
+            console.log('error in put for list', error)
             res.sendStatus(500)
         })
 });

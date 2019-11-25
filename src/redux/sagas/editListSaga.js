@@ -7,7 +7,7 @@ function* editListSaga(action) {
         yield axios.put(`/api/list/${action.payload.id}`, action.payload)
         yield put({type:"GET_LIST", payload: {id: action.payload.id}});
     } catch (error) {
-      console.log('Edit item request failed', error);
+      console.log('Edit list request failed', error);
     }
   }
 

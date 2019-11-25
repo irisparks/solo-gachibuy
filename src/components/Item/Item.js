@@ -131,7 +131,7 @@ handleChangeFor = (property, event) => {
                         renderInput={params => (
                             <TextField  {...params}
                                 variant="outlined"
-                                label="Update"
+                                label="Update List"
                                 margin="normal"
                                 onChange={(event) => this.handleChangeFor("listName", event)}
                                 value={this.state.listName} 

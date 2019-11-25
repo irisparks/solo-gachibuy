@@ -6,20 +6,18 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { TextField, Button, Chip} from '@material-ui/core'
+import { TextField, Button, Chip } from '@material-ui/core'
 
 class ListView extends Component {
 
 
   componentDidMount() {
-    this.onGet();
+    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer });
   }
 
-  //function to display all of my lists on listview page
-
-  onGet = () => {
-    console.log('PROPS', this.props)
-    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer });
+  state = {
+    groupName: '',
+    edit: true
   }
 
   onBack = () => {
@@ -36,8 +34,27 @@ class ListView extends Component {
     this.props.dispatch({ type: "FIND_LIST", payload: list })
     this.props.history.push(`/item`)
   }
+  onEdit = () => {
+    console.log('edit button clicked')
+    this.setState({
+      ...this.state,
+      edit: !this.state.edit
+    })
+  }
+  saveButton = (group) => {
+    this.props.dispatch({ type: "EDIT_GROUP", payload: { id: this.props.findGroupReducer.id, groupName: this.state.groupName } })
+    this.setState({
+      ...this.state,
+      edit: false
+    })
 
-
+  };
+  handleChangeFor = (property, event) => {
+    this.setState({
+      ...this.state,
+      [property]: event.target.value
+    })
+  }
 
   // onDelete = (list) => {
   //   console.log('clicked delete list!');
@@ -53,8 +70,32 @@ class ListView extends Component {
         <div>
           <DrawerNav />
           <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+          <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT GROUP NAME</Button>
+          {/* conditional rendering for edit group name */}
+          {this.state.edit ?
+            <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1> : <> <h1>EDIT NAME: <Autocomplete
+              multiple
+              id="tags-filled"
+              freeSolo
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
 
-          <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1>
+                ))}
+              renderInput={params => (
+                <TextField  {...params}
+                  variant="outlined"
+                  label="Update Group"
+                  margin="normal"
+                  onChange={(event) => this.handleChangeFor("groupName", event)}
+                  value={this.state.groupName}
+                />
+              )} /></h1>
+
+              <Button color="primary"
+              onClick={() => this.saveButton(this.props.findGroupReducer.name)}
+              >Save</Button></>
+          }
           <Button onClick={this.onCreate} startIcon={<CreateIcon />} > Create New List</Button>
 
           {/* <TextField onSubmit={this.onCreate}
@@ -77,14 +118,14 @@ class ListView extends Component {
           {this.props.listReducer.map((list, i) =>
             <>
               <Button onClick={() => this.onListClick(list)}> {list.list_name} </Button>
-
               {/* <DeleteIcon onClick={(list) => this.onDelete(list)} color="primary"></DeleteIcon> */}
-             
-              </>)}
+            </>)}
           < p > Your ID is: {this.props.user.id} </p>
-            </div>
-      
+        </div>
+
         <pre> {JSON.stringify(this.props.findGroupReducer, null, 2)}</pre>
+        <pre> {JSON.stringify(this.state, null, 2)}</pre>
+
       </>
     )
   }

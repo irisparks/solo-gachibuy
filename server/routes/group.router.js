@@ -51,5 +51,32 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500)
         })
 });
+
+/**
+ * Update a group name if it's something the logged in user added
+ */
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('hitting edit group server')
+    const queryText = 'UPDATE "group" SET "name" = $1 WHERE "id" = $2;';
+    pool.query(queryText, [req.body.groupName, req.params.id])
+        .then(() => {
+            res.sendStatus(200)
+        }).catch(error => {
+            console.log('error in put for group', error)
+            res.sendStatus(500)
+        })
+});
+
+
+// QUERY FOR DELETE
+
+// BEGIN;
+// SELECT "list".id FROM "list" WHERE "group_id" = 7;
+// DELETE FROM "list_item" WHERE list_id=12;
+// DELETE FROM "list_item" WHERE list_id=13;
+// DELETE FROM "list_item" WHERE list_id=14;
+// DELETE FROM "list" WHERE group_id=7;
+// DELETE FROM "group" WHERE id = 7;
+// COMMIT;
 module.exports = router;
 
