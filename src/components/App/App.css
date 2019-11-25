@@ -8,6 +8,23 @@ body {
     margin: 50px;
 }
 
+/* .groupImage {
+  height: 128;
+  width: 128;
+  margin: 'auto';
+  display: 'block';
+} */
+
+.container {
+  width: 200px;
+  height: 120px;
+}
+
+/* resize images */
+.container img {
+  width: 100%;
+  height: auto;
+}
 
 input {
     margin: 5px;

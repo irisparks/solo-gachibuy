@@ -20,16 +20,6 @@ const styles = {
     maxWidth: 500,
     color: 'green',
   },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
   card: {
     display: 'flex',
     maxWidth: 500,
@@ -44,10 +34,6 @@ const styles = {
   },
   cover: {
     width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
   },
 };
 
@@ -68,7 +54,7 @@ class UserPage extends Component {
   }
 
   onGroupClick = (group) => {
-    console.log('clicked on group',)
+    console.log('clicked on group')
     this.props.dispatch({ type: "FIND_GROUP", payload: group });
     this.props.history.push(`/list`)
   }
@@ -114,23 +100,22 @@ class UserPage extends Component {
                   >
                   </TextField> */}
                   <Paper style={styles.paper}><h2>Groups</h2></Paper>
+
                   {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
+
                   {this.props.groupReducer.map((group, i) =>
-                  <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
-                  <CardContent style={styles.content}>
-                      <Typography component="h5" variant="h5">
+                    <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
+                      <CardContent style={styles.content}>
+                        <Typography component="h5" variant="h5">
                           {group.name}
-                      </Typography>
-                      <Typography variant="subtitle1" color="textSecondary">
-</Typography>
-                  </CardContent>
-                  {/* <CardMedia
-                      style={styles.cover}
-                      src={this.props.img_src}
-                      title="covertitle"
-                  /> */}
-              </Card>
-                    // <GroupList group={group} key={i} />
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                        </Typography>
+                      </CardContent>
+                      <div class="container">
+                        <img src={group.img_src} alt='lemons' />
+                      </div>
+                    </Card>
                   )}
                   {/* <CardExample /> */}
                   <p>Your ID is: {this.props.user.id} </p>
@@ -138,8 +123,6 @@ class UserPage extends Component {
               </div>
             </div>
           </div>
-          <pre> {JSON.stringify(this.props.groupReducer, null, 2)}</pre>
-          <pre> {JSON.stringify(this.props.group, null, 2)}</pre>
         </ThemeProvider>
       </>
     )

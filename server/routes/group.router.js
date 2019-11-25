@@ -45,9 +45,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * POST route to add a group for the logged in user
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
-    const queryText = 'INSERT INTO "group"("name", "img_src") VALUES ($1, $2) RETURNING id;';
+    const queryText = 'INSERT INTO "group"("name", "img_src","users") VALUES ($1, $2, $3) RETURNING id;';
     const queryText2 = 'INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2);';
-    pool.query(queryText, [req.body.name, req.body.img_src])
+    pool.query(queryText, [req.body.name, req.body.img_src, req.body.users])
         .then(result => {
             const newGroupId = result.rows[0].id // id of new group
             console.log('posted group name into group table result:', result)

@@ -12,7 +12,13 @@ import Swal from 'sweetalert2';
 class ListView extends Component {
 
   componentDidMount() {
-    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer });
+    this.onGet();
+  }
+
+  onGet = () => {
+    console.log('in get list???/');
+    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer.group_id});
+
   }
 
   state = {
@@ -80,8 +86,7 @@ class ListView extends Component {
               this.props.dispatch({
                   type: 'DELETE_GROUP', payload: this.props.findGroupReducer.group_id
               })
-              // this.props.history.push('/list')
-
+              this.onBack();
           } else {
               //if cancel do nothing
               Swal.fire(
@@ -155,11 +160,7 @@ class ListView extends Component {
               <Button onClick={() => this.onListClick(list)}> {list.list_name} </Button>
               {/* <DeleteIcon onClick={(list) => this.onDelete(list)} color="primary"></DeleteIcon> */}
             </>)}
-          < p > Your ID is: {this.props.user.id} </p>
         </div>
-
-        <pre> {JSON.stringify(this.props.findGroupReducer, null, 2)}</pre>
-        <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
       </>
     )

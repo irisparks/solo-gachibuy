@@ -17,7 +17,7 @@ const users = [{ name: "Iris" }, { name: "Anna" }, { name: "Gao" }, { name: "Kat
 class GroupForm extends Component {
     state = {
         name: '',
-        img_url: '',
+        img_src: '',
         users: ''
     }
     componentDidMount() {
@@ -99,7 +99,7 @@ class GroupForm extends Component {
                                     label="Image URL"
                                     margin="normal"
                                     fullWidth
-                                    onChange={(event) => this.handleChangeFor('img_url', event)}
+                                    onChange={(event) => this.handleChangeFor('img_src', event)}
                                     value={this.state.img_url} />
                             )} />
                         {/* <TextField

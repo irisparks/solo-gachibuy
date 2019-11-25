@@ -96,7 +96,6 @@ class Item extends Component {
                     type: 'DELETE_LIST', payload: this.props.findListReducer.id
                 })
                 this.props.history.push('/list')
-
             } else {
                 //if cancel do nothing
                 Swal.fire(

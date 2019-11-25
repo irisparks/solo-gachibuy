@@ -22,13 +22,13 @@ class ListItem extends Component {
     onCancel = () => {
         this.props.history.push('/list')
     }
-    
+
     onSubmitList = () => {
         this.props.dispatch({
             type: 'ADD_LIST', payload: {
                 list_name: this.state.list_name,
                 shoppingDate: this.state.shoppingDate,
-                setListId: this.props.findGroupReducer.id
+                setListId: this.props.findGroupReducer.group_id
             }
         });
         this.setState({
@@ -109,9 +109,6 @@ class ListItem extends Component {
 
                     <Grid container spacing={24} style={{ padding: 24 }} />
                     {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
-                    {/* <pre> {JSON.stringify(this.props.listReducer, null, 2)}</pre> */}
-                    <pre> {JSON.stringify(this.state, null, 2)}</pre>
-
                 </div>
             </>
         )
