@@ -40,6 +40,8 @@ class GroupForm extends Component {
         this.props.dispatch({ type: 'ADD_GROUP', payload: this.state });
     }
 
+
+
     editButton = () => {
         this.setState({
             ...this.state,

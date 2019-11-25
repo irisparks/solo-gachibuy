@@ -30,8 +30,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText2 = 'INSERT INTO "list_item"("list_id","item_id") VALUES ($1, $2)'
     pool.query(queryText, [req.body.listItem])
         .then(result => {
+            const newItemId = result.rows[0].id // id of new item
             console.log('posted item name into item table result:', result)
-            pool.query(queryText2, [req.body.setId, result.rows[0].id])// req.body for setid
+            pool.query(queryText2, [req.body.setId, newItemId])// req.body for setid
                 .then(result => {
                     console.log('posted into join list_item successful! result:', result)
                     res.sendStatus(200)

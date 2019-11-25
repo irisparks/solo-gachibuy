@@ -23,7 +23,7 @@ class Item extends Component {
         showComplete: true,
         listName: '',
         listItems: "",
-        edit: false
+        edit: true
     }
 
     componentDidMount() {
@@ -52,28 +52,28 @@ class Item extends Component {
         console.log('edit button clicked')
         this.setState({
             ...this.state,
-            edit: true
+            edit: !this.state.edit
         })
     }
 
     saveButton = (item) => {
-        this.props.dispatch({ type: "EDIT_LIST", payload: { id: this.props.findListReducer.id, listName: this.state.listName} })
+        this.props.dispatch({ type: "EDIT_LIST", payload: { id: this.props.findListReducer.id, listName: this.state.listName } })
         this.setState({
             ...this.state,
-            edit: false
+            edit: true
         })
 
     };
 
 
-handleChangeFor = (property, event) => {
-    this.setState({
-        ...this.state,
-        [property]: event.target.value
-    })
-  }
+    handleChangeFor = (property, event) => {
+        this.setState({
+            ...this.state,
+            [property]: event.target.value
+        })
+    }
 
-    //function to trigger the delete route and delete one feedback from database
+    //function to trigger the delete list route and delete list from database
     onDelete = (list) => {
         console.log('clicked delete list!');
         //add sweet alert to confirm the deletion
@@ -84,12 +84,12 @@ handleChangeFor = (property, event) => {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, delete list!'
         }).then((result) => {
             if (result.value) {
                 Swal.fire(
                     'Deleted!',
-                    'Your file has been deleted.',
+                    'Your list has been deleted.',
                     'success'
                 );
                 this.props.dispatch({
@@ -101,7 +101,7 @@ handleChangeFor = (property, event) => {
                 //if cancel do nothing
                 Swal.fire(
                     'Cancelled',
-                    'Did not delete!'
+                    'Did not delete list!'
                 )
             }
         })
@@ -113,12 +113,33 @@ handleChangeFor = (property, event) => {
         return (
             <>
                 <div>
-                 
-                        <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-                        <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
-                        <Button onClick={(list) => this.onDelete(list)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
-                        <h1>LIST: {this.props.findListReducer.list_name}</h1>
-                        {this.state.edit && <>
+
+                    <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                    <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
+                    <Button onClick={(list) => this.onDelete(list)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
+                    {this.state.edit ?
+
+                        <h1>LIST: {this.props.findListReducer.list_name}</h1> : <>
+                            <h1> EDIT LIST:
+                    <Autocomplete
+                                    multiple
+                                    id="tags-filled"
+                                    freeSolo
+                                    renderTags={(value, getTagProps) =>
+                                        value.map((option, index) => (
+                                            <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+
+                                        ))}
+                                    renderInput={params => (
+                                        <TextField  {...params}
+                                            variant="outlined"
+                                            label="Update List"
+                                            margin="normal"
+                                            onChange={(event) => this.handleChangeFor("listName", event)}
+                                            value={this.state.listName}
+                                        />
+                                    )} />
+                                <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></h1></>}
                     <Autocomplete
                         multiple
                         id="tags-filled"
@@ -131,42 +152,23 @@ handleChangeFor = (property, event) => {
                         renderInput={params => (
                             <TextField  {...params}
                                 variant="outlined"
-                                label="Update List"
+                                label="List Items"
                                 margin="normal"
-                                onChange={(event) => this.handleChangeFor("listName", event)}
-                                value={this.state.listName} 
-                                />
-                        )} />
-                    <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></>}
-                        <Autocomplete
-                            multiple
-                            id="tags-filled"
-                            freeSolo
-                            renderTags={(value, getTagProps) =>
-                                value.map((option, index) => (
-                                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
-
-                                ))}
-                            renderInput={params => (
-                                <TextField  {...params}
-                                    variant="outlined"
-                                    label="List Items"
-                                    margin="normal"
-                                    fullWidth
-                                    onChange={this.onChangeList}
-                                    value={this.state.listItem} />
-                            )} /> <Button color="primary" variant="outlined" onClick={this.onSubmitAdd}>Submit</Button>
-                        <ItemMap />
+                                fullWidth
+                                onChange={this.onChangeList}
+                                value={this.state.listItem} />
+                        )} /> <Button color="primary" variant="outlined" onClick={this.onSubmitAdd}>Submit</Button>
+                    <ItemMap />
 
 
-                        {/* Created On: {this.props.listReducer.date_created}
+                    {/* Created On: {this.props.listReducer.date_created}
                     Shopping Date: {this.props.listReducer.shopping_date}
                     <Link className="list-link" to="/list">
                         <Button variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>    </Link>
 
                     <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
                     <Button onClick={this.onDeleteGroup} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button> */}
-           
+
                 </div>
                 <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre>
             </>

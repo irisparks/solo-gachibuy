@@ -7,9 +7,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TextField, Button, Chip } from '@material-ui/core'
+import Swal from 'sweetalert2';
 
 class ListView extends Component {
-
 
   componentDidMount() {
     this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer });
@@ -34,6 +34,7 @@ class ListView extends Component {
     this.props.dispatch({ type: "FIND_LIST", payload: list })
     this.props.history.push(`/item`)
   }
+
   onEdit = () => {
     console.log('edit button clicked')
     this.setState({
@@ -45,15 +46,50 @@ class ListView extends Component {
     this.props.dispatch({ type: "EDIT_GROUP", payload: { id: this.props.findGroupReducer.id, groupName: this.state.groupName } })
     this.setState({
       ...this.state,
-      edit: false
+      edit: true
     })
-
   };
+
   handleChangeFor = (property, event) => {
     this.setState({
       ...this.state,
       [property]: event.target.value
     })
+  }
+
+
+    //function to trigger the delete group route and delete group from database
+    onDelete = (group) => {
+      console.log('clicked delete group!');
+      //add sweet alert to confirm the deletion
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete group!'
+      }).then((result) => {
+          if (result.value) {
+              Swal.fire(
+                  'Deleted!',
+                  'Your group has been deleted.',
+                  'success'
+              );
+              this.props.dispatch({
+                  type: 'DELETE_GROUP', payload: this.props.findGroupReducer.group_id
+              })
+              // this.props.history.push('/list')
+
+          } else {
+              //if cancel do nothing
+              Swal.fire(
+                  'Cancelled',
+                  'Did not delete group!'
+              )
+          }
+      })
   }
 
   // onDelete = (list) => {
@@ -71,6 +107,8 @@ class ListView extends Component {
           <DrawerNav />
           <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
           <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT GROUP NAME</Button>
+          <Button onClick={(group) => this.onDelete(group)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE GROUP</Button>
+
           {/* conditional rendering for edit group name */}
           {this.state.edit ?
             <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1> : <> <h1>EDIT NAME: <Autocomplete
@@ -90,12 +128,9 @@ class ListView extends Component {
                   onChange={(event) => this.handleChangeFor("groupName", event)}
                   value={this.state.groupName}
                 />
-              )} /></h1>
+              )} />
 
-              <Button color="primary"
-              onClick={() => this.saveButton(this.props.findGroupReducer.name)}
-              >Save</Button></>
-          }
+              <Button color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></h1></>}
           <Button onClick={this.onCreate} startIcon={<CreateIcon />} > Create New List</Button>
 
           {/* <TextField onSubmit={this.onCreate}
