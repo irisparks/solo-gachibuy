@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
-      background: 'linear-gradient(45deg, #4ac29a, #bdfff3);',
+      background: 'orange',
     },
   },
   menuButton: {
@@ -36,7 +36,8 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    background: 'linear-gradient(45deg, #4ac29a, #bdfff3);',
+    background: '#7c4dff',
+    color: 'white'
   },
   content: {
     flexGrow: 1,

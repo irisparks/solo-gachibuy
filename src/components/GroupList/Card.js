@@ -1,60 +1,93 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import cx from 'clsx';
+import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
+import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
+import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
+import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    display: 'flex',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
+import Button from '@material-ui/core/Button';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import { useInvertedArrowStyles } from '@mui-treasury/styles/arrow/inverted';
+import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    maxWidth: 304,
+    margin: 'auto',
+    borderRadius: 0,
+    position: 'relative',
   },
   content: {
-    flex: '1 0 auto',
+    padding: 24,
   },
-  cover: {
-    width: 151,
+  cta: {
+    display: 'block',
+    textAlign: 'center',
+    color: '#fff',
+    letterSpacing: '3px',
+    fontWeight: 200,
+    fontSize: 12,
   },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
+  title: {
+    color: '#fff',
+    letterSpacing: '2px',
   },
 }));
 
-export default function MediaControlCard(CardExample) {
-  const classes = useStyles();
-  const theme = useTheme();
-
+const NewsCard2 = () => {
+  const styles = useStyles();
+  const mediaStyles = useCoverCardMediaStyles();
+  const shadowStyles = useLightTopShadowStyles();
+  const classes = useInvertedArrowStyles();
+  const gutterStyles = usePushingGutterStyles({
+    firstExcluded: true,
+    space: 2,
+  });
   return (
-    <Card className={classes.card}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-           GROUP NAME
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
+    <>
+    <Card className={cx(styles.root, shadowStyles.root)}>
+      <CardMedia classes={mediaStyles} image={'https://images.unsplash.com/photo-1519810755548-39cd217da494?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'} />
+      <CardActionArea>
+        <CardContent className={styles.content}>
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            minHeight={360}
+            color={'common.white'}
+            textAlign={'center'}
+          >
+            <h1 className={styles.title}>Space</h1>
+            <p>The space between the stars and galaxies is largely empty.</p>
+          </Box>
+          <Typography className={styles.cta} variant={'overline'}>
+            Explore
           </Typography>
         </CardContent>
-      </div>
-      <CardMedia
-        className={classes.cover}
-        title="examlper"
-      />
+      </CardActionArea>
     </Card>
+    <Box className={gutterStyles.parent}>
+      <Button classes={classes}>
+        <KeyboardArrowLeft />
+      </Button>
+      <Button classes={classes}>
+        <KeyboardArrowRight />
+      </Button>
+    </Box>
+    </>
   );
-}
+};
+
+
+// InvertedArrow.propTypes = {};
+// InvertedArrow.defaultProps = {};
+
+export default NewsCard2;
+

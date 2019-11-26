@@ -8,8 +8,7 @@ import itemReducer from './itemReducer';
 import findGroupReducer from './findGroupReducer';
 import findListReducer from './findListReducer';
 import findItemReducer from './findItemReducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
+import allUsers from './allUsers';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -27,7 +26,8 @@ const rootReducer = combineReducers(
   itemReducer,
   findGroupReducer,
   findListReducer,
-  findItemReducer,  
+  findItemReducer, 
+  allUsers 
 }
 );
 

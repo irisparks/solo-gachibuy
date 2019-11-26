@@ -44,28 +44,76 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * POST route to add a group for the logged in user
  */
-router.post('/', rejectUnauthenticated, (req, res) => {
-    const queryText = 'INSERT INTO "group"("name", "img_src","users") VALUES ($1, $2, $3) RETURNING id;';
-    const queryText2 = 'INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2);';
-    pool.query(queryText, [req.body.name, req.body.img_src, req.body.users])
-        .then(result => {
-            const newGroupId = result.rows[0].id // id of new group
-            console.log('posted group name into group table result:', result)
-            pool.query(queryText2, [newGroupId, req.user.id])
-                .then(result => {
-                    console.log('posted into join groups_users successful! result:', result)
-                    res.sendStatus(200)
-                })
-                .catch(error => {
-                    console.log('error in post groups_users error:', error)
-                    res.sendStatus(500)
-                })
-            res.sendStatus(200)
-        }).catch(error => {
-            console.log('error in adding group server', error)
-            res.sendStatus(500)
-        })
+
+router.post('/', rejectUnauthenticated, async (req, res) => {
+    const client = await pool.connect();
+    try {
+        const {
+            localState,
+            userArray,
+        } = req.body;
+
+        await client.query('BEGIN');
+
+        const queryText = `INSERT INTO "group"("name", "img_src", "creator") VALUES ($1, $2, $3) RETURNING id;`;
+        const newGroup = await client.query(queryText, [localState.name, localState.img_src, localState.creator])
+        const newGroupId = newGroup.rows[0].id
+
+        await client.query('INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2);', [newGroupId, req.user.id])
+
+        await Promise.all(userArray.map(user => {
+            const newUser = 'INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2)';
+            const newUserValues = [newGroupId, user]
+
+            return client.query(newUser, newUserValues)
+        }));
+
+        await client.query('COMMIT')
+        res.sendStatus(201)
+
+    } catch (error) {
+        await client.query('ROLLBACK')
+        console.log('error in post group, error:', error)
+        res.sendStatus(500)
+    } finally {
+        client.release();
+    }
 });
+
+
+
+
+// router.post('/', rejectUnauthenticated, (req, res) => {
+//     const queryText = 'INSERT INTO "group"("name", "img_src", "creator") VALUES ($1, $2, $3) RETURNING id;';
+//     const queryText2 = 'INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2);';
+//     pool.query(queryText, [req.body.localState.name, req.body.localState.img_src, req.body.localState.creator])
+//         .then(result => {
+//             const newGroupId = result.rows[0].id // id of new group
+//             console.log('posted group name into group table result:', result)
+//             pool.query(queryText2, [newGroupId, req.user.id])
+//                 .then(result => {
+//                     console.log('posted into join groups_users other users successful! result:', result)
+//                     pool.query(queryText2, [newGroupId, req.body.userArray])
+//                         .then(result => {
+//                             res.sendStatus(200)
+//                         })
+//                         .catch(error => {
+//                             console.log('error in adding other users', error)
+//                             res.sendStatus(500)
+//                         })
+//                     console.log('posted into join groups_users successful! result:', result)
+//                     res.sendStatus(200)
+//                 })
+//                 .catch(error => {
+//                     console.log('error in post groups_users error:', error)
+//                     res.sendStatus(500)
+//                 })
+//             res.sendStatus(200)
+//         }).catch(error => {
+//             console.log('error in adding group server', error)
+//             res.sendStatus(500)
+//         })
+// });
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in delete group server', req.params.id)
