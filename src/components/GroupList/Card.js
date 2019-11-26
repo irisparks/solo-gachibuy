@@ -1,5 +1,7 @@
 import React from 'react';
 import cx from 'clsx';
+import { connect } from 'react-redux';
+
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -40,7 +42,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const NewsCard2 = () => {
+const NewsCard2 = (props) => {
   const styles = useStyles();
   const mediaStyles = useCoverCardMediaStyles();
   const shadowStyles = useLightTopShadowStyles();
@@ -49,10 +51,14 @@ const NewsCard2 = () => {
     firstExcluded: true,
     space: 2,
   });
+
+  function onGroupClick() {
+    props.onGroupClick(props.group)
+  }
   return (
     <>
-    <Card className={cx(styles.root, shadowStyles.root)}>
-      <CardMedia classes={mediaStyles} image={'https://images.unsplash.com/photo-1519810755548-39cd217da494?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'} />
+    <Card className={cx(styles.root, shadowStyles.root)} onClick={onGroupClick}>
+      <CardMedia classes={mediaStyles} image={props.group.img_src} />
       <CardActionArea>
         <CardContent className={styles.content}>
           <Box
@@ -60,11 +66,11 @@ const NewsCard2 = () => {
             flexDirection={'column'}
             alignItems={'center'}
             justifyContent={'center'}
-            minHeight={360}
+            minHeight={260}
             color={'common.white'}
             textAlign={'center'}
           >
-            <h1 className={styles.title}>Space</h1>
+            <h1 className={styles.title}>{props.group.name}</h1>
             <p>The space between the stars and galaxies is largely empty.</p>
           </Box>
           <Typography className={styles.cta} variant={'overline'}>
@@ -73,14 +79,7 @@ const NewsCard2 = () => {
         </CardContent>
       </CardActionArea>
     </Card>
-    <Box className={gutterStyles.parent}>
-      <Button classes={classes}>
-        <KeyboardArrowLeft />
-      </Button>
-      <Button classes={classes}>
-        <KeyboardArrowRight />
-      </Button>
-    </Box>
+  
     </>
   );
 };
@@ -89,5 +88,11 @@ const NewsCard2 = () => {
 // InvertedArrow.propTypes = {};
 // InvertedArrow.defaultProps = {};
 
-export default NewsCard2;
+
+
+const mapReduxStateToProps = (reduxState) => {
+  return reduxState
+}
+
+export default connect(mapReduxStateToProps)(NewsCard2);
 

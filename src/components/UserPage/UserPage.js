@@ -63,7 +63,7 @@ const styles = {
   card: {
     display: 'flex',
     maxWidth: 500,
-    },
+  },
   details: {
     display: 'flex',
     flexDirection: 'column',
@@ -149,54 +149,35 @@ class UserPage extends Component {
                     }}
                   >
                   </TextField> */}
-                  <Paper style={styles.paperGroup}><h2>Groups</h2></Paper>
+                  <Paper style={styles.paperGroup}><h2>Groups <i class="far fa-lemon"></i>
+
+                  </h2></Paper>
 
                   {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
 
 
                   {this.props.groupReducer.map((group, i) =>
+                    <NewsCard2 group={group} key={i} onGroupClick={()=> this.onGroupClick(group)}/>
 
-                    <Grid item xs={12}>
-                      <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
-                        <CardContent style={styles.content}>
-                          <Typography component="h5" variant="h5">
-                            {group.name}
-                          </Typography>
-                          <Typography variant="subtitle1" color="textSecondary">
-                          </Typography>
-                        </CardContent>
-                        <div class="container">
-                          <img src={group.img_src} alt='lemons' />
-                        </div>
-                      </Card>
-                    </Grid>
+                    // <Grid item xs={12}>
+                    //   <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
+                    //     <CardContent style={styles.content}>
+                    //       <Typography component="h5" variant="h5">
+                    //         {group.name}
+                    //       </Typography>
+                    //       <Typography variant="subtitle1" color="textSecondary">
+                    //       </Typography>
+                    //     </CardContent>
+                    //     <div class="container">
+                    //       <img src={group.img_src} alt='lemons' />
+                    //     </div>
+                    //   </Card>
+                    // </Grid>
                   )}
 
-                  <NewsCard2 />
                   < p > Your ID is: {this.props.user.id} </p>
                 </Grid>
-                <Card>
-      <CardMedia image={'https://images.unsplash.com/photo-1519810755548-39cd217da494?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'} />
-      <CardActionArea>
-        <CardContent style={styles.content}>
-          <Box
-            display={'flex'}
-            flexDirection={'column'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            minHeight={360}
-            color={'common.white'}
-            textAlign={'center'}
-          >
-            <h1 className={styles.title}>Space</h1>
-            <p>The space between the stars and galaxies is largely empty.</p>
-          </Box>
-          <Typography className={styles.cta} variant={'overline'}>
-            Explore
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+              
               </div>
             </div>
           </div>
