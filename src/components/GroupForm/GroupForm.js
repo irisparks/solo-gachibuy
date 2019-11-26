@@ -45,6 +45,13 @@ class GroupForm extends Component {
         })
     }
 
+    handleAutoInput = () => {
+        this.setState({
+            ...this.state, 
+            usersfrominput: this.props.allUsers.id
+        })
+    }
+
     onSubmitAdd = () => {
         let splitUsers = this.state.users.split(" , ");
         console.log(splitUsers)
@@ -118,7 +125,8 @@ class GroupForm extends Component {
                             id="tags-filled"
                             options={this.props.allUsers.map(user => user.username)}
                             // value={this.props.allUsers.map(user => user.id)}
-                            onChange={(event) => this.handleChangeFor('usersfrominput', event)}
+                            // onChange={(event) => this.handleChangeFor('usersfrominput', event)}
+                            onChange={this.handleAutoInput}
                             renderTags={(value, getTagProps) =>
                                 value.map((option, index) => (
                                     <Chip color="primary" label={option} {...getTagProps({ index })}
@@ -150,7 +158,8 @@ class GroupForm extends Component {
                                     margin="normal"
                                     fullWidth
                                     onChange={(event) => this.handleChangeFor('users', event)}
-                                    value={this.state.users} />
+                                    value={this.state.users} 
+                                    />
                             )} />
                         <Button onClick={this.onSubmitAdd} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
 

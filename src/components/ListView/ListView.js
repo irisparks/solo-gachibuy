@@ -17,12 +17,13 @@ class ListView extends Component {
 
   onGet = () => {
     console.log('in get list???/');
-    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer.group_id});
+    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer.group_id });
 
   }
 
   state = {
     groupName: '',
+    img_src: '',
     edit: true
   }
 
@@ -48,8 +49,9 @@ class ListView extends Component {
       edit: !this.state.edit
     })
   }
+
   saveButton = (group) => {
-    this.props.dispatch({ type: "EDIT_GROUP", payload: { id: this.props.findGroupReducer.id, groupName: this.state.groupName } })
+    this.props.dispatch({ type: "EDIT_GROUP", payload: { id: this.props.findGroupReducer.group_id, groupName: this.state.groupName, img_src: this.state.img_src} })
     this.setState({
       ...this.state,
       edit: true
@@ -64,37 +66,37 @@ class ListView extends Component {
   }
 
 
-    //function to trigger the delete group route and delete group from database
-    onDelete = (group) => {
-      console.log('clicked delete group!');
-      //add sweet alert to confirm the deletion
-      Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete group!'
-      }).then((result) => {
-          if (result.value) {
-              Swal.fire(
-                  'Deleted!',
-                  'Your group has been deleted.',
-                  'success'
-              );
-              this.props.dispatch({
-                  type: 'DELETE_GROUP', payload: this.props.findGroupReducer.group_id
-              })
-              this.onBack();
-          } else {
-              //if cancel do nothing
-              Swal.fire(
-                  'Cancelled',
-                  'Did not delete group!'
-              )
-          }
-      })
+  //function to trigger the delete group route and delete group from database
+  onDelete = (group) => {
+    console.log('clicked delete group!');
+    //add sweet alert to confirm the deletion
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete group!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your group has been deleted.',
+          'success'
+        );
+        this.props.dispatch({
+          type: 'DELETE_GROUP', payload: this.props.findGroupReducer.group_id
+        })
+        this.onBack();
+      } else {
+        //if cancel do nothing
+        Swal.fire(
+          'Cancelled',
+          'Did not delete group!'
+        )
+      }
+    })
   }
 
   // onDelete = (list) => {
@@ -133,7 +135,27 @@ class ListView extends Component {
                   onChange={(event) => this.handleChangeFor("groupName", event)}
                   value={this.state.groupName}
                 />
-              )} />
+              )}
+            />
+          EDIT IMAGE: <Autocomplete
+              multiple
+              id="tags-filled"
+              freeSolo
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+
+                ))}
+              renderInput={params => (
+                <TextField  {...params}
+                  variant="outlined"
+                  label="Update Image"
+                  margin="normal"
+                  onChange={(event) => this.handleChangeFor("img_src", event)}
+                  value={this.state.img_src}
+                />
+              )}
+            />
 
               <Button color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></h1></>}
           <Button onClick={this.onCreate} startIcon={<CreateIcon />} > Create New List</Button>
@@ -160,6 +182,7 @@ class ListView extends Component {
               <Button onClick={() => this.onListClick(list)}> {list.list_name} </Button>
               {/* <DeleteIcon onClick={(list) => this.onDelete(list)} color="primary"></DeleteIcon> */}
             </>)}
+          < p > Your ID is: {this.props.user.id} </p>
         </div>
 
       </>

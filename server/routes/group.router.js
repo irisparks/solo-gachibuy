@@ -138,12 +138,12 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * Update a group name if it's something the logged in user added
+ * Update a group name and image if it's something the logged in user added
  */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('hitting edit group server')
-    const queryText = 'UPDATE "group" SET "name" = $1 WHERE "id" = $2;';
-    pool.query(queryText, [req.body.groupName, req.params.id])
+    console.log('hitting edit group server', req.body, req.params.id)
+    const queryText = 'UPDATE "group" SET "name" = $1, "img_src" = $2 WHERE "id" = $3;';
+    pool.query(queryText, [req.body.groupName, req.body.img_src, req.params.id])
         .then(() => {
             res.sendStatus(200)
         }).catch(error => {
