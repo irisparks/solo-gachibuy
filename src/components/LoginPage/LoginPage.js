@@ -8,14 +8,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 
 const styles = {
-  Typography: {
-    fontFamily: "Rubik",
-  },
   title: {
     textAlign: 'center',
     fontSize: '30px',
     marginTop: '150px',
-    color: '#FFFF66',
   },
   TextField: {
     borderColor: 'white',
@@ -42,8 +38,13 @@ const styles = {
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#FFF' },
+    primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
+    secondary: { main: '#C8E6C9', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
   },
+  Typography: {
+    fontFamily: "Rubik",
+  },
+  spacing: 4,
 });
 class LoginPage extends Component {
   state = {
@@ -78,7 +79,7 @@ class LoginPage extends Component {
         <div className="background">
           <div class="overlay">
 
-            <Typography component="h1" variant="h10" style={styles.title}>
+            <Typography component="h1" variant="h10" color="primary" style={styles.title}>
             <i class="far fa-lemon"></i>    Gachi-Buy         </Typography>
 
             <div>

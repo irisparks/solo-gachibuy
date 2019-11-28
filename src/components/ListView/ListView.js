@@ -28,6 +28,19 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  buttonStyle: {
+    margin: 14,
+    top: 'auto',
+    left: 'auto'
+  }, 
+  fabStyle: {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    left: 'auto',
+    position: 'fixed'
+  },
+
 };
 class ListView extends Component {
 
@@ -132,11 +145,12 @@ class ListView extends Component {
 
         <div>
           <DrawerNav />
-          <Button  style={{ fontWeight: 'bold' }} onClick={this.onBack} variant="contained" size="small" startIcon={<ArrowBackIosIcon />} color="primary"  style={{ fontWeight: 'bold' }}>BACK</Button>
-          <Button  style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{ fontWeight: 'bold' 
-      }}
-      >edit group name</Typography></Button>
-          <Button   style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
+          <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} />
+          <Button style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{
+            fontWeight: 'bold'
+          }}
+          >edit group name</Typography></Button>
+          <Button style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
 
           {/* conditional rendering for edit group name */}
           {this.state.edit ?
@@ -180,32 +194,29 @@ class ListView extends Component {
               />
 
               <Button style={{ fontWeight: 'bold' }} variant="contained" color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></>}
-          <Fab color="primary" aria-label="add" onClick={this.onCreate}>
-          <AddIcon />
-        </Fab>
+          <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onCreate}>
+            <AddIcon />
+          </Fab>
 
-        {/* map function to get all my lists */}
-        <Card style={styles.card}>
+          {/* map function to get all my lists */}
+          <Card style={styles.card}>
 
-          <div><h1> <Typography style={styles.title} Lists /></h1> </div>
+            <Typography variant="h2">LISTS: </Typography>
+            {this.props.listReducer.map((list, i) =>
+              <>
 
-          {this.props.listReducer.map((list, i) =>
-            <>
-
-              <CardContent>
-                <Typography style={styles.title} color="textSecondary" gutterBottom>
-                  {list.list_name}
-                </Typography>
-                <List onClick={() => this.onListClick(list)} >
-                  <ListItem button>
-                    <ListItemIcon>
-                      <StarIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={list.list_name} />
-                  </ListItem>
-                </List>
-              </CardContent>
-              {/* <Card onClick={() => this.onListClick(list)} style={styles.card}>
+                <CardContent>
+                  <List onClick={() => this.onListClick(list)} >
+                    <ListItem button>
+                      <ListItemIcon>
+                        <StarIcon />
+                      </ListItemIcon>
+                      <ListItemText><Typography style={styles.title} color="#97b498"> {list.list_name}</Typography></ListItemText>
+                    </ListItem>
+                  </List>
+                </CardContent>
+                <Divider variant="middle" />
+                {/* <Card onClick={() => this.onListClick(list)} style={styles.card}>
                 <CardContent>
                   <Typography style={styles.title} color="textSecondary" gutterBottom>
                     {list.list_name}
@@ -213,12 +224,10 @@ class ListView extends Component {
                 </CardContent>
               </Card> */}
 
-              {/* <DeleteIcon onClick={(list) => this.onDelete(list)} color="primary"></DeleteIcon> */}
-            </>)}
-        </Card>
-
-        < p > Your ID is: {this.props.user.id} </p>
-      </div>
+                {/* <DeleteIcon onClick={(list) => this.onDelete(list)} color="primary"></DeleteIcon> */}
+              </>)}
+          </Card>
+        </div>
 
       </>
     )

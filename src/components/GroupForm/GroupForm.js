@@ -3,7 +3,7 @@ import InvertedArrow from '../Styles/InvertedArrow';
 import DrawerNav from '../DrawerNav/DrawerNav'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
-import { Button, Chip, TextField, Grid, FormLabel, Paper, FormControlLabel } from '@material-ui/core'
+import { Fab, Button, Chip, TextField, Grid, FormLabel, Paper, FormControlLabel } from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { connect } from 'react-redux';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -11,6 +11,20 @@ import { useSimpleArrowStyles } from '@mui-treasury/styles/arrow/simple';
 import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
 import Box from '@material-ui/core/Box';
 
+const styles = {
+    fabStyle: {
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        left: 'auto',
+        position: 'fixed'
+    },
+    buttonStyle: {
+        margin: 14,
+        top: 'auto',
+        left: 'auto'
+    }
+}
 class GroupForm extends Component {
 
     state = {
@@ -71,7 +85,7 @@ class GroupForm extends Component {
 
 
                 <DrawerNav />
-                <ArrowBackIosIcon onClick={this.onBack} size="small"> Back </ArrowBackIosIcon>
+                <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} size="small"> Back </ArrowBackIosIcon>
 
                 <Grid container justify="center">
                     <Grid item xs={12}>
@@ -194,8 +208,10 @@ class GroupForm extends Component {
                                     value={this.state.users} 
                                     />
                             )} /> */}
-                       
-                        <Button  style={{ fontWeight: 'bold' }} onClick={this.onSubmitAdd} size="small" variant="contained" startIcon={<SaveIcon />} color="primary" variant="contained"  >Submit</Button>
+                        <Fab color="secondary" style={styles.fabStyle} aria-label="add" onClick={this.onSubmitAdd}>
+                            <SaveIcon />
+                        </Fab>
+                        {/* <Button style={{ fontWeight: 'bold' }} onClick={this.onSubmitAdd} size="small" variant="contained" startIcon={<SaveIcon />} color="primary" variant="contained"  >Submit</Button> */}
 
                     </Grid>
                 </Grid>

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Button } from '@material-ui/core'
+import { Fab, TextField, Button, Chip, Typography, Grid } from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
 import { Link } from 'react-router-dom';
-import Chip from '@material-ui/core/Chip';
-import Grid from '@material-ui/core/Grid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -15,7 +13,23 @@ import ItemItem from './ItemItem.js';
 import ItemMap from './ItemMap.js';
 import Swal from 'sweetalert2';
 import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
 
+const styles = {
+    buttonStyle: {
+      margin: 14,
+      top: 'auto',
+      left: 'auto'
+    }, 
+    fabStyle: {
+      margin: 0,
+      top: 'auto',
+      right: 20,
+      left: 'auto',
+      position: 'fixed'
+    },
+  
+  };
 // LIST PAGE WITH ITEMS IN IT
 class Item extends Component {
 
@@ -113,13 +127,13 @@ class Item extends Component {
             <>
                 <div>
 
-                    <Button onClick={this.onBack} variant="contained" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                    <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} />
                     <Button onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
                     <Button onClick={(list) => this.onDelete(list)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
                     {this.state.edit ?
 
-                        <h1>LIST: {this.props.findListReducer.list_name}</h1> : <>
-                            <h1> EDIT LIST:
+                        <Typography variant="h2">LIST: {this.props.findListReducer.list_name}</Typography> : <>
+                            <Typography variant="h2"> EDIT LIST:
                     <Autocomplete
                                     multiple
                                     id="tags-filled"
@@ -138,7 +152,10 @@ class Item extends Component {
                                             value={this.state.listName}
                                         />
                                     )} />
-                                <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></h1></>}
+                                <Fab color="secondary" aria-label="add" onClick={() => this.saveButton(this.props.item)}>
+                                    <AddIcon />
+                                </Fab>
+                                <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></Typography></>}
                     <Autocomplete
                         multiple
                         id="tags-filled"
@@ -156,7 +173,11 @@ class Item extends Component {
                                 fullWidth
                                 onChange={this.onChangeList}
                                 value={this.state.listItem} />
-                        )} /> <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button>
+                        )} /> 
+                           <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onSubmitAdd}>
+            <AddIcon />
+          </Fab>
+                        <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button>
                     <ItemMap />
 
 

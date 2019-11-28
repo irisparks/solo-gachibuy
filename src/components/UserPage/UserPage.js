@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import cx from 'clsx';
-import GridList from '@material-ui/core/GridList';
 import List from '@material-ui/core/List';
+import { GridList, GridListTile, GridListTileBar } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import { Button, Grid, Paper, Typography } from '@material-ui/core'
@@ -20,6 +21,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 // import WebFont from 'webfontloader';
+import { styled } from '@material-ui/core/styles';
 
 // WebFont.load({
 //   google: {
@@ -59,7 +61,7 @@ const styles = {
     maxWidth: 500,
     // color: '#fff9c4',
     display: 'flex',
-    // background: '#d1c4e9',
+    background: 'primary',
   },
   paperGroup: {
     textAlign: 'center',
@@ -73,6 +75,7 @@ const styles = {
 
   },
   card: {
+    background: 'primary',
     // display: 'flex',
     maxWidth: 500,
   },
@@ -96,8 +99,28 @@ const styles = {
     height: 48,
     padding: '0 30px',
   },
+  fabStyle: {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    left: 'auto',
+    position: 'fixed'
+  }
+
 };
 
+const WordsListContainer = styled(Container)({
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-around',
+  overflow: 'hidden',
+  // backgroundColor: theme.palette.background.paper
+});
+
+const WordsGridList = styled(GridList)({
+  width: 500,
+  height: 450,
+});
 
 const theme = createMuiTheme({
   palette: {
@@ -133,13 +156,16 @@ class UserPage extends Component {
       <>
         <ThemeProvider theme={theme}>
 
-          <div className="pageView">
+
+          <div
+            className="pageView">
 
             <div style={styles.root}>
 
               <div>
                 <DrawerNav />
                 <Grid
+                  style={{ overflowY: 'scroll', height: '100' }}
                   container
                   direction="column"
                   justify="center"
@@ -151,14 +177,14 @@ class UserPage extends Component {
                     <Typography variant="h3" color="secondary">  Hello, {this.props.user.username}!</Typography>
                   </Grid>
 
-                  <Fab color="secondary" aria-label="add" onClick={this.onCreate}>
+                  <Fab color="secondary" style={styles.fabStyle} aria-label="add" onClick={this.onCreate}>
                     <AddIcon />
                   </Fab>
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Card style={styles.card}>
-                    <CardContent style={styles.content}>
+                  <Card style={styles.card} >
+                    <CardContent style={styles.content} >
                       <h1 style={styles.title} >Groups
                   </h1>
                     </CardContent>
@@ -169,13 +195,12 @@ class UserPage extends Component {
 
 
                 {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
-
-                {this.props.groupReducer.map((group, i) =>
-                  <>
-                    <Grid item xs>
-                      <NewsCard2 group={group} key={i} onGroupClick={() => this.onGroupClick(group)} />
-                    </Grid>
-                    {/* <Grid item xs={12}>
+                  {this.props.groupReducer.map((group, i) =>
+                    <>
+                      <Grid item xs>
+                        <NewsCard2 group={group} key={i} onGroupClick={() => this.onGroupClick(group)} />
+                      </Grid>
+                      {/* <Grid item xs={12}>
                     <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
                       <CardContent style={styles.content}>
                         <Typography component="h5" variant="h5">
@@ -190,10 +215,10 @@ class UserPage extends Component {
                     </Card>
                   </Grid> */}
 
-                  </>
+                    </>
 
-             
-                )}
+
+                  )}
 
 
               </div>

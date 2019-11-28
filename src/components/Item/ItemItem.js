@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Button, Chip} from '@material-ui/core'
+import { TextField, Button, Chip, Typography, List, ListItem, Divider, ListItemIcon, Checkbox } from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -15,16 +15,16 @@ import EditIcon from '@material-ui/icons/Edit';
 class ItemItem extends Component {
     state = {
         showComplete: true,
-        edit: false,
+        edit: true,
         listItems: "",
     }
- 
-    onCompleteClick = () => {
-        this.setState({
-            showComplete: !this.state.showComplete
-        })
-        console.log('clicked on a item');
-    }
+
+    // onCompleteClick = () => {
+    //     this.setState({
+    //         showComplete: !this.state.showComplete
+    //     })
+    //     console.log('clicked on a item');
+    // }
 
     onDelete = (item) => {
         this.props.dispatch({ type: "DELETE_ITEM", payload: item })
@@ -34,8 +34,7 @@ class ItemItem extends Component {
     onEdit = () => {
         console.log('edit button clicked')
         this.setState({
-            ...this.state,
-            edit: true
+            edit: !this.state.edit
         })
     }
 
@@ -45,7 +44,7 @@ class ItemItem extends Component {
             [property]: event.target.value
         })
     }
-  
+
     saveButton = (item) => {
         this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state } })
         this.setState({
@@ -59,41 +58,52 @@ class ItemItem extends Component {
         return (
             <>
 
-                {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
-                {this.state.edit && <>
-                    <Autocomplete
-                        multiple
-                        id="tags-filled"
-                        freeSolo
-                        renderTags={(value, getTagProps) =>
-                            value.map((option, index) => (
-                                <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+                    <List >
+                        <ListItem color="secondary" >
+                            <ListItemIcon>
+                                <Checkbox />
+                            </ListItemIcon>
+                            <ListItemIcon>
+                                <Chip onUpdateInput key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
+                            </ListItemIcon>
+                            <ListItemIcon>
+                                <EditIcon onClick={this.onEdit} color="secondary" />
+                            </ListItemIcon>
+                            <ListItemIcon>
+                                <DeleteIcon onClick={(item) => this.onDelete(this.props.item.id)} color="secondary" />
+                            </ListItemIcon>
+                        </ListItem>
+                    </List>
+                    <Divider variant="middle" />
+                    {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
+                    {this.state.edit ? <>
+                    </>
+                    : <>
+                        <Autocomplete
+                            multiple
+                            id="tags-filled"
+                            freeSolo
+                            renderTags={(value, getTagProps) =>
+                                value.map((option, index) => (
+                                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
 
-                            ))}
-                        renderInput={params => (
-                            <TextField  {...params}
-                                variant="outlined"
-                                label="Update"
-                                margin="normal"
-                                onChange={(event) => this.handleChangeFor("listItems", event)}
-                                value={this.state.listItem} />
-                        )} />
-                    <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></>}
+                                ))}
+                            renderInput={params => (
+                                <TextField  {...params}
+                                    variant="outlined"
+                                    label="Update"
+                                    margin="normal"
+                                    fullWidth
+                                    onChange={(event) => this.handleChangeFor("listItems", event)}
+                                    value={this.state.listItem} />
+                            )} />
+                        <Button style={{ fontWeight: 'bold' }} color="primary" variant="contained" onClick={() => this.saveButton(this.props.item)} startIcon={<SaveIcon />} >Save</Button></>}
 
-                {this.state.showComplete ? <>
 
-                    <Chip onUpdateInput key={this.props.key} variant="outlined" color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
-                    <EditIcon onClick={this.onEdit} color="primary" />
-                    <DeleteIcon onClick={(item) => this.onDelete(this.props.item.id)} color="primary" /> </>
-                    :
-                    <>
-                        <Chip key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
-                        <EditIcon onClick={this.onEdit} color="primary" />
-                        <DeleteIcon onClick={() => this.onDelete(this.props.item.id)} color="primary" /> </>}
                 {/* 
                 {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
                     value={this.state.listItem} /></>} */}
-                <pre> {JSON.stringify(this.props.reduxState, null, 2)}</pre>
+                <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
             </>
         )
