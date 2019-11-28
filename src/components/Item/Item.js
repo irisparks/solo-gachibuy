@@ -113,9 +113,9 @@ class Item extends Component {
             <>
                 <div>
 
-                    <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-                    <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
-                    <Button onClick={(list) => this.onDelete(list)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
+                    <Button onClick={this.onBack} variant="contained" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
+                    <Button onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
+                    <Button onClick={(list) => this.onDelete(list)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
                     {this.state.edit ?
 
                         <h1>LIST: {this.props.findListReducer.list_name}</h1> : <>
@@ -156,7 +156,7 @@ class Item extends Component {
                                 fullWidth
                                 onChange={this.onChangeList}
                                 value={this.state.listItem} />
-                        )} /> <Button color="primary" variant="outlined" onClick={this.onSubmitAdd}>Submit</Button>
+                        )} /> <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button>
                     <ItemMap />
 
 

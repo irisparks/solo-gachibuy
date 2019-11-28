@@ -8,6 +8,9 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 
 const styles = {
+  Typography: {
+    fontFamily: "Rubik",
+  },
   title: {
     textAlign: 'center',
     fontSize: '30px',
@@ -76,7 +79,7 @@ class LoginPage extends Component {
           <div class="overlay">
 
             <Typography component="h1" variant="h10" style={styles.title}>
-Gachi-Buy        </Typography>
+            <i class="far fa-lemon"></i>    Gachi-Buy         </Typography>
 
             <div>
               {this.props.errors.loginMessage && (

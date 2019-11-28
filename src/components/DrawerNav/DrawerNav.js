@@ -36,13 +36,16 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    background: '#7c4dff',
-    color: 'white'
+    background: 'white',
+    color: 'orange'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  // Typography: {
+  //   fontFamily: "Rubik",
+  // },
 }));
 
 function ResponsiveDrawer(props) {
@@ -110,8 +113,8 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Gachi-Buy          </Typography>
+          <Typography variant="h5" noWrap>
+          <i class="far fa-lemon"></i>    Gachi-Buy      </Typography>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

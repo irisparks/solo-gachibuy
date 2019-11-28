@@ -6,9 +6,29 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { TextField, Button, Chip } from '@material-ui/core'
+import { Card, CardActions, CardContent, List, TextField, Button, Chip, Typography, Divider, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import Swal from 'sweetalert2';
+import StarIcon from '@material-ui/icons/Star';
+import ListViewStyle from './ListViewStyle'
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
+const styles = {
+  card: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+};
 class ListView extends Component {
 
   componentDidMount() {
@@ -51,7 +71,7 @@ class ListView extends Component {
   }
 
   saveButton = (group) => {
-    this.props.dispatch({ type: "EDIT_GROUP", payload: { id: this.props.findGroupReducer.group_id, groupName: this.state.groupName, img_src: this.state.img_src} })
+    this.props.dispatch({ type: "EDIT_GROUP", payload: { id: this.props.findGroupReducer.group_id, groupName: this.state.groupName, img_src: this.state.img_src } })
     this.setState({
       ...this.state,
       edit: true
@@ -112,13 +132,15 @@ class ListView extends Component {
 
         <div>
           <DrawerNav />
-          <Button onClick={this.onBack} variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>
-          <Button onClick={this.onEdit} variant="outlined" size="small" startIcon={<EditIcon />} color="primary" >EDIT GROUP NAME</Button>
-          <Button onClick={(group) => this.onDelete(group)} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE GROUP</Button>
+          <Button  style={{ fontWeight: 'bold' }} onClick={this.onBack} variant="contained" size="small" startIcon={<ArrowBackIosIcon />} color="primary"  style={{ fontWeight: 'bold' }}>BACK</Button>
+          <Button  style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{ fontWeight: 'bold' 
+      }}
+      >edit group name</Typography></Button>
+          <Button   style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
 
           {/* conditional rendering for edit group name */}
           {this.state.edit ?
-            <h1>GROUP NAME:{this.props.findGroupReducer.name}</h1> : <> <h1>EDIT NAME: <Autocomplete
+            <Typography variant="h6"> GROUP NAME:{this.props.findGroupReducer.name}</Typography> : <>  <Typography variant="h6" >EDIT NAME: </Typography><Autocomplete
               multiple
               id="tags-filled"
               freeSolo
@@ -137,58 +159,81 @@ class ListView extends Component {
                 />
               )}
             />
-          EDIT IMAGE: <Autocomplete
-              multiple
-              id="tags-filled"
-              freeSolo
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+              <Typography variant="h6"> EDIT IMAGE: </Typography><Autocomplete
+                multiple
+                id="tags-filled"
+                freeSolo
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
 
-                ))}
-              renderInput={params => (
-                <TextField  {...params}
-                  variant="outlined"
-                  label="Update Image"
-                  margin="normal"
-                  onChange={(event) => this.handleChangeFor("img_src", event)}
-                  value={this.state.img_src}
-                />
-              )}
-            />
+                  ))}
+                renderInput={params => (
+                  <TextField  {...params}
+                    variant="outlined"
+                    label="Update Image"
+                    margin="normal"
+                    onChange={(event) => this.handleChangeFor("img_src", event)}
+                    value={this.state.img_src}
+                  />
+                )}
+              />
 
-              <Button color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></h1></>}
-          <Button onClick={this.onCreate} startIcon={<CreateIcon />} > Create New List</Button>
+              <Button style={{ fontWeight: 'bold' }} variant="contained" color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></>}
+          <Fab color="primary" aria-label="add" onClick={this.onCreate}>
+          <AddIcon />
+        </Fab>
 
-          {/* <TextField onSubmit={this.onCreate}
-            id="standard"
-            label="Add List"
-            margin="normal"
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AddCircleOutlineIcon color="primary" />
-                </InputAdornment>
-              )
-            }}
-          >
-          </TextField> */}
+        {/* map function to get all my lists */}
+        <Card style={styles.card}>
 
-          {/* map function to get all my lists */}
-          <div><h1>Lists</h1></div>
+          <div><h1> <Typography style={styles.title} Lists /></h1> </div>
+
           {this.props.listReducer.map((list, i) =>
             <>
-              <Button onClick={() => this.onListClick(list)}> {list.list_name} </Button>
+
+              <CardContent>
+                <Typography style={styles.title} color="textSecondary" gutterBottom>
+                  {list.list_name}
+                </Typography>
+                <List onClick={() => this.onListClick(list)} >
+                  <ListItem button>
+                    <ListItemIcon>
+                      <StarIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={list.list_name} />
+                  </ListItem>
+                </List>
+              </CardContent>
+              {/* <Card onClick={() => this.onListClick(list)} style={styles.card}>
+                <CardContent>
+                  <Typography style={styles.title} color="textSecondary" gutterBottom>
+                    {list.list_name}
+                  </Typography>
+                </CardContent>
+              </Card> */}
+
               {/* <DeleteIcon onClick={(list) => this.onDelete(list)} color="primary"></DeleteIcon> */}
             </>)}
-          < p > Your ID is: {this.props.user.id} </p>
-        </div>
+        </Card>
+
+        < p > Your ID is: {this.props.user.id} </p>
+      </div>
 
       </>
     )
   }
 }
+{/* <ListViewStyle list={list}/> */ }
+{/* <List  >
+  <ListItem button>
+    <ListItemIcon>
+      <StarIcon />
+    </ListItemIcon>
+    <ListItemText primary={list.list_name} />
+  </ListItem>
+</List> */}
+
 
 const mapReduxStateToProps = (reduxState) => {
   return reduxState

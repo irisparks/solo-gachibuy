@@ -16,8 +16,24 @@ import ListView from '../ListView/ListView'
 import ListForm from '../ListForm/ListForm'
 import ItemItem from '../Item/ItemItem'
 import Item from '../Item/Item'
-
 import './App.css';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000'},
+    secondary: { main: '#C8E6C9', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  // Typography: {
+  //   fontFamily: "Rubik",
+  // },
+  spacing: 4,
+});
 
 class App extends Component {
   componentDidMount () {
@@ -26,6 +42,8 @@ class App extends Component {
 
   render() {
     return (
+      <ThemeProvider theme={theme}>
+
       <Router>
         <div>
           <Switch>
@@ -67,6 +85,8 @@ class App extends Component {
           <Footer />
         </div>
       </Router>
+              </ThemeProvider>
+
   )}
 }
 

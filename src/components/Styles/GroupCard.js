@@ -3,7 +3,7 @@ import cx from 'clsx';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/styles';
-import Box from '@material-ui/core/Box';
+import { Box, Paper } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -46,7 +46,6 @@ const NewsCard2 = (props) => {
   const styles = useStyles();
   const mediaStyles = useCoverCardMediaStyles();
   const shadowStyles = useLightTopShadowStyles();
-  const classes = useInvertedArrowStyles();
   const gutterStyles = usePushingGutterStyles({
     firstExcluded: true,
     space: 2,
@@ -57,30 +56,35 @@ const NewsCard2 = (props) => {
   }
   return (
     <>
-    <Card className={cx(styles.root, shadowStyles.root)} onClick={onGroupClick}>
-      <CardMedia classes={mediaStyles} image={props.group.img_src} />
-      <CardActionArea>
-        <CardContent className={styles.content}>
-          <Box
-            display={'flex'}
-            flexDirection={'column'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            minHeight={260}
-            color={'common.white'}
-            textAlign={'center'}
-          >
-            <h1 className={styles.title}>{props.group.name}</h1>
-            <p>The space between the stars and galaxies is largely empty.</p>
-          </Box>
-          <Typography className={styles.cta} variant={'overline'}>
-            Explore
+        <Card className={cx(styles.root, shadowStyles.root)} onClick={onGroupClick}>
+          <CardMedia classes={mediaStyles} image={props.group.img_src} />
+          <CardActionArea>
+            <CardContent className={styles.content}>
+              <Box
+                display={'flex'}
+                flexDirection={'column'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                minHeight={260}
+                color={'common.white'}
+                textAlign={'center'}
+                className={gutterStyles.parent}
+              >
+                <h1 className={styles.title}>{props.group.name}</h1>
+                <p>Users in this group: {props.group.users}
+                  Shopping Date:
+            </p>
+              </Box>
+              <Typography className={styles.cta} variant={'overline'}>
+                Explore
           </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  
-    </>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <Box className={gutterStyles.parent}>
+
+        </Box>
+]    </>
   );
 };
 

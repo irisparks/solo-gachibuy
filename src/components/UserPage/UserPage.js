@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'clsx';
+import GridList from '@material-ui/core/GridList';
+import List from '@material-ui/core/List';
 
 import { connect } from 'react-redux';
 import { Button, Grid, Paper, Typography } from '@material-ui/core'
@@ -9,16 +11,26 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Box from '@material-ui/core/Box';
-import NewsCard2 from '../GroupList/Card'
+import NewsCard2 from '../Styles/GroupCard'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+// import WebFont from 'webfontloader';
+
+// WebFont.load({
+//   google: {
+//     families: ['Rubik Web:300,400,700', 'sans-serif']
+//   }
+// });
 // import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
 // import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
 
 const styles = {
+
   root: {
     flexGrow: 1,
     maxWidth: 304,
@@ -32,36 +44,36 @@ const styles = {
   cta: {
     display: 'block',
     textAlign: 'center',
-    color: '#fff',
+    color: 'primary',
     letterSpacing: '3px',
     fontWeight: 200,
     fontSize: 12,
   },
   title: {
-    color: '#fff',
+    color: 'primary',
     letterSpacing: '2px',
   },
   paper: {
     textAlign: 'center',
     margin: 'auto',
     maxWidth: 500,
-    color: '#fff9c4',
+    // color: '#fff9c4',
     display: 'flex',
-    background: '#d1c4e9',
+    // background: '#d1c4e9',
   },
   paperGroup: {
     textAlign: 'center',
     margin: 'auto',
-    color: '#fff9c4',
+    // color: '#fff9c4',
     display: 'flex',
-    background: '#9575cd',
+    // background: '#9575cd',
     marginTop: '5px',
     height: 48,
     padding: '0 30px',
 
   },
   card: {
-    display: 'flex',
+    // display: 'flex',
     maxWidth: 500,
   },
   details: {
@@ -76,8 +88,8 @@ const styles = {
   },
   button: {
     marginTop: '5px',
-    background: '#b39ddb',
-    color: "white",
+    // background: '#b39ddb',
+    // color: "white",
     border: 0,
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(72, 185, 182, .3)',
@@ -89,8 +101,13 @@ const styles = {
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#4ac29a' },
+    primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
+    secondary: { main: '#C8E6C9', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
   },
+  Typography: {
+    fontFamily: "Rubik",
+  },
+  spacing: 4,
 });
 
 class UserPage extends Component {
@@ -117,7 +134,9 @@ class UserPage extends Component {
         <ThemeProvider theme={theme}>
 
           <div className="pageView">
+
             <div style={styles.root}>
+
               <div>
                 <DrawerNav />
                 <Grid
@@ -125,63 +144,64 @@ class UserPage extends Component {
                   direction="column"
                   justify="center"
                   alignItems="center"
-                  spacing={2}
+                  spacing={3}
                 >
-                  <Grid>
-                    <Paper style={styles.paper}>
-                      <h1 id="welcome">
-                        Hello, {this.props.user.username}!</h1>
-                    </Paper>
-                    <AddCircleIcon onClick={this.onCreate} size="large"></AddCircleIcon>
-                    <Button style={styles.button} onClick={this.onCreate} startIcon={<AddCircleIcon />} > Create New Group </Button>
+                  <Grid item xs>
+
+                    <Typography variant="h3" color="secondary">  Hello, {this.props.user.username}!</Typography>
                   </Grid>
-                  {/* <TextField onSubmit={this.onCreate}
-                    id="standard"
-                    label="Add Groups"
-                    margin="normal"
-                    fullWidth
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <AddCircleOutlineIcon color="primary" />
-                        </InputAdornment>
-                      )
-                    }}
-                  >
-                  </TextField> */}
-                  <Paper style={styles.paperGroup}><h2>Groups <i class="far fa-lemon"></i>
 
-                  </h2></Paper>
-
-                  {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
-
-
-                  {this.props.groupReducer.map((group, i) =>
-                    <NewsCard2 group={group} key={i} onGroupClick={()=> this.onGroupClick(group)}/>
-
-                    // <Grid item xs={12}>
-                    //   <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
-                    //     <CardContent style={styles.content}>
-                    //       <Typography component="h5" variant="h5">
-                    //         {group.name}
-                    //       </Typography>
-                    //       <Typography variant="subtitle1" color="textSecondary">
-                    //       </Typography>
-                    //     </CardContent>
-                    //     <div class="container">
-                    //       <img src={group.img_src} alt='lemons' />
-                    //     </div>
-                    //   </Card>
-                    // </Grid>
-                  )}
-
-                  < p > Your ID is: {this.props.user.id} </p>
+                  <Fab color="secondary" aria-label="add" onClick={this.onCreate}>
+                    <AddIcon />
+                  </Fab>
                 </Grid>
-              
+
+                <Grid item xs={12}>
+                  <Card style={styles.card}>
+                    <CardContent style={styles.content}>
+                      <h1 style={styles.title} >Groups
+                  </h1>
+                    </CardContent>
+                  </Card>
+
+                </Grid>
+                {/* <Typography className={styles.cta} variant={'overline'}> */}
+
+
+                {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
+
+                {this.props.groupReducer.map((group, i) =>
+                  <>
+                    <Grid item xs>
+                      <NewsCard2 group={group} key={i} onGroupClick={() => this.onGroupClick(group)} />
+                    </Grid>
+                    {/* <Grid item xs={12}>
+                    <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
+                      <CardContent style={styles.content}>
+                        <Typography component="h5" variant="h5">
+                          {group.name}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                        </Typography>
+                      </CardContent>
+                      <div class="container">
+                        <img src={group.img_src} alt='lemons' />
+                      </div>
+                    </Card>
+                  </Grid> */}
+
+                  </>
+
+             
+                )}
+
+
               </div>
+
             </div>
           </div>
-        </ThemeProvider>
+
+        </ThemeProvider >
       </>
     )
   }

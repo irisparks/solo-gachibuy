@@ -11,13 +11,6 @@ import { useSimpleArrowStyles } from '@mui-treasury/styles/arrow/simple';
 import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
 import Box from '@material-ui/core/Box';
 
-const users = [{ name: "Iris" }, { name: "Anna" }, { name: "Gao" }, { name: "Kathleen" }]
-// const classes = useSimpleArrowStyles();
-// const gutterStyles = usePushingGutterStyles({
-//   firstExcluded: true,
-//   space: 2,
-// });
-
 class GroupForm extends Component {
 
     state = {
@@ -29,7 +22,7 @@ class GroupForm extends Component {
     }
     componentDidMount() {
         this.props.dispatch({ type: "GET_GROUP" });
-        this.props.dispatch({ type: "GET_ALL_USERS"});
+        this.props.dispatch({ type: "GET_ALL_USERS" });
     }
 
 
@@ -45,17 +38,17 @@ class GroupForm extends Component {
         })
     }
 
-    handleAutoInput = () => {
+    handleAutoInput = (event) => {
         this.setState({
-            ...this.state, 
-            usersfrominput: this.props.allUsers.id
+            ...this.state,
+            usersfrominput: event.target.value
         })
     }
 
     onSubmitAdd = () => {
         let splitUsers = this.state.users.split(" , ");
         console.log(splitUsers)
-        this.props.dispatch({ type: 'ADD_GROUP', payload: {localState: this.state, userArray: splitUsers} });
+        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: splitUsers } });
     }
 
 
@@ -78,8 +71,7 @@ class GroupForm extends Component {
 
 
                 <DrawerNav />
-                <InvertedArrow onClick={this.onBack} />
-                <ArrowBackIosIcon onClick={this.onBack} variant="outlined" size="small"> Back </ArrowBackIosIcon>
+                <ArrowBackIosIcon onClick={this.onBack} size="small"> Back </ArrowBackIosIcon>
 
                 <Grid container justify="center">
                     <Grid item xs={12}>
@@ -100,7 +92,7 @@ class GroupForm extends Component {
                                     onChange={(event) => this.handleChangeFor('name', event)}
                                     value={this.state.name} />
                             )} />
-                   
+
                         <Autocomplete
                             multiple
                             id="tags-filled"
@@ -119,7 +111,7 @@ class GroupForm extends Component {
                                     onChange={(event) => this.handleChangeFor('img_src', event)}
                                     value={this.state.img_url} />
                             )} />
-                        
+
                         <Autocomplete
                             multiple
                             id="tags-filled"
@@ -129,7 +121,7 @@ class GroupForm extends Component {
                             onChange={this.handleAutoInput}
                             renderTags={(value, getTagProps) =>
                                 value.map((option, index) => (
-                                    <Chip color="primary" label={option} {...getTagProps({ index })}
+                                    <Chip color="primary" label={option} key={index} value={this.props.allUsers.username} {...getTagProps({ index })}
                                     />
 
                                 ))}
@@ -139,10 +131,51 @@ class GroupForm extends Component {
                                     label="Users"
                                     margin="normal"
                                     fullWidth
-                                    value={this.props.allUsers.id}
+                                    value={this.props.allUsers.username}
+                                    onChange={(event) => this.handleChangeFor('usersfrominput', event)}
+
                                 />
                             )} />
+
                         <Autocomplete
+                            multiple
+                            id="tags-standard"
+                            options={this.props.allUsers.map(user => user.username)}
+                            renderInput={params => (
+                                <TextField
+                                    {...params}
+                                    variant="standard"
+                                    label="Multiple values"
+                                    placeholder="NEW"
+                                    margin="normal"
+                                    onChange={(event) => this.handleChangeFor('usersfrominput', event)}
+                                    fullWidth
+                                />
+                            )}
+                        />
+                        <Autocomplete
+                            multiple
+                            id="tags-filled"
+                            freeSolo
+                            options={this.props.allUsers.map(user => user.username)}
+
+                            renderTags={(value, getTagProps) =>
+                                value.map((option, index) => (
+                                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+
+                                ))}
+                            renderInput={params => (
+                                <TextField  {...params}
+                                    variant="outlined"
+                                    label="Users"
+                                    margin="normal"
+                                    fullWidth
+                                    onChange={(event) => this.handleChangeFor('users', event)}
+                                    value={this.state.users}
+                                />
+                            )} />
+
+                        {/* <Autocomplete
                             multiple
                             id="tags-filled"
                             freeSolo
@@ -160,8 +193,9 @@ class GroupForm extends Component {
                                     onChange={(event) => this.handleChangeFor('users', event)}
                                     value={this.state.users} 
                                     />
-                            )} />
-                        <Button onClick={this.onSubmitAdd} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
+                            )} /> */}
+                       
+                        <Button  style={{ fontWeight: 'bold' }} onClick={this.onSubmitAdd} size="small" variant="contained" startIcon={<SaveIcon />} color="primary" variant="contained"  >Submit</Button>
 
                     </Grid>
                 </Grid>

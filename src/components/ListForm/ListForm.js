@@ -96,8 +96,8 @@ class ListItem extends Component {
                                 onChange={this.onShoppingDate}
                                 value={this.state.shoppingDate} />
                         )} />
-                    <Button onClick={this.onCancel} variant="outlined" size="small" startIcon={<CancelIcon />} color="primary" >Cancel</Button>
-                    <Button onClick={this.onSubmitList} variant="outlined" size="small" startIcon={<SaveIcon />} color="primary" >Submit</Button>
+                    <Button onClick={this.onCancel} variant="contained" size="small" startIcon={<CancelIcon />} color="secondary" >Cancel</Button>
+                    <Button onClick={this.onSubmitList} variant="contained" size="small" startIcon={<SaveIcon />} color="secondary" >Submit</Button>
                     {/* conditonal rendering for save button click */}
                     {/* {this.state.listSaved == false ?
                         <>Created On:<TextField></TextField>

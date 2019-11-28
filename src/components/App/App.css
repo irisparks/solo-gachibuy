@@ -1,7 +1,15 @@
+/* @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap'); */
+
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
     background: #E1E0ED;
+
+}
+
+.button {
+  font-weight: 500;
 }
 
 .alert {
