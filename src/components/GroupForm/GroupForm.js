@@ -10,6 +10,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import { useSimpleArrowStyles } from '@mui-treasury/styles/arrow/simple';
 import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
 import Box from '@material-ui/core/Box';
+import Swal from 'sweetalert2';
 
 const styles = {
     fabStyle: {
@@ -29,7 +30,7 @@ class GroupForm extends Component {
 
     state = {
         name: '',
-        img_src: '',
+        img_src: 'https://www.colorhexa.com/ded5ef.png',
         users: '',
         usersfrominput: '',
         creator: this.props.user.id,
@@ -59,12 +60,27 @@ class GroupForm extends Component {
         })
     }
 
-    onSubmitAdd = () => {
-        let splitUsers = this.state.users.split(" , ");
-        console.log(splitUsers)
-        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: splitUsers } });
-    }
+    // onSubmitAdd = () => {
+    //     let splitUsers = this.state.users.split(" , ");
+    //     console.log(splitUsers)
+    //     this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: splitUsers } });
+    // }
 
+    onSubmitAdd = () => {
+        Swal.fire({
+          title: 'New Group Created!',
+          icon: 'success',
+          showCancelButton: false,
+        }).then((result) => {
+          if (result.value) {
+            let splitUsers = this.state.users.split(" , ");
+            console.log(splitUsers)
+            this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: splitUsers } });
+            this.onBack();
+          } 
+        })
+      }
+    
 
 
     editButton = () => {

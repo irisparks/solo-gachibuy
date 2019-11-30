@@ -103,7 +103,7 @@ class ItemItem extends Component {
                 {/* 
                 {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
                     value={this.state.listItem} /></>} */}
-                <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
 
             </>
         )

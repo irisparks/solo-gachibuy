@@ -17,19 +17,19 @@ import AddIcon from '@material-ui/icons/Add';
 
 const styles = {
     buttonStyle: {
-      margin: 14,
-      top: 'auto',
-      left: 'auto'
-    }, 
-    fabStyle: {
-      margin: 0,
-      top: 'auto',
-      right: 20,
-      left: 'auto',
-      position: 'fixed'
+        margin: 14,
+        top: 'auto',
+        left: 'auto'
     },
-  
-  };
+    fabStyle: {
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        left: 'auto',
+        position: 'fixed'
+    },
+
+};
 // LIST PAGE WITH ITEMS IN IT
 class Item extends Component {
 
@@ -126,6 +126,7 @@ class Item extends Component {
         return (
             <>
                 <div>
+                    <DrawerNav />
 
                     <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} />
                     <Button onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" >EDIT LIST NAME</Button>
@@ -146,16 +147,17 @@ class Item extends Component {
                                     renderInput={params => (
                                         <TextField  {...params}
                                             variant="outlined"
+                                            fullWidth
                                             label="Update List"
                                             margin="normal"
                                             onChange={(event) => this.handleChangeFor("listName", event)}
                                             value={this.state.listName}
                                         />
                                     )} />
-                                <Fab color="secondary" aria-label="add" onClick={() => this.saveButton(this.props.item)}>
+                                {/* <Fab color="secondary" aria-label="add" onClick={() => this.saveButton(this.props.item)}>
                                     <AddIcon />
-                                </Fab>
-                                <Button color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></Typography></>}
+                                </Fab> */}
+                                <Button variant="contained" color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></Typography></>}
                     <Autocomplete
                         multiple
                         id="tags-filled"
@@ -173,24 +175,19 @@ class Item extends Component {
                                 fullWidth
                                 onChange={this.onChangeList}
                                 value={this.state.listItem} />
-                        )} /> 
-                           <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onSubmitAdd}>
-            <AddIcon />
-          </Fab>
-                        <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button>
+                        )} />
+                    <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onSubmitAdd}>
+                        <AddIcon />
+                    </Fab>
+                    <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button>
                     <ItemMap />
 
 
-                    {/* Created On: {this.props.listReducer.date_created}
+                    Created On: {this.props.listReducer.date_created}
                     Shopping Date: {this.props.listReducer.shopping_date}
-                    <Link className="list-link" to="/list">
-                        <Button variant="outlined" size="small" startIcon={<ArrowBackIosIcon />} color="primary" >Back</Button>    </Link>
-
-                    <Button onClick={this.onCompleted} variant="outlined" size="small" startIcon={<CheckCircleOutlineIcon />} color="primary" >Completed</Button>
-                    <Button onClick={this.onDeleteGroup} variant="outlined" size="small" startIcon={<DeleteIcon />} color="primary" >Delete</Button> */}
 
                 </div>
-                <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre>
+                {/* <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre> */}
             </>
         )
     }

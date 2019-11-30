@@ -1,7 +1,61 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Box, Container, TextField, CssBaseline, FormControlLabel, Checkbox, Button, Grid } from '@material-ui/core'
+import { Typography, Box, Container, TextField, CssBaseline, FormControlLabel, Checkbox, Button, Grid, Paper, Card } from '@material-ui/core'
+import '../LoginPage/LoginPage.css';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
+const styles = {
+  title: {
+    fontSize: '30px',
+    marginTop: '30px',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  lemon: {
+    fontSize: '30px',
+    marginTop: '30px',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: "secondary"
+  },
+  link: {
+    margin: '20px',
+  },
+  button: {
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: '10px',
+    background: 'linear-gradient(261deg, rgba(146,198,198,1) 28%, rgba(184,161,214,1) 84%)',
+    border: 0,
+    borderRadius: 16,
+    boxShadow: '0 3px 5px 2px rgba(70, 87, 86, .3)',
+    height: 48,
+    padding: '0 30px',
+    marginBottom: '10px'
+  },
+  paper: {
+    textAlign: 'center',
+    marin: 'auto',
+    maxWidth: 500,
+  },
+  card: {
+    madWidth: 500,
+    borderRadius: 20,
+    boxShadow: '0 3px 5px 2px rgba(70, 87, 86, .3)',
+
+  }
+};
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
+    secondary: { main: '#b2dfdb', light: '#e5ffff', dark: '#82ada9', contrastText: '#000' },
+  },
+  Typography: {
+    fontFamily: "Rubik",
+  },
+});
 class RegisterPage extends Component {
   state = {
     username: '',
@@ -32,135 +86,110 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
-        {this.props.errors.registrationMessage && (
-          <h2
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className="paper" >
+      <>
+        <ThemeProvider theme={theme}>
 
-            <Typography component="h1" variant="h5">
-            Register User        </Typography>
-            <form onSubmit={this.registerUser}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                type="text"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Password"
-                id="password"
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                className="register"
-              type="submit"
-              name="submit"
-              value="Register"
-              >
-             Register
-          </Button>
-       
-              <Grid container>
-                <Grid item>
-                  <center>
-                    <button
-                      type="button"
-                      className="link-button"
-                      onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
-                    >
-                      Login
-          </button>
+          <div className="background">
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justify="center"
+              style={{ minHeight: '100vh' }}
+            >
+              <Grid item xs={10}>
 
-                  </center>
+                <Card style={styles.card}>
+                  <div style={styles.lemon}><i class="far fa-lemon" color="primary"></i></div>
+                  <Typography style={styles.title} component="h1">
+                    Gachi-Buy   </Typography>
 
-                </Grid>
+                  <div>
+
+                    {this.props.errors.registrationMessage && (
+                      <h2
+                        className="alert"
+                        role="alert"
+                      >
+                        {this.props.errors.registrationMessage}
+                      </h2>
+                    )}
+                    <Container component="main" maxWidth="xs">
+                      <CssBaseline />
+                      <div  >
+                        {/* 
+                        <Typography component="h10" variant="h9" >
+                          Register User        </Typography> */}
+                        <form onSubmit={this.registerUser}>
+                          <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                            type="text"
+                            value={this.state.username}
+                            onChange={this.handleInputChangeFor('username')}
+                          />
+                          <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Password"
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChangeFor('password')}
+                          />
+                          <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                          />
+                          <Button
+                            fullWidth
+                            variant="contained"
+                            style={styles.button}
+                            type="submit"
+                            name="submit"
+                            value="Register"
+                          >
+                            Register
+                          </Button>
+                          <center>
+                            <Button
+                              fullWidth
+                              onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
+                            >
+                              Login
+                                </Button>
+                          </center>
+                        </form>
+                      </div>
+                      <Box mt={8}>
+                      </Box>
+                    </Container>
+                  </div>
+                </Card>
               </Grid>
-            </form>
+            </Grid>
           </div>
-          <Box mt={8}>
-          </Box>
-        </Container>
-        {/* below is old code
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
-            />
-          </div>
-        </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
-          >
-            Login
-          </button>
-        </center> */}
-      </div>
+        </ThemeProvider>
+      </>
+
     );
   }
 }
 
 // Instead of taking everything from state, we just want the error messages.
 // if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
+// const mapStateToProps = ({errors}) => ({errors});
 const mapStateToProps = state => ({
   errors: state.errors,
 });

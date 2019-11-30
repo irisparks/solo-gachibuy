@@ -6,7 +6,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Card, CardActions, CardContent, List, TextField, Button, Chip, Typography, Divider, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
+import { Card, Grid, CardContent, List, TextField, Button, Chip, Typography, Divider, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import Swal from 'sweetalert2';
 import StarIcon from '@material-ui/icons/Star';
 import ListViewStyle from './ListViewStyle'
@@ -32,7 +32,7 @@ const styles = {
     margin: 14,
     top: 'auto',
     left: 'auto'
-  }, 
+  },
   fabStyle: {
     margin: 0,
     top: 'auto',
@@ -132,13 +132,6 @@ class ListView extends Component {
     })
   }
 
-  // onDelete = (list) => {
-  //   console.log('clicked delete list!');
-  //   this.props.dispatch({ type: 'DELETE_LIST', payload: this.props.findListReducer.id })
-  // }
-  // NEED TO FIGURE OUT HOW TO GET DELETE TO KNOW WHAT LIST IM CLICKING ON?
-
-
   render() {
     return (
       <>
@@ -146,34 +139,17 @@ class ListView extends Component {
         <div>
           <DrawerNav />
           <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} />
-          <Button style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{
-            fontWeight: 'bold'
-          }}
-          >edit group name</Typography></Button>
-          <Button style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
+
 
           {/* conditional rendering for edit group name */}
           {this.state.edit ?
-            <Typography variant="h6"> GROUP NAME:{this.props.findGroupReducer.name}</Typography> : <>  <Typography variant="h6" >EDIT NAME: </Typography><Autocomplete
-              multiple
-              id="tags-filled"
-              freeSolo
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+            <Grid item xs={12}>
+              <Card style={styles.card}>
+                <CardContent style={styles.content}>
 
-                ))}
-              renderInput={params => (
-                <TextField  {...params}
-                  variant="outlined"
-                  label="Update Group"
-                  margin="normal"
-                  onChange={(event) => this.handleChangeFor("groupName", event)}
-                  value={this.state.groupName}
-                />
-              )}
-            />
-              <Typography variant="h6"> EDIT IMAGE: </Typography><Autocomplete
+
+                  <Typography variant="h3"> GROUP NAME:{this.props.findGroupReducer.name}</Typography> </CardContent>
+              </Card> </Grid> : <>  <Typography variant="h6" >EDIT NAME: </Typography><Autocomplete
                 multiple
                 id="tags-filled"
                 freeSolo
@@ -185,6 +161,27 @@ class ListView extends Component {
                 renderInput={params => (
                   <TextField  {...params}
                     variant="outlined"
+                    fullWidth
+                    label="Update Group"
+                    margin="normal"
+                    onChange={(event) => this.handleChangeFor("groupName", event)}
+                    value={this.state.groupName}
+                  />
+                )}
+              />
+              <Typography variant="h6"> EDIT IMAGE: </Typography><Autocomplete
+                multiple
+                id="tags-filled"
+                freeSolo
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+
+                  ))}
+                renderInput={params => (
+                  <TextField  {...params}
+                    fullWidth
+                    variant="outlined"
                     label="Update Image"
                     margin="normal"
                     onChange={(event) => this.handleChangeFor("img_src", event)}
@@ -194,6 +191,12 @@ class ListView extends Component {
               />
 
               <Button style={{ fontWeight: 'bold' }} variant="contained" color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></>}
+
+          <Button style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{
+            fontWeight: 'bold'
+          }}
+          >edit group</Typography></Button>
+          <Button style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
           <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onCreate}>
             <AddIcon />
           </Fab>
@@ -201,7 +204,7 @@ class ListView extends Component {
           {/* map function to get all my lists */}
           <Card style={styles.card}>
 
-            <Typography variant="h2">LISTS: </Typography>
+            <Typography variant="h2" color="seconday">LISTS: </Typography>
             {this.props.listReducer.map((list, i) =>
               <>
 

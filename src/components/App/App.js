@@ -24,14 +24,14 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000'},
-    secondary: { main: '#C8E6C9', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
+    secondary: { main: '#b2dfdb', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
   },
   shape: {
     borderRadius: 8,
   },
-  // Typography: {
-  //   fontFamily: "Rubik",
-  // },
+  Typography: {
+    fontFamily: "Rubik",
+  },
   spacing: 4,
 });
 

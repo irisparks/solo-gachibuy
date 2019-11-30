@@ -6,13 +6,24 @@
 }
 
 h1 {
-    text-align: center;
+    font-size: 72px;
+    background:linear-gradient(261deg, rgba(146,198,198,1) 28%, rgba(184,161,214,1) 84%);
+    ;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  h10 {
+    font-size: 30px;
+    text-align: 'center';
+    background: linear-gradient(90deg, rgba(72,185,182,1) 28%, rgba(237,231,246,1) 84%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;  }
 
-}
 .login {
   overflow: hidden;
   text-align: center;
-  background-image: url('../images/background_2.png');
+  /* background-image: url('../images/background_2.png'); */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -25,24 +36,27 @@ h1 {
 }
 
 .background {
-    background-image: url(../images/background_1.png);
+    /* background-image:  url(../images/background_1.png); */
+    background:linear-gradient(300deg, rgba(146,198,198,1) 28%, rgba(184,161,214,1) 84%);
+    /* opacity: 0.8; */
     height: 100%;
-    position: absolute;
+    position:absolute;
     width: 100%;
     z-index: 0;
     margin: auto;
     overflow: auto;
-    background-position: center;
+    background-position: 0 -400px;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100%;
     }
-    
-    
-    /* .overlay{
+    /* background: -webkit-gradient(linear, top, rgba(0,0,0,0.5), rgba(200,20,200,0.5)), url('../images/plus.png'); */
+  
+/*     
+    .overlay{
         position:absolute;
         top:0;
         left:0;
         width:100%;
         height:100%;
-        background:rgba(0, 0, 0, 0.5);
+        background:linear-gradient(360deg, rgba(72,185,182,1) 28%, rgba(237,231,246,1) 84%);
       } */
