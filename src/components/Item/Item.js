@@ -60,6 +60,8 @@ class Item extends Component {
                 setId: this.props.findListReducer.id
             }
         });
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
+
     }
     onBack = () => {
         this.props.history.push('/list')
@@ -134,8 +136,8 @@ class Item extends Component {
                     <Button onClick={(list) => this.onDelete(list)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
                     {this.state.edit ?
 
-                        <Typography variant="h2">LIST: {this.props.findListReducer.list_name}</Typography> : <>
-                            <Typography variant="h2"> Edit list name:
+                        <Typography variant="h3">Lists: {this.props.findListReducer.list_name}</Typography> : <>
+                            <Typography variant="h3"> Edit list name:
                     <Autocomplete
                                     multiple
                                     id="tags-filled"
@@ -158,7 +160,7 @@ class Item extends Component {
                                 {/* <Fab color="secondary" aria-label="add" onClick={() => this.saveButton(this.props.item)}>
                                     <AddIcon />
                                 </Fab> */}
-                                <Typography variant="h6"> Edit Shopping Date: </Typography>
+                                {/* <Typography variant="h6"> Edit Shopping Date: </Typography>
                                 <Autocomplete
                                     multiple
                                     id="tags-filled"
@@ -177,7 +179,7 @@ class Item extends Component {
                                             value={this.state.shopping_date}
                                         />
                                     )}
-                                />
+                                /> */}
                                 <Button variant="contained" color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></Typography></>}
                     <Autocomplete
                         multiple
@@ -203,9 +205,9 @@ class Item extends Component {
                     {/* <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button> */}
                     <ItemMap />
 
-
+{/* 
                     Created On: {this.props.listReducer.date_created}
-                    Shopping Date: {this.props.listReducer.shopping_date}
+                    Shopping Date: {this.props.listReducer.shopping_date} */}
 
                 </div>
                 {/* <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre> */}

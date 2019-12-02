@@ -54,8 +54,8 @@ const styles = {
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
-    secondary: { main: '#b2dfdb', light: '#e5ffff', dark: '#82ada9', contrastText: '#000' },
+    primary: { main: '#ede7f6'},
+    secondary: { main: '#48b9b6'},
   },
   Typography: {
     fontFamily: "Rubik",

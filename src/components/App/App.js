@@ -14,7 +14,6 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import ListView from '../ListView/ListView'
 import ListForm from '../ListForm/ListForm'
-import ItemItem from '../Item/ItemItem'
 import Item from '../Item/Item'
 import './App.css';
 import { ThemeProvider } from '@material-ui/styles';
@@ -23,8 +22,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000'},
-    secondary: { main: '#b2dfdb', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
+    primary: { main: '#ede7f6'},
+    secondary: { main: '#48b9b6'},
   },
   shape: {
     borderRadius: 8,

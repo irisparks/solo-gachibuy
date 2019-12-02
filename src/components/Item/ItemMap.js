@@ -11,7 +11,7 @@ class ItemMap extends Component {
         return (
             <>
 
-                <Typography variant="h2">ITEMS: </Typography>
+                <Typography variant="h3">Shopping Items: </Typography>
                 <>
                     <div>
                         {/* MAP FUNCTION FOR EACH ITEM  */}

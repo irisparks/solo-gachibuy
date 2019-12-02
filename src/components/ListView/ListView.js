@@ -144,6 +144,11 @@ class ListView extends Component {
                 <CardContent style={styles.content}>
                   <Typography style={styles.title}>{this.props.findGroupReducer.name}</Typography> </CardContent>
               </Card> </Grid> : <>
+              <Grid item xs={12}>
+              <Card style={styles.card}>
+                <CardContent style={styles.content}>
+                  <Typography style={styles.title}>{this.props.findGroupReducer.name}</Typography> </CardContent>
+              </Card> </Grid>
               <Typography variant="h6" >Edit Group Name: </Typography>
               <Autocomplete
                 multiple

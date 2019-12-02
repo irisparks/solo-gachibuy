@@ -72,12 +72,16 @@ const styles = {
     marginTop: '5px',
     height: 48,
     padding: '0 30px',
-
   },
   card: {
     background: 'primary',
     // display: 'flex',
     maxWidth: 500,
+  },
+  title: {
+    fontSize: 30,
+    textAlign: 'center',
+    textWeight: 'bold'
   },
   details: {
     display: 'flex',
@@ -174,18 +178,17 @@ class UserPage extends Component {
                   </Typography>
                     </CardContent>
                   </Card>
-
                 </Grid>
                 {/* <Typography className={styles.cta} variant={'overline'}> */}
 
 
                 {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
-                  {this.props.groupReducer.map((group, i) =>
-                    <>
-                      <Grid item xs>
-                        <NewsCard2 group={group} key={i} onGroupClick={() => this.onGroupClick(group)} />
-                      </Grid>
-                      {/* <Grid item xs={12}>
+                {this.props.groupReducer.map((group, i) =>
+                  <>
+                    <Grid item xs>
+                      <NewsCard2 group={group} key={i} onGroupClick={() => this.onGroupClick(group)} />
+                    </Grid>
+                    {/* <Grid item xs={12}>
                     <Card style={styles.card} key={i} onClick={() => this.onGroupClick(group)}>
                       <CardContent style={styles.content}>
                         <Typography component="h5" variant="h5">
@@ -200,10 +203,10 @@ class UserPage extends Component {
                     </Card>
                   </Grid> */}
 
-                    </>
+                  </>
 
 
-                  )}
+                )}
 
 
               </div>
