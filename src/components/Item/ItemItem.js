@@ -17,7 +17,7 @@ class ItemItem extends Component {
         showComplete: true,
         edit: true,
         listItems: "",
-    }
+        }
 
     // onCompleteClick = () => {
     //     this.setState({
@@ -26,9 +26,14 @@ class ItemItem extends Component {
     //     console.log('clicked on a item');
     // }
 
+    // componentDidMount() {
+    //     this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer });
+    // }
+
     onDelete = (item) => {
         this.props.dispatch({ type: "DELETE_ITEM", payload: item })
         console.log('delete list item')
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     }
 
     onEdit = () => {
@@ -46,12 +51,12 @@ class ItemItem extends Component {
     }
 
     saveButton = (item) => {
-        this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state } })
+        this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state, list_name: this.props.findListReducer.list_name } })
         this.setState({
             ...this.state,
-            edit: false
+            edit: true
         })
-
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     };
 
     render() {
@@ -97,13 +102,15 @@ class ItemItem extends Component {
                                     onChange={(event) => this.handleChangeFor("listItems", event)}
                                     value={this.state.listItem} />
                             )} />
+
+                            
                         <Button style={{ fontWeight: 'bold' }} color="primary" variant="contained" onClick={() => this.saveButton(this.props.item)} startIcon={<SaveIcon />} >Save</Button></>}
 
 
-                {/* 
+{/*                 
                 {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
                     value={this.state.listItem} /></>} */}
-                {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
+                <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
             </>
         )

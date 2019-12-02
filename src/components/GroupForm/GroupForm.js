@@ -83,8 +83,8 @@ class GroupForm extends Component {
         })
     }
     onSubmitAdd = () => {
-        // let splitUsers = this.state.users.split(" , ");
-        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: this.state.userIds } });
+        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: this.state.userIds} })
+        this.props.history.push('/home')
     }
 
     createGroup = () => {
@@ -137,7 +137,7 @@ class GroupForm extends Component {
                             )} />
 
 
-            
+
                         <h3>Users in Group:</h3>
                         <ul>
                             {this.state.groupUsers.map((member) => {
@@ -151,21 +151,21 @@ class GroupForm extends Component {
                         <div>
                             <UserSearch options={this.state.searchResults} handleClick={this.addGroupUsers} />
                         </div>
-                      
+
                         <Fab color="secondary" style={styles.fabStyle} aria-label="add" onClick={this.onSubmitAdd}>
                             <SaveIcon />
                         </Fab>
                     </Grid>
                 </Grid>
 
-                        <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                <pre> {JSON.stringify(this.state, null, 2)}</pre>
             </>
-                    )
-                }
-            };
-            
-            const map = reduxState => reduxState;
-            
-            export default connect(map)(GroupForm);
-            
-            
+        )
+    }
+};
+
+const map = reduxState => reduxState;
+
+export default connect(map)(GroupForm);
+
+

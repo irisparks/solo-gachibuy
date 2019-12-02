@@ -59,7 +59,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         const newGroup = await client.query(queryText, [localState.name, localState.img_src, localState.creator])
         const newGroupId = newGroup.rows[0].id
 
-        await client.query('INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2);', [newGroupId, req.user.id])
+        // await client.query('INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2);', [newGroupId, req.user.id])
 
         await Promise.all(userArray.map(user => {
             const newUser = 'INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2)';

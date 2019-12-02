@@ -37,12 +37,14 @@ class Item extends Component {
         showComplete: true,
         listName: '',
         listItems: "",
-        edit: true
+        edit: true,
+        shopping_date: "",
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer });
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     }
+
     onChangeList = (event) => {
         console.log(...this.state.listItems)
         this.setState({
@@ -76,9 +78,8 @@ class Item extends Component {
             ...this.state,
             edit: true
         })
-
+        this.props.history.push('/list')
     };
-
 
     handleChangeFor = (property, event) => {
         this.setState({
@@ -134,7 +135,7 @@ class Item extends Component {
                     {this.state.edit ?
 
                         <Typography variant="h2">LIST: {this.props.findListReducer.list_name}</Typography> : <>
-                            <Typography variant="h2"> EDIT LIST:
+                            <Typography variant="h2"> Edit list name:
                     <Autocomplete
                                     multiple
                                     id="tags-filled"
@@ -157,6 +158,26 @@ class Item extends Component {
                                 {/* <Fab color="secondary" aria-label="add" onClick={() => this.saveButton(this.props.item)}>
                                     <AddIcon />
                                 </Fab> */}
+                                <Typography variant="h6"> Edit Shopping Date: </Typography>
+                                <Autocomplete
+                                    multiple
+                                    id="tags-filled"
+                                    freeSolo
+                                    renderTags={(value, getTagProps) =>
+                                        value.map((option, index) => (
+                                            <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+                                        ))}
+                                    renderInput={params => (
+                                        <TextField  {...params}
+                                            fullWidth
+                                            variant="outlined"
+                                            label="Update Image"
+                                            margin="normal"
+                                            onChange={(event) => this.handleChangeFor("shopping_date", event)}
+                                            value={this.state.shopping_date}
+                                        />
+                                    )}
+                                />
                                 <Button variant="contained" color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></Typography></>}
                     <Autocomplete
                         multiple
@@ -179,7 +200,7 @@ class Item extends Component {
                     <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onSubmitAdd}>
                         <AddIcon />
                     </Fab>
-                    <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button>
+                    {/* <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button> */}
                     <ItemMap />
 
 

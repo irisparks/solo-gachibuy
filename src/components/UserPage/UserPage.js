@@ -143,8 +143,6 @@ class UserPage extends Component {
 
       <>
         <ThemeProvider theme={theme}>
-
-
           <div
             className="pageView">
 

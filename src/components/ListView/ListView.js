@@ -52,10 +52,10 @@ class ListView extends Component {
 
   }
   state = {
-    groupName: '',
-    img_src: '',
+    groupName: this.props.findGroupReducer.name,
+    img_src: this.props.findGroupReducer.img_src,
     edit: true,
-    shopping_date: '',
+    addUsers: "",
   }
   onBack = () => {
     this.props.history.push('/home')
@@ -84,6 +84,8 @@ class ListView extends Component {
       ...this.state,
       edit: true
     })
+    this.props.history.push(`/home`)
+
   };
 
   handleChangeFor = (property, event) => {
@@ -182,55 +184,38 @@ class ListView extends Component {
                   />
                 )}
               />
-
-              <Typography variant="h6"> Edit Shopping Date: </Typography>
-              <Autocomplete
-                multiple
-                id="tags-filled"
-                freeSolo
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => (
-                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
-                  ))}
-                renderInput={params => (
-                  <TextField  {...params}
-                    fullWidth
-                    variant="outlined"
-                    label="Update Image"
-                    margin="normal"
-                    onChange={(event) => this.handleChangeFor("shopping_date", event)}
-                    value={this.state.shopping_date}
-                  />
-                )}
-              />
               <Button style={{ fontWeight: 'bold' }} variant="contained" color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></>}
 
           <Button style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{ fontWeight: 'bold' }}
           >edit group</Typography></Button>
-          <Button style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
+            {/* conditional rendering only creator of group can delete group */}
+          {this.props.findGroupReducer.creator === this.props.user.id && 
+            < Button style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
+        }
           <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onCreate}>
-            <AddIcon />
-          </Fab>
-          {/* map function to get all my lists */}
-          <Card style={styles.card}>
-            <Typography variant="h6" color="seconday">Lists: </Typography>
-            {this.props.listReducer.map((list, i) =>
-              <>
-                <CardContent>
-                  <List onClick={() => this.onListClick(list)} >
-                    <ListItem button>
-                      <ListItemIcon>
-                        <StarIcon />
-                      </ListItemIcon>
-                      <ListItemText><Typography style={styles.list}> {list.list_name}</Typography></ListItemText>
-                    </ListItem>
-                  </List>
-                </CardContent>
-                <Divider variant="middle" />
-                             </>)}
-          </Card>
+          <AddIcon />
+        </Fab>
+        {/* map function to get all my lists */}
+        <Card style={styles.card}>
+          <Typography variant="h6" color="seconday">Lists: </Typography>
+          {this.props.listReducer.map((list, i) =>
+            <>
+              <CardContent>
+                <List onClick={() => this.onListClick(list)} >
+                  <ListItem button>
+                    <ListItemIcon>
+                      <StarIcon />
+                    </ListItemIcon>
+                    <ListItemText><Typography style={styles.list}> {list.list_name}</Typography></ListItemText>
+                  </ListItem>
+                </List>
+              </CardContent>
+              <Divider variant="middle" />
+            </>)}
+        </Card>
 
-        </div>
+      </div>
+      <pre> {JSON.stringify(this.state, null, 2)}</pre>
 
       </>
     )
