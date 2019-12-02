@@ -109,18 +109,6 @@ const styles = {
 
 };
 
-const WordsListContainer = styled(Container)({
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'space-around',
-  overflow: 'hidden',
-  // backgroundColor: theme.palette.background.paper
-});
-
-const WordsGridList = styled(GridList)({
-  width: 500,
-  height: 450,
-});
 
 const theme = createMuiTheme({
   palette: {
@@ -128,7 +116,7 @@ const theme = createMuiTheme({
     secondary: { main: '#b2dfdb', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
   },
   Typography: {
-    fontFamily: "Rubik",
+    fontFamily: "Single Day",
   },
   spacing: 4,
 });
@@ -173,7 +161,6 @@ class UserPage extends Component {
                   spacing={3}
                 >
                   <Grid item xs>
-
                     <Typography variant="h3" color="secondary">  Hello, {this.props.user.username}!</Typography>
                   </Grid>
 
@@ -185,8 +172,8 @@ class UserPage extends Component {
                 <Grid item xs={12}>
                   <Card style={styles.card} >
                     <CardContent style={styles.content} >
-                      <h1 style={styles.title} >Groups
-                  </h1>
+                      <Typography style={styles.title} >Groups
+                  </Typography>
                     </CardContent>
                   </Card>
 

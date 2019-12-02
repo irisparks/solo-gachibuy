@@ -9,7 +9,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const styles = {
   title: {
     fontSize: '30px',
-    marginTop: '30px',
+    marginTop: '20px',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  body: {
     fontWeight: 'bold',
     textAlign: 'center'
   },
@@ -37,7 +41,7 @@ const styles = {
   },
   paper: {
     textAlign: 'center',
-    marin: 'auto',
+    margin: 'auto',
     maxWidth: 500,
   },
   card: {
@@ -102,10 +106,13 @@ class LoginPage extends Component {
                 <Grid item xs={10}>
 
                   <Card style={styles.card}>
-                    <div style={styles.lemon}><i class="far fa-lemon" color="primary"></i></div>
-                    <Typography style={styles.title} component="h1">
-                      Gachi-Buy   </Typography>
-
+                  <Typography style={styles.title} className="loginHeader">
+                  가치  </Typography>
+                    <Typography style={styles.title} className="loginHeader">
+                     Gachi-Buy   </Typography>
+                    <Typography variant="body1" style={styles.body} className="loginHeader2">
+                      Shop TOGETHER </Typography>
+                      
                     <div>
                       {this.props.errors.loginMessage && (
                         <h2
@@ -129,10 +136,12 @@ class LoginPage extends Component {
                               name="username"
                               autoFocus
                               type="text"
+                              color="secondary"
                               value={this.state.username}
                               onChange={this.handleInputChangeFor('username')}
                             />
                             <TextField
+                              color="secondary"
                               variant="outlined"
                               fullWidth
                               margin="normal"
@@ -146,8 +155,10 @@ class LoginPage extends Component {
                               onChange={this.handleInputChangeFor('password')}
                             />
                             <FormControlLabel
+                              color="secondary"
                               control={<Checkbox value="remember" color="secondary" />}
                               label="Remember me"
+                              className="rememberMe"
                             />
                             <Button
                               fullWidth
@@ -160,6 +171,8 @@ class LoginPage extends Component {
                               LOGIN
                             </Button>
                             <Button
+                              className="loginHeader2"
+                              style={{ fontWeight: 'bold' }}
                               fullWidth
                               onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}
                             >

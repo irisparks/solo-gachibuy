@@ -8,7 +8,6 @@ import itemReducer from './itemReducer';
 import findGroupReducer from './findGroupReducer';
 import findListReducer from './findListReducer';
 import findItemReducer from './findItemReducer';
-import allUsers from './allUsers';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -27,7 +26,6 @@ const rootReducer = combineReducers(
   findGroupReducer,
   findListReducer,
   findItemReducer, 
-  allUsers 
 }
 );
 

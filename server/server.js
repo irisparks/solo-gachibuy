@@ -14,7 +14,7 @@ const groupRouter = require('./routes/group.router');
 const listRouter = require('./routes/list.router');
 const itemRouter = require('./routes/item.router');
 
-const allUsersRouter = require('./routes/allUsers.router');
+const searchUsersRouter = require('./routes/search.users.router');
 
 
 // Body parser middleware
@@ -34,8 +34,7 @@ app.use('/api/group', groupRouter);
 app.use('/api/list', listRouter);
 app.use('/api/item', itemRouter);
 
-app.use('/api/allUsers', allUsersRouter);
-
+app.use('/api/search_users', searchUsersRouter);
 
 
 

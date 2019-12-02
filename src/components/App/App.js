@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import {connect} from 'react-redux';
 import Footer from '../Footer/Footer';
-import GroupForm from '../GroupForm/GroupForm'
+import GroupForm from '../GroupForm/GroupForm';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -30,7 +30,7 @@ const theme = createMuiTheme({
     borderRadius: 8,
   },
   Typography: {
-    fontFamily: "Rubik",
+    fontFamily: "Single Day', cursive",
   },
   spacing: 4,
 });
@@ -73,6 +73,7 @@ class App extends Component {
               component={InfoPage}
             />
              <ProtectedRoute exact path="/Groupform" component={GroupForm} />
+
              <ProtectedRoute exact path="/list" component={ListView} />
              <ProtectedRoute exact path="/Listform" component={ListForm} />
              <ProtectedRoute exact path="/item" component={Item} />
