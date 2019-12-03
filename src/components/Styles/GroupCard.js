@@ -56,35 +56,35 @@ const NewsCard2 = (props) => {
   }
   return (
     <>
-        <Card className={cx(styles.root, shadowStyles.root)} onClick={onGroupClick}>
-          <CardMedia classes={mediaStyles} image={props.group.img_src} />
-          <CardActionArea>
-            <CardContent className={styles.content}>
-              <Box
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'center'}
-                justifyContent={'center'}
-                minHeight={260}
-                color={'common.white'}
-                textAlign={'center'}
-                className={gutterStyles.parent}
-              >
-                <h1 className={styles.title}>{props.group.name}</h1>
-                <p>Users in this group: {props.group.users}
-                  Shopping Date:
-            </p>
-              </Box>
-              <Typography className={styles.cta} variant={'overline'}>
-                Explore
+      <Card className={cx(styles.root, shadowStyles.root)} onClick={onGroupClick}>
+        <CardMedia classes={mediaStyles} image={props.group.img_src} />
+        <CardActionArea>
+          <CardContent className={styles.content}>
+            <Box
+              display={'flex'}
+              flexDirection={'column'}
+              alignItems={'center'}
+              justifyContent={'center'}
+              minHeight={260}
+              color={'common.white'}
+              textAlign={'center'}
+              className={gutterStyles.parent}
+            >
+              <h1 className={styles.title}>{props.group.name}</h1>
+              {/* <p>Users in this group: {props.group.users}
+                Shopping Date:
+            </p> */}
+            </Box>
+            <Typography className={styles.cta} variant={'overline'}>
+              Explore
           </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Box className={gutterStyles.parent}>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <Box className={gutterStyles.parent}>
 
-        </Box>
-]    </>
+      </Box>
+      ]    </>
   );
 };
 

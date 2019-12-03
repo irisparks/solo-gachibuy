@@ -8,7 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in each lists item', req.params.id)
-    const queryText = `SELECT "item".id, "item"."item_name" FROM "item"
+    const queryText = `SELECT "item".id, "item"."item_name","item_completed" FROM "item"
     JOIN "list_item" ON "list_item".item_id = "item".id
     JOIN "list" ON "list".id = "list_item".list_id
     WHERE "list"."id" = $1
@@ -49,7 +49,38 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         })
 });
 
+// router.post('/', rejectUnauthenticated, async (req, res) => {
+//     const client = await pool.connect();
+//     try {
+//         const {
+//             listItem,
+//             setId,
+//         } = req.body;
 
+//         await client.query('BEGIN');
+
+//         const queryText = `INSERT INTO "item"("item_name") VALUES ($1) RETURNING id;`;
+//         const newItem = await client.query(queryText, [req.body.listItem])
+//         const newItemId = newItem.rows[0].id // id of new item
+
+//         await Promise.all(listItem.map(item => {
+//             const newItem = 'INSERT INTO "list_item"("list_id","item_id") VALUES ($1, $2);';
+//             const newItemValues = [setId, newItemId]
+
+//             return client.query(newItem, newItemValues)
+//         }));
+
+//         await client.query('COMMIT')
+//         res.sendStatus(201)
+
+//     } catch (error) {
+//         await client.query('ROLLBACK')
+//         console.log('error in post item, error:', error)
+//         res.sendStatus(500)
+//     } finally {
+//         client.release();
+//     }
+// });
 /**
  * Delete an item if it's something the logged in user added
  * queryText to delete item id from join tabke "item_name"
@@ -92,6 +123,22 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500)
         })
 });
+/**
+ * Update an item if completed
+ */
+
+router.put('/complete/:id', rejectUnauthenticated, (req, res) => {
+    console.log('updating boolean')
+    const queryText = 'UPDATE "item" SET "item_completed" =  NOT "item_completed" WHERE "id" = $1;';
+    pool.query(queryText, [req.params.id])
+        .then(() => {
+            res.sendStatus(200)
+        }).catch(error => {
+            console.log('error in put complete item', error)
+            res.sendStatus(500)
+        })
+});
+
 
 module.exports = router;
 

@@ -34,11 +34,11 @@ const useStyles = makeStyles(theme => ({
   },
   hide: {
     display: 'none',
+    
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    color: "secondary"
   },
   drawerPaper: {
     width: drawerWidth,
@@ -49,6 +49,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
+    color: "secondary"
   },
   content: {
     flexGrow: 1,
@@ -127,30 +128,26 @@ export default function PersistentDrawerLeft() {
         <div>
       <div className={classes.toolbar} />
       <List>
-        <ListItem>
+        {/* <ListItem>
           <Typography>
             Welcome
           </Typography>
-        </ListItem>
+        </ListItem> */}
         <ListItem button>
           <Link to="/home" >
             <Button startIcon={<HomeIcon />} >Home </Button>
           </Link>
         </ListItem>
+    
         <ListItem button>
-          <Link to="/list" variant="body2">
-            <ListItemText primary="My Lists" />
+          <Link to="/about" variant="body2">
+            <ListItemText primary="About" />
           </Link>
+          
         </ListItem>
         <ListItem button>
           <Link to="/info" variant="body2">
             <ListItemText primary="Info Page" />
-          </Link>
-        </ListItem>
-
-        <ListItem button>
-          <Link to="/about" variant="body2">
-            <ListItemText primary="About" />
           </Link>
         </ListItem>
 

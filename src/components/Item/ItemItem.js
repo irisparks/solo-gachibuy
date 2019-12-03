@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, Button, Chip, Typography, List, ListItem, Divider, ListItemIcon, Checkbox } from '@material-ui/core'
-import DrawerNav from '../DrawerNav/DrawerNav'
-import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
 
 class ItemItem extends Component {
@@ -17,18 +11,29 @@ class ItemItem extends Component {
         showComplete: true,
         edit: true,
         listItems: "",
-        }
+        checked:false, 
+        indeterminate: false,
+        check: false,
+        strike: 'none'
+    }
 
-    // onCompleteClick = () => {
-    //     this.setState({
-    //         showComplete: !this.state.showComplete
-    //     })
-    //     console.log('clicked on a item');
-    // }
+    onCompleteClick = (item) => {
+        // this.setState({check: !this.state.check})
+        // if (this.state.strike === 'none'){
+        //   this.setState({strike: 'line-through'})
+        // } else {
+        //   this.setState({strike: 'none'})
+        // }
+        // this.setState({
+        //     showComplete: event.target.checked,
+        // })
+        this.props.dispatch({ type: "COMPLETE_ITEM", payload: item })
+        console.log('clicked on a item');
+    }
 
-    // componentDidMount() {
-    //     this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer });
-    // }
+    componentDidMount() {
+        this.props.dispatch({ type: "GET_ITEM" });
+    }
 
     onDelete = (item) => {
         this.props.dispatch({ type: "DELETE_ITEM", payload: item })
@@ -49,7 +54,6 @@ class ItemItem extends Component {
             [property]: event.target.value
         })
     }
-
     saveButton = (item) => {
         this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state, list_name: this.props.findListReducer.list_name } })
         this.setState({
@@ -60,29 +64,33 @@ class ItemItem extends Component {
     };
 
     render() {
+        const strike = {
+            textDecoration: this.state.strike,
+          }
         return (
             <>
+                <List >
+                    <ListItem color="secondary" >
+                        <ListItemIcon>
+                                <Checkbox checked={this.props.item.item_completed} onChange={() => this.onCompleteClick(this.props.item)} /> 
+                            </ListItemIcon>
+                            <span style= {strike}> {this.props.item.item_name} </span>
 
-                    <List >
-                        <ListItem color="secondary" >
-                            <ListItemIcon>
-                                <Checkbox />
-                            </ListItemIcon>
-                            <ListItemIcon>
-                                <Chip onUpdateInput key={this.props.key} color="primary" onClick={this.onCompleteClick} label={this.props.item.item_name} />
-                            </ListItemIcon>
-                            <ListItemIcon>
-                                <EditIcon onClick={this.onEdit} color="secondary" />
-                            </ListItemIcon>
-                            <ListItemIcon>
-                                <DeleteIcon onClick={(item) => this.onDelete(this.props.item.id)} color="secondary" />
-                            </ListItemIcon>
-                        </ListItem>
-                    </List>
-                    <Divider variant="middle" />
-                    {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
-                    {this.state.edit ? <>
-                    </>
+                        <ListItemIcon>
+                            <Chip onUpdateInput key={this.props.key} color="primary" label={this.props.item.item_name} />
+                        </ListItemIcon>
+                        <ListItemIcon>
+                            <EditIcon onClick={this.onEdit} color="secondary" />
+                        </ListItemIcon>
+                        <ListItemIcon>
+                            <DeleteIcon onClick={(item) => this.onDelete(this.props.item.id)} color="secondary" />
+                        </ListItemIcon>
+                    </ListItem>
+                </List>
+                <Divider variant="middle" />
+                {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
+                {this.state.edit ? <>
+                </>
                     : <>
                         <Autocomplete
                             multiple
@@ -103,14 +111,15 @@ class ItemItem extends Component {
                                     value={this.state.listItem} />
                             )} />
 
-                            
+
                         <Button style={{ fontWeight: 'bold' }} color="primary" variant="contained" onClick={() => this.saveButton(this.props.item)} startIcon={<SaveIcon />} >Save</Button></>}
 
 
-{/*                 
+                {/*                 
                 {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
                     value={this.state.listItem} /></>} */}
                 <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                <pre> {JSON.stringify(this.props.item, null, 2)}</pre>
 
             </>
         )

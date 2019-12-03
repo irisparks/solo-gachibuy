@@ -87,10 +87,6 @@ class GroupForm extends Component {
         this.props.history.push('/home')
     }
 
-    createGroup = () => {
-        this.props.dispatch({ type: 'ADD_GROUP', payload: { name: this.state.name, memberIds: this.state.userIds, admin_id: this.props.reduxState.user.id } })
-    }
-
     render() {
 
         return (
@@ -158,7 +154,7 @@ class GroupForm extends Component {
                     </Grid>
                 </Grid>
 
-                <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
             </>
         )
     }

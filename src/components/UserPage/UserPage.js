@@ -116,8 +116,8 @@ const styles = {
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
-    secondary: { main: '#b2dfdb', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000' },
+    primary: { main: '#b8a1d6'},
+    secondary: { main: '#48b9b6'},
   },
   Typography: {
     fontFamily: "Single Day",

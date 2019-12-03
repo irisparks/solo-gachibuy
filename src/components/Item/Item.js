@@ -53,6 +53,7 @@ class Item extends Component {
         })
     }
     onSubmitAdd = () => {
+        // let splitUsers = this.state.users.split(" , ");
         console.log('submit button to add new item clicked');
         this.props.dispatch({
             type: 'ADD_ITEM', payload: {
@@ -61,8 +62,9 @@ class Item extends Component {
             }
         });
         this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
-
     }
+
+  
     onBack = () => {
         this.props.history.push('/list')
     }
@@ -136,7 +138,7 @@ class Item extends Component {
                     <Button onClick={(list) => this.onDelete(list)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" >DELETE LIST</Button>
                     {this.state.edit ?
 
-                        <Typography variant="h3">Lists: {this.props.findListReducer.list_name}</Typography> : <>
+                        <Typography variant="h3">List: {this.props.findListReducer.list_name}</Typography> : <>
                             <Typography variant="h3"> Edit list name:
                     <Autocomplete
                                     multiple
@@ -210,7 +212,7 @@ class Item extends Component {
                     Shopping Date: {this.props.listReducer.shopping_date} */}
 
                 </div>
-                {/* <pre> {JSON.stringify(this.props.itemReducer, null, 2)}</pre> */}
+                <pre> {JSON.stringify(this.props.state, null, 2)}</pre>
             </>
         )
     }

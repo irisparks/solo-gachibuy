@@ -26,7 +26,7 @@ const styles = {
     fontSize: 20,
     textAlign: 'center',
     textWeight: 'bold',
-    color: "#82ada9"
+    color: "#48b9b6"
   },
   buttonStyle: {
     margin: 14,
@@ -220,7 +220,7 @@ class ListView extends Component {
         </Card>
 
       </div>
-      <pre> {JSON.stringify(this.state, null, 2)}</pre>
+      {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
 
       </>
     )

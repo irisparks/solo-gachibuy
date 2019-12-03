@@ -35,7 +35,9 @@ class ListItem extends Component {
             listSaved: !false
         })
         console.log('onSave')
+        this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer.group_id });
         this.props.history.push('/list')
+
     }
 
     onListNameChange = (event) => {

@@ -22,7 +22,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#ede7f6'},
+    primary: { main: '#b8a1d6'},
     secondary: { main: '#48b9b6'},
   },
   shape: {

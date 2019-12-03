@@ -12,7 +12,10 @@ const AboutPage = () => (
     <DrawerNav />
 
       <p>
-        This about page is for anyone to read!
+      가치 Gachi-Buy is a mobile first - web application! Gachi is the korean word for "together" and this shopping list app, allows users to create a shopping list with
+      multiple users to shop together.
+
+      This project users: React.js, Redux, Sagas, Node.js/Express.js and Material-UI and CSS for styling. 
       </p>
     </div>
   </div>
