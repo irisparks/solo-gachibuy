@@ -145,11 +145,11 @@ export default function PersistentDrawerLeft() {
           </Link>
           
         </ListItem>
-        <ListItem button>
+        {/* <ListItem button>
           <Link to="/info" variant="body2">
             <ListItemText primary="Info Page" />
           </Link>
-        </ListItem>
+        </ListItem> */}
 
         <List />
       </List>
