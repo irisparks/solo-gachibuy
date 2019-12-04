@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Chip } from '@material-ui/core'
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
 // searches through all users
 export class UserSearch extends Component {

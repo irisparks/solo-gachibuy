@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
-import { Button, Chip, TextField, Grid, FormLabel, Paper, FormControlLabel } from '@material-ui/core'
+import { Button, Chip, TextField } from '@material-ui/core'
 
 
 class ListItem extends Component {

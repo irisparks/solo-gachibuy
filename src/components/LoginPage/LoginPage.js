@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './LoginPage.css';
-import { Typography, Box, Container, TextField, CssBaseline, FormControlLabel, Checkbox, Button, Grid, Paper, Card } from '@material-ui/core'
+import { Typography, Box, Container, TextField, CssBaseline, FormControlLabel, Checkbox, Button, Grid, Card } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
@@ -94,7 +94,7 @@ class LoginPage extends Component {
         <ThemeProvider theme={theme}>
 
           <div className="background">
-            <div class="overlay">
+            <div className="overlay">
               <Grid
                 container
                 spacing={0}

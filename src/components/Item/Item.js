@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Fab, TextField, Button, Chip, Typography, Grid } from '@material-ui/core'
+import { Fab, TextField, Button, Chip, Typography } from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
-import { Link } from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ItemItem from './ItemItem.js';
 import ItemMap from './ItemMap.js';
 import Swal from 'sweetalert2';
 import EditIcon from '@material-ui/icons/Edit';
@@ -83,6 +78,8 @@ class Item extends Component {
             edit: true
         })
         this.props.history.push('/list')
+        this.props.dispatch({ type: "GET_LIST", payload: this.props.findListReducer.id});
+
     };
 
     handleChangeFor = (property, event) => {

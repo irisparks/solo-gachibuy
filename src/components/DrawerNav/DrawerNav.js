@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   hide: {
     display: 'none',
-    
+
   },
   drawer: {
     width: drawerWidth,
@@ -105,7 +105,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.Typography} variant="h6" noWrap>
-          <i class="far fa-lemon"></i> 가치 Gachi-Buy
+          <i className="far fa-lemon"></i> 가치 Gachi-Buy
           </Typography>
         </Toolbar>
       </AppBar>

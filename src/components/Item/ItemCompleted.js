@@ -23,38 +23,8 @@ class ItemCompleted extends Component {
         console.log('clicked on a item');
     }
 
-    componentDidMount() {
-        this.props.dispatch({ type: "GET_ITEM" });
-    }
 
-    onDelete = (item) => {
-        this.props.dispatch({ type: "DELETE_ITEM", payload: item })
-        console.log('delete list item')
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
-    }
 
-    onEdit = () => {
-        console.log('edit button clicked')
-        this.setState({
-            edit: !this.state.edit
-        })
-    }
-
-    handleChangeFor = (property, event) => {
-        this.setState({
-            ...this.state,
-            [property]: event.target.value
-        })
-    }
-
-    saveButton = (item) => {
-        this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state, list_name: this.props.findListReducer.list_name } })
-        this.setState({
-            ...this.state,
-            edit: true
-        })
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
-    };
 
     render() {
         return (

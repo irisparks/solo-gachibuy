@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DrawerNav from '../DrawerNav/DrawerNav'
-import CreateIcon from '@material-ui/icons/Create';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Card, Grid, CardContent, List, TextField, Button, Chip, Typography, Divider, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
+import { Fab, Card, Grid, CardContent, List, TextField, Button, Chip, Typography, Divider, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import Swal from 'sweetalert2';
 import StarIcon from '@material-ui/icons/Star';
-import ListViewStyle from './ListViewStyle'
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = {
@@ -67,6 +64,7 @@ class ListView extends Component {
 
   onListClick = (list) => {
     this.props.dispatch({ type: "FIND_LIST", payload: list })
+    this.onGet();
     this.props.history.push(`/item`)
   }
 
@@ -145,10 +143,10 @@ class ListView extends Component {
                   <Typography style={styles.title}>{this.props.findGroupReducer.name}</Typography> </CardContent>
               </Card> </Grid> : <>
               <Grid item xs={12}>
-              <Card style={styles.card}>
-                <CardContent style={styles.content}>
-                  <Typography style={styles.title}>{this.props.findGroupReducer.name}</Typography> </CardContent>
-              </Card> </Grid>
+                <Card style={styles.card}>
+                  <CardContent style={styles.content}>
+                    <Typography style={styles.title}>{this.props.findGroupReducer.name}</Typography> </CardContent>
+                </Card> </Grid>
               <Typography variant="h6" >Edit Group Name: </Typography>
               <Autocomplete
                 multiple
@@ -193,34 +191,34 @@ class ListView extends Component {
 
           <Button style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{ fontWeight: 'bold' }}
           >edit group</Typography></Button>
-            {/* conditional rendering only creator of group can delete group */}
-          {this.props.findGroupReducer.creator === this.props.user.id && 
+          {/* conditional rendering only creator of group can delete group */}
+          {this.props.findGroupReducer.creator === this.props.user.id &&
             < Button style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>
-        }
+          }
           <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onCreate}>
-          <AddIcon />
-        </Fab>
-        {/* map function to get all my lists */}
-        <Card style={styles.card}>
-          <Typography variant="h6" color="seconday">Lists: </Typography>
-          {this.props.listReducer.map((list, i) =>
-            <>
-              <CardContent>
-                <List onClick={() => this.onListClick(list)} >
-                  <ListItem button>
-                    <ListItemIcon>
-                      <StarIcon />
-                    </ListItemIcon>
-                    <ListItemText><Typography style={styles.list}> {list.list_name}</Typography></ListItemText>
-                  </ListItem>
-                </List>
-              </CardContent>
-              <Divider variant="middle" />
-            </>)}
-        </Card>
+            <AddIcon />
+          </Fab>
+          {/* map function to get all my lists */}
+          <Card style={styles.card}>
+            <Typography variant="h6" color="seconday">Lists: </Typography>
+            {this.props.listReducer.map((list, i) =>
+              <div key={i}>
+                <CardContent>
+                  <List onClick={() => this.onListClick(list)} >
+                    <ListItem button>
+                      <ListItemIcon>
+                        <StarIcon />
+                      </ListItemIcon>
+                      <ListItemText><Typography style={styles.list}> {list.list_name}</Typography></ListItemText>
+                    </ListItem>
+                  </List>
+                </CardContent>
+                <Divider variant="middle" />
+                </div>)}
+          </Card>
 
-      </div>
-      {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
+        </div>
+        {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
 
       </>
     )

@@ -1,4 +1,4 @@
-import { combineReducers,applyMiddleware } from 'redux';
+import { combineReducers } from 'redux';
 import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';

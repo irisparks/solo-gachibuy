@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  * GET list
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('in each lists item', req.params.id)
+    console.log('in each list:', req.params.id, 'to get items')
     const queryText = `SELECT "item".id, "item"."item_name","item_completed" FROM "item"
     JOIN "list_item" ON "list_item".item_id = "item".id
     JOIN "list" ON "list".id = "list_item".list_id
@@ -86,6 +86,33 @@ router.post('/', rejectUnauthenticated, (req, res) => {
  * queryText to delete item id from join tabke "item_name"
  * queryText2 to delete item id from item table
  */
+// router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+//     const client = await pool.connect();
+//     try {
+//         await client.query('BEGIN');
+
+//         const queryText = `DELETE FROM "list_item" WHERE "item_id" = $1;`;
+//         const newGroup = await client.query(queryText, [req.params.id])
+
+//         await Promise.all(userArray.map(user => {
+//             const newUser = 'INSERT INTO "groups_users"("group_id", "users") VALUES ($1, $2)';
+//             const newUserValues = [newGroupId, user]
+
+//             return client.query(newUser, newUserValues)
+//         }));
+
+//         await client.query('COMMIT')
+//         res.sendStatus(201)
+
+//     } catch (error) {
+//         await client.query('ROLLBACK')
+//         console.log('error in post group, error:', error)
+//         res.sendStatus(500)
+//     } finally {
+//         client.release();
+//     }
+// });
+
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in delete item server', req.params.id)
     const queryText = 'DELETE FROM "list_item" WHERE "item_id" = $1;';
@@ -100,7 +127,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
                     console.log('error in delete item from "list_item error:', error)
                     res.sendStatus(500)
                 })
-            res.sendStatus(200)
         })
         .catch(error => {
             console.log('error in delete item from "item" error:', error)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, Button, Chip, Typography, List, ListItem, Divider, ListItemIcon, Checkbox } from '@material-ui/core'
+import { TextField, Button, Chip, List, ListItem, Divider, ListItemIcon, Checkbox } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -32,7 +32,7 @@ class ItemItem extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: "GET_ITEM" });
+        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id  });
     }
 
     onDelete = (item) => {
@@ -74,7 +74,7 @@ class ItemItem extends Component {
                         <ListItemIcon>
                                 <Checkbox checked={this.props.item.item_completed} onChange={() => this.onCompleteClick(this.props.item)} /> 
                             </ListItemIcon>
-                            <span style= {strike}> {this.props.item.item_name} </span>
+                            {/* <span style= {strike}> {this.props.item.item_name} </span> */}
 
                         <ListItemIcon>
                             <Chip onUpdateInput key={this.props.key} color="primary" label={this.props.item.item_name} />
@@ -118,8 +118,8 @@ class ItemItem extends Component {
                 {/*                 
                 {this.state.edit && <><input onChange={(event) => this.handleChangeFor("listItem", event)}
                     value={this.state.listItem} /></>} */}
-                <pre> {JSON.stringify(this.state, null, 2)}</pre>
-                <pre> {JSON.stringify(this.props.item, null, 2)}</pre>
+                {/* <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                <pre> {JSON.stringify(this.props.item, null, 2)}</pre> */}
 
             </>
         )

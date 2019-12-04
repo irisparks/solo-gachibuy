@@ -1,35 +1,11 @@
 import React, { Component } from 'react';
-import cx from 'clsx';
-import List from '@material-ui/core/List';
-import { GridList, GridListTile, GridListTileBar } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-
 import { connect } from 'react-redux';
-import { Button, Grid, Paper, Typography } from '@material-ui/core'
+import { Grid, Paper, Typography, Card, CardContent, Fab} from '@material-ui/core'
 import DrawerNav from '../DrawerNav/DrawerNav'
-import CreateIcon from '@material-ui/icons/Create';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import Box from '@material-ui/core/Box';
 import NewsCard2 from '../Styles/GroupCard'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-// import WebFont from 'webfontloader';
-import { styled } from '@material-ui/core/styles';
-
-// WebFont.load({
-//   google: {
-//     families: ['Rubik Web:300,400,700', 'sans-serif']
-//   }
-// });
-// import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
-// import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
 
 const styles = {
 
@@ -42,6 +18,7 @@ const styles = {
   },
   content: {
     padding: 24,
+    flex: '1 0 auto',
   },
   cta: {
     display: 'block',
@@ -50,10 +27,6 @@ const styles = {
     letterSpacing: '3px',
     fontWeight: 200,
     fontSize: 12,
-  },
-  title: {
-    color: 'primary',
-    letterSpacing: '2px',
   },
   paper: {
     textAlign: 'center',
@@ -81,14 +54,13 @@ const styles = {
   title: {
     fontSize: 30,
     textAlign: 'center',
-    textWeight: 'bold'
+    textWeight: 'bold',
+    color: 'primary',
+    letterSpacing: '2px'
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
   },
   cover: {
     width: 151,
@@ -116,8 +88,8 @@ const styles = {
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#b8a1d6'},
-    secondary: { main: '#48b9b6'},
+    primary: { main: '#b8a1d6' },
+    secondary: { main: '#48b9b6' },
   },
   Typography: {
     fontFamily: "Single Day",
@@ -165,10 +137,11 @@ class UserPage extends Component {
                   <Grid item xs>
                     <Typography variant="h3" color="secondary">  Hello, {this.props.user.username}!</Typography>
                   </Grid>
-
-                  <Fab color="secondary" style={styles.fabStyle} aria-label="add" onClick={this.onCreate}>
-                    <AddIcon />
-                  </Fab>
+                  <center>
+                    <Fab color="secondary" style={styles.fabStyle} aria-label="add" onClick={this.onCreate}>
+                      <AddIcon />
+                    </Fab>
+                  </center>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -184,8 +157,8 @@ class UserPage extends Component {
 
                 {/* MAP FUNCTION TO GO THROUGH ALL MY GROUP LISTS */}
                 {this.props.groupReducer.map((group, i) =>
-                  <>
-                    <Grid item xs>
+                  <div key={i}>
+                    <Grid item>
                       <NewsCard2 group={group} key={i} onGroupClick={() => this.onGroupClick(group)} />
                     </Grid>
                     {/* <Grid item xs={12}>
@@ -202,10 +175,7 @@ class UserPage extends Component {
                       </div>
                     </Card>
                   </Grid> */}
-
-                  </>
-
-
+                  </div>
                 )}
 
 
