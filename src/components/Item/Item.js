@@ -41,7 +41,7 @@ class Item extends Component {
     }
 
     onChangeList = (event) => {
-        console.log(...this.state.listItems)
+        // console.log(...this.state.listItems)
         this.setState({
             listItems: event.target.value
 
@@ -56,7 +56,7 @@ class Item extends Component {
                 setId: this.props.findListReducer.id
             }
         });
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
+        // this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     }
 
   

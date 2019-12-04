@@ -31,14 +31,14 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, [req.body.listItem])
         .then(result => {
             const newItemId = result.rows[0].id // id of new item
-            console.log('posted item name into item table result:', result)
+            // console.log('posted item name into item table result:', result)
             pool.query(queryText2, [req.body.setId, newItemId])// req.body for setid
                 .then(result => {
-                    console.log('posted into join list_item successful! result:', result)
+                    // console.log('posted into join list_item successful! result:', result)
                     res.sendStatus(200)
                 })
                 .catch(error => {
-                    console.log('error in post item list_item error:', error)
+                    // console.log('error in post item list_item error:', error)
                     res.sendStatus(500)
                 })
         }) 

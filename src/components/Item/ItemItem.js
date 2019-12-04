@@ -31,9 +31,9 @@ class ItemItem extends Component {
         console.log('clicked on a item');
     }
 
-    componentDidMount() {
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id  });
-    }
+    // componentDidMount() {
+    //     this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id  });
+    // }
 
     onDelete = (item) => {
         this.props.dispatch({ type: "DELETE_ITEM", payload: item })
