@@ -44,7 +44,6 @@ class Item extends Component {
         // console.log(...this.state.listItems)
         this.setState({
             listItems: event.target.value
-
         })
     }
     onSubmitAdd = () => {
@@ -59,10 +58,10 @@ class Item extends Component {
                 setId: this.props.findListReducer.id
             }
         });
-    
+
     }
 
-  
+
     onBack = () => {
         this.props.history.push('/list')
     }
@@ -81,7 +80,7 @@ class Item extends Component {
             edit: true
         })
         this.props.history.push('/list')
-        this.props.dispatch({ type: "GET_LIST", payload: this.props.findListReducer.id});
+        this.props.dispatch({ type: "GET_LIST", payload: this.props.findListReducer.id });
 
     };
 
@@ -140,25 +139,14 @@ class Item extends Component {
 
                         <Typography variant="h3">List: {this.props.findListReducer.list_name}</Typography> : <>
                             <Typography variant="h3"> Edit list name:
-                    <Autocomplete
-                                    multiple
-                                    id="tags-filled"
-                                    freeSolo
-                                    renderTags={(value, getTagProps) =>
-                                        value.map((option, index) => (
-                                            <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
-
-                                        ))}
-                                    renderInput={params => (
-                                        <TextField  {...params}
-                                            variant="outlined"
-                                            fullWidth
-                                            label="Update List"
-                                            margin="normal"
-                                            onChange={(event) => this.handleChangeFor("listName", event)}
-                                            value={this.state.listName}
-                                        />
-                                    )} />
+                            <TextField
+                                    variant="outlined"
+                                    label="Update List"
+                                    margin="normal"
+                                    fullWidth
+                                    onChange={(event) => this.handleChangeFor("listName", event)}
+                                    value={this.state.listName}
+                                />
                                 {/* <Fab color="secondary" aria-label="add" onClick={() => this.saveButton(this.props.item)}>
                                     <AddIcon />
                                 </Fab> */}
@@ -183,36 +171,27 @@ class Item extends Component {
                                     )}
                                 /> */}
                                 <Button variant="contained" color="primary" onClick={() => this.saveButton(this.props.item)}>Save</Button></Typography></>}
-                    <Autocomplete
-                        multiple
-                        id="tags-filled"
-                        freeSolo
-                        renderTags={(value, getTagProps) =>
-                            value.map((option, index) => (
-                                <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
+                    <TextField
+                        variant="outlined"
+                        label="List Items"
+                        margin="normal"
+                        fullWidth
+                        onChange={this.onChangeList}
+                        value={this.state.listItems}
+                    />
 
-                            ))}
-                        renderInput={params => (
-                            <TextField  {...params}
-                                variant="outlined"
-                                label="List Items"
-                                margin="normal"
-                                fullWidth
-                                onChange={this.onChangeList}
-                                value={this.state.listItem} />
-                        )} />
                     <Fab color="primary" aria-label="add" style={styles.fabStyle} onClick={this.onSubmitAdd}>
                         <AddIcon />
                     </Fab>
                     {/* <Button color="primary" variant="contained" onClick={this.onSubmitAdd}>Submit</Button> */}
                     <ItemMap />
 
-{/* 
+                    {/* 
                     Created On: {this.props.listReducer.date_created}
                     Shopping Date: {this.props.listReducer.shopping_date} */}
 
                 </div>
-                <pre> {JSON.stringify(this.props.state, null, 2)}</pre>
+                <pre> {JSON.stringify(this.state, null, 2)}</pre>
             </>
         )
     }
