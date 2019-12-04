@@ -92,25 +92,13 @@ class ItemItem extends Component {
                 {this.state.edit ? <>
                 </>
                     : <>
-                        <Autocomplete
-                            multiple
-                            id="tags-filled"
-                            freeSolo
-                            renderTags={(value, getTagProps) =>
-                                value.map((option, index) => (
-                                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
-
-                                ))}
-                            renderInput={params => (
-                                <TextField  {...params}
-                                    variant="outlined"
-                                    label="Update"
-                                    margin="normal"
-                                    fullWidth
-                                    onChange={(event) => this.handleChangeFor("listItems", event)}
-                                    value={this.state.listItem} />
-                            )} />
-
+                      <TextField
+                        variant="outlined"
+                        label="Update Item"
+                        margin="normal"
+                        fullWidth
+                        onChange={(event) => this.handleChangeFor("listItems", event)}
+                        value={this.state.listItem} />
 
                         <Button style={{ fontWeight: 'bold' }} color="primary" variant="contained" onClick={() => this.saveButton(this.props.item)} startIcon={<SaveIcon />} >Save</Button></>}
 
