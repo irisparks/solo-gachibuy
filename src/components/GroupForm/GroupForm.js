@@ -28,7 +28,7 @@ class GroupForm extends Component {
 
     state = {
         name: '',
-        img_src: 'https://www.colorhexa.com/ded5ef.png',
+        img_src: 'https://images.unsplash.com/photo-1432457990754-c8b5f21448de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
         searchResults: [],
         searchResultsWithId: [],
         groupUsers: [this.props.user.username],

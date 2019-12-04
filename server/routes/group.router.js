@@ -129,7 +129,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
                     console.log('error in delete group from "list_item error:', error)
                     res.sendStatus(500)
                 })
-            res.sendStatus(200)
         })
         .catch(error => {
             console.log('error in delete group from "item" erorr:', error)

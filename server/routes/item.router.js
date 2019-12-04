@@ -41,7 +41,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
                     console.log('error in post item list_item error:', error)
                     res.sendStatus(500)
                 })
-            res.sendStatus(200)
         }) 
         .catch(err => {
             console.log('error in item post', err)
