@@ -8,9 +8,8 @@ This mobile-first web application is a shopping list application that would allo
 Deployed Project can be found at: https://gachi-buy.herokuapp.com
 
 ## Technologies 
-Technologies used: 
--React.js, React-Redux, React-Sagas, Node.js/Express.js, postgreSQL, and CSS and MaterialUI for styling. 
--Includes Authentication with Passport.js
+Technologies used: React.js, React-Redux, React-Sagas, Node.js/Express.js, postgreSQL, and CSS and MaterialUI for styling. 
+Includes Authentication with Passport.js
 
 ![gachi-buy interface](images/gachi-buy_interface.png)
 
