@@ -50,12 +50,16 @@ class Item extends Component {
     onSubmitAdd = () => {
         // let splitUsers = this.state.users.split(" , ");
         console.log('submit button to add new item clicked');
+        this.setState({
+            listItems: ''
+        })
         this.props.dispatch({
             type: 'ADD_ITEM', payload: {
                 listItem: this.state.listItems,
                 setId: this.props.findListReducer.id
             }
         });
+    
     }
 
   

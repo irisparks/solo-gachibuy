@@ -83,7 +83,7 @@ class GroupForm extends Component {
         })
     }
     onSubmitAdd = () => {
-        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: this.state.userIds} })
+        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: this.state.userIds } })
         this.props.history.push('/home')
     }
 
@@ -95,44 +95,26 @@ class GroupForm extends Component {
                 <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} size="small"> Back </ArrowBackIosIcon>
                 <Grid container justify="center">
                     <Grid item xs={12}>
-                        <Autocomplete
-                            multiple
-                            id="tags-filled"
-                            freeSolo
-                            renderTags={(value, getTagProps) =>
-                                value.map((option, index) => (
-                                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
-                                ))}
-                            renderInput={params => (
-                                <TextField  {...params}
-                                    variant="outlined"
-                                    label="Group Name"
-                                    margin="normal"
-                                    fullWidth
-                                    onChange={(event) => this.handleChangeFor('name', event)}
-                                    value={this.state.name} />
-                            )} />
+
+                        <TextField
+                            variant="outlined"
+                            label="Group Name"
+                            margin="normal"
+                            fullWidth
+                            onChange={(event) => this.handleChangeFor('name', event)}
+                            value={this.state.name}
+                        />
+                  
                         {/* add image url */}
-                        <Autocomplete
-                            multiple
-                            id="tags-filled"
-                            freeSolo
-                            renderTags={(value, getTagProps) =>
-                                value.map((option, index) => (
-                                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
 
-                                ))}
-                            renderInput={params => (
-                                <TextField  {...params}
-                                    variant="outlined"
-                                    label="Image URL"
-                                    margin="normal"
-                                    fullWidth
-                                    onChange={(event) => this.handleChangeFor('img_src', event)}
-                                    value={this.state.img_url} />
-                            )} />
-
-
+                          <TextField
+                            variant="outlined"
+                            label="Image URL"
+                            margin="normal"
+                            fullWidth
+                            onChange={(event) => this.handleChangeFor('img_src', event)}
+                            value={this.state.img_url} 
+                        />
 
                         <h3>Users in Group:</h3>
                         <ul>
