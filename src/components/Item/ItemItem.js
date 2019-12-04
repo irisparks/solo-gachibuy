@@ -36,9 +36,9 @@ class ItemItem extends Component {
     // }
 
     onDelete = (item) => {
-        this.props.dispatch({ type: "DELETE_ITEM", payload: item })
+        this.props.dispatch({ type: "DELETE_ITEM", payload: {item: item, setId: this.props.findListReducer.id}})
         console.log('delete list item')
-        this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
+        // this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     }
 
     onEdit = () => {

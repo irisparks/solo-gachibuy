@@ -56,7 +56,6 @@ class Item extends Component {
                 setId: this.props.findListReducer.id
             }
         });
-        // this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     }
 
   
