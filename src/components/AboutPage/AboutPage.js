@@ -1,25 +1,55 @@
 import React from 'react';
 import DrawerNav from '../DrawerNav/DrawerNav'
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is, so it doesn't need 'connect()'
+const styles = {
+  gridstyle: {
+      margin: 20,
+      position: 'center'
+  },
+}
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#b8a1d6'},
+    secondary: { main: '#48b9b6'},
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  Typography: {
+    fontFamily: "Single Day', cursive",
+  },
+  spacing: 4,
+});
 
 const AboutPage = () => (
   <div>
     <div>
+    <ThemeProvider theme={theme}>
+
     <DrawerNav />
-<h1>Gachi-Buy</h1>
-      <p >
-        <Typography>
+    <Grid container justify="center">
+
+<Typography color="secondary" variant="h3">Gachi-Buy</Typography>
+        <Grid item xs={12} style={styles.gridstyle}>
+        <Typography variant="body1">
       가치 Gachi-Buy is a mobile first - web application! Gachi is the korean word for "together" and this shopping list app, allows users to create a shopping list with
       multiple users to shop together.
 
       This project users: React.js, Redux, Sagas, Node.js/Express.js and Material-UI and CSS for styling. 
       </Typography>
-      </p>
+      </Grid>
+      </Grid>
+      </ThemeProvider>
+
     </div>
   </div>
 );
