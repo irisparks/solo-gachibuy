@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import UserSearch from './UserSearch';
+import './GroupForm.css';
 
 const styles = {
     fabStyle: {

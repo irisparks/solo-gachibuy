@@ -1,0 +1,13 @@
+.defaultimage {
+    /* background-image:  url(../images/background_1.png); */
+    background:linear-gradient(300deg, rgba(146,198,198,1) 28%, rgba(184,161,214,1) 84%);
+    /* opacity: 0.8; */
+    position:absolute;
+    width: 100%;
+    z-index: 0;
+    margin: auto;
+    overflow: auto;
+    background-position: 0 -400px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    }
