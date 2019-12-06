@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DrawerNav from '../DrawerNav/DrawerNav'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
-import { Fab, Chip, TextField, Grid, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio, Button } from '@material-ui/core'
+import { Fab, Chip, TextField, Grid, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio, Button, Typography } from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -12,9 +12,9 @@ import './GroupForm.css';
 
 const styles = {
     fabStyle: {
-        margin: 0,
+        margin: -40,
         top: 'auto',
-        right: 20,
+        right: 40,
         left: 'auto',
         position: 'fixed'
     },
@@ -83,7 +83,7 @@ class GroupForm extends Component {
         })
     }
     onSubmitAdd = () => {
-        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: this.state.userIds } })
+        this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: this.state.userIds, userNames: this.state.groupUsers} })
         this.props.history.push('/home')
     }
 
@@ -99,9 +99,15 @@ class GroupForm extends Component {
             <>
                 <DrawerNav />
                 <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} size="small"> Back </ArrowBackIosIcon>
-                <Grid container justify="center">
-                    <Grid item xs={12}>
+                <Grid container
+                    style={{ overflowY: 'scroll' }}
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                >
+                    <Typography variant="h4">Create a New Group!</Typography>
 
+                    <Grid item xs={12}>
                         <TextField
                             variant="outlined"
                             label="Group Name"
@@ -133,7 +139,7 @@ class GroupForm extends Component {
                             <Button onClick={this.onImageClick} color="secondary" variant="contained">Upload own Image</Button>
 
                         </FormControl>
-                            {/* conditional rendering to allow users to upload own image */}
+                        {/* conditional rendering to allow users to upload own image */}
                         {this.state.ownImage &&
 
                             <TextField
