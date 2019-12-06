@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DrawerNav from '../DrawerNav/DrawerNav'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import SaveIcon from '@material-ui/icons/Save';
-import { Fab, Chip, TextField, Grid } from '@material-ui/core'
+import { Fab, Chip, TextField, Grid, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio, Button } from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -18,10 +18,8 @@ const styles = {
         left: 'auto',
         position: 'fixed'
     },
-    buttonStyle: {
-        margin: 14,
-        top: 'auto',
-        left: 'auto'
+    radio: {
+        margin: 15,
     }
 }
 
@@ -29,12 +27,13 @@ class GroupForm extends Component {
 
     state = {
         name: '',
-        img_src: 'https://images.unsplash.com/photo-1432457990754-c8b5f21448de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+        img_src: '',
         searchResults: [],
         searchResultsWithId: [],
         groupUsers: [this.props.user.username],
         userIds: [this.props.user.id],
         creator: this.props.user.id,
+        ownImage: false
     }
 
     componentDidMount() {
@@ -88,6 +87,12 @@ class GroupForm extends Component {
         this.props.history.push('/home')
     }
 
+    onImageClick = () => {
+        this.setState({
+            ...this.state,
+            ownImage: !this.state.ownImage
+        })
+    }
     render() {
 
         return (
@@ -105,18 +110,41 @@ class GroupForm extends Component {
                             onChange={(event) => this.handleChangeFor('name', event)}
                             value={this.state.name}
                         />
-                  
-                        {/* add image url */}
 
-                          <TextField
-                            variant="outlined"
-                            label="Image URL"
-                            margin="normal"
-                            fullWidth
-                            onChange={(event) => this.handleChangeFor('img_src', event)}
-                            value={this.state.img_url} 
-                        />
+                        {/* image options for group image */}
+                        <FormControl component="fieldset">
+                            <FormLabel component="legend" style={styles.radio}>Select an Image</FormLabel>
+                            <RadioGroup style={styles.radio} defaultValue="Images" aria-label="Images">
+                                <FormControlLabel
+                                    onChange={(event) => this.handleChangeFor('img_src', event)}
+                                    value="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} label="Space" />
+                                <FormControlLabel value="https://images.unsplash.com/photo-1457089328109-e5d9bd499191?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} onChange={(event) => this.handleChangeFor('img_src', event)} label="Flowers" />
+                                <FormControlLabel
+                                    onChange={(event) => this.handleChangeFor('img_src', event)}
+                                    value="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} label="Mountains" />
+                                <FormControlLabel
+                                    onChange={(event) => this.handleChangeFor('img_src', event)}
+                                    value="https://images.unsplash.com/photo-1432457990754-c8b5f21448de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} label="Lemons" />
+                            </RadioGroup>
+                            <Button onClick={this.onImageClick} color="secondary" variant="contained">Upload own Image</Button>
 
+                        </FormControl>
+                            {/* conditional rendering to allow users to upload own image */}
+                        {this.state.ownImage &&
+
+                            <TextField
+                                variant="outlined"
+                                label="Image URL"
+                                margin="normal"
+                                fullWidth
+                                onChange={(event) => this.handleChangeFor('img_src', event)}
+                                value={this.state.img_url}
+                            />
+                        }
                         <h3>Users in Group:</h3>
                         <ul>
                             {this.state.groupUsers.map((member) => {
@@ -137,7 +165,7 @@ class GroupForm extends Component {
                     </Grid>
                 </Grid>
 
-                {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
+                <pre> {JSON.stringify(this.state, null, 2)}</pre>
             </>
         )
     }
