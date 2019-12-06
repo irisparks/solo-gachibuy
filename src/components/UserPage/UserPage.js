@@ -109,7 +109,7 @@ class UserPage extends Component {
 
   onGroupClick = (group) => {
     console.log('clicked on group')
-    this.props.dispatch({ type: "FIND_GROUP", payload: group });
+    this.props.dispatch({ type: "FIND_GROUP", payload: group});
     this.props.history.push(`/list`)
   }
 

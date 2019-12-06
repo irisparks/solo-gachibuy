@@ -15,6 +15,8 @@ import editListSaga from './editListSaga';
 import editGroupSaga from './editGroupSaga';
 import deleteGroupSaga from './deleteGroupSaga';
 import editItemCompleteItemSaga from './editItemCompleteItemSaga';
+import findUsersSaga from './findUsersSaga';
+
 
 
 // rootSaga is the primary saga.
@@ -39,8 +41,9 @@ export default function* rootSaga() {
   yield takeEvery('ADD_ITEM',postItemSaga);
   yield takeEvery('DELETE_ITEM',deleteItemSaga);
   yield takeEvery('EDIT_ITEM',editItemSaga);
-  yield takeEvery('COMPLETE_ITEM',  editItemCompleteItemSaga
-  );
+  yield takeEvery('COMPLETE_ITEM',  editItemCompleteItemSaga);
+
+  yield takeEvery('FIND_USERS',findUsersSaga);
 
   
 

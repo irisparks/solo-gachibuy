@@ -53,6 +53,7 @@ class ListView extends Component {
     img_src: this.props.findGroupReducer.img_src,
     edit: true,
     addUsers: "",
+    seeUsers: false,
   }
   onBack = () => {
     this.props.history.push('/home')
@@ -60,6 +61,14 @@ class ListView extends Component {
 
   onCreate = () => {
     this.props.history.push('/Listform')
+  }
+
+  onUsers = () => {
+    this.setState({
+      ...this.state,
+      seeUsers: !this.state.seeUsers
+    })
+    this.props.dispatch({ type: "FIND_USERS", payload: this.props.findGroupReducer.group_id})
   }
 
   onListClick = (list) => {
@@ -133,7 +142,10 @@ class ListView extends Component {
         <div>
           <DrawerNav />
           <ArrowBackIosIcon style={styles.buttonStyle} onClick={this.onBack} />
+          {/* <Button variant="contained" color="primary" onClick={this.onUsers}>To see Users</Button> */}
 
+          {this.state.seeUsers && 
+          <Typography variant="body1">Users in Group: </Typography>}
           {/* conditional rendering for edit group name */}
           {this.state.edit ?
 
@@ -214,7 +226,7 @@ class ListView extends Component {
                   </List>
                 </CardContent>
                 <Divider variant="middle" />
-                </div>)}
+              </div>)}
           </Card>
 
         </div>

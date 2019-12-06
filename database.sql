@@ -6,8 +6,8 @@
 CREATE TABLE "user"
 (
 	"id" SERIAL PRIMARY KEY,
-	"username" VARCHAR (80) UNIQUE NOT NULL,
-	"password" VARCHAR (1000) NOT NULL
+	"username" VARCHAR (255) UNIQUE NOT NULL,
+	"password" VARCHAR (255) NOT NULL
 );
 
 
@@ -27,7 +27,7 @@ CREATE TABLE "groups_users"
 CREATE TABLE "item"
 (
 	"id" SERIAL PRIMARY KEY,
-	"item_name" VARCHAR(80) NOT NULL,
+	"item_name" VARCHAR(255) NOT NULL,
 	"item_completed" BOOLEAN NOT NULL DEFAULT FALSE,
 	"list_id" INT REFERENCES "list"
 );
@@ -35,7 +35,7 @@ CREATE TABLE "item"
 CREATE TABLE "list"
 (
 	"id" SERIAL PRIMARY KEY,
-	"list_name" VARCHAR(80) NOT NULL,
+	"list_name" VARCHAR(255) NOT NULL,
 	"list_completed" BOOLEAN NOT NULL DEFAULT FALSE,
 	"group_id" INT REFERENCES "group",
 	"date_created" DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -45,8 +45,8 @@ CREATE TABLE "list"
 CREATE TABLE "group"
 (
 	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR(80) NOT NULL,
-	"img_src" VARCHAR(80),
+	"name" VARCHAR(255) NOT NULL,
+	"img_src" VARCHAR(255),
 	"creator" int REFERENCES "user"
 );
 
