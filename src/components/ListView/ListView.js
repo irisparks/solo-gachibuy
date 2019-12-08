@@ -5,7 +5,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Fab, Card, Grid, CardContent, List, TextField, Button, Chip, Typography, Divider, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
+import { Fab, Card, Grid, CardContent, List, TextField, Button, Chip, Typography, Divider, ListItem, ListItemText, ListItemIcon,RadioGroup, FormControl, FormLabel, FormControlLabel, Radio } from '@material-ui/core'
 import Swal from 'sweetalert2';
 import StarIcon from '@material-ui/icons/Star';
 import AddIcon from '@material-ui/icons/Add';
@@ -147,6 +147,8 @@ class ListView extends Component {
           {this.state.seeUsers && 
           <Typography variant="body1">Users in Group: </Typography>}
           {/* conditional rendering for edit group name */}
+          <Button style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{ fontWeight: 'bold' }}
+          >Edit Group</Typography></Button>
           {this.state.edit ?
 
             <Grid item xs={12}>
@@ -180,29 +182,36 @@ class ListView extends Component {
                 )}
               />
               <Typography variant="h6"> Edit Image: </Typography>
-              <Autocomplete
-                multiple
-                id="tags-filled"
-                freeSolo
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => (
-                    <Chip color="primary" label={option} value={option} {...getTagProps({ index })} />
-                  ))}
-                renderInput={params => (
-                  <TextField  {...params}
-                    fullWidth
-                    variant="outlined"
-                    label="Update Image"
-                    margin="normal"
-                    onChange={(event) => this.handleChangeFor("img_src", event)}
-                    value={this.state.img_src}
-                  />
-                )}
-              />
-              <Button style={{ fontWeight: 'bold' }} variant="contained" color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button></>}
+               <FormControl component="fieldset">
+                            <FormLabel component="legend" style={styles.radio}>Edit Image</FormLabel>
+                            <RadioGroup style={styles.radio} defaultValue="Images" aria-label="Images">
+                                <FormControlLabel
+                                    onChange={(event) => this.handleChangeFor('img_src', event)}
+                                    value="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} label="Space" />
+                                <FormControlLabel value="https://images.unsplash.com/photo-1457089328109-e5d9bd499191?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} onChange={(event) => this.handleChangeFor('img_src', event)} label="Flowers" />
+                                <FormControlLabel
+                                    onChange={(event) => this.handleChangeFor('img_src', event)}
+                                    value="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} label="Mountains" />
+                                <FormControlLabel
+                                    onChange={(event) => this.handleChangeFor('img_src', event)}
+                                    value="https://images.unsplash.com/photo-1432457990754-c8b5f21448de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"
+                                    control={<Radio />} label="Lemons" />
+                            </RadioGroup>
+                            <Button onClick={this.onImageClick} color="secondary" variant="contained">Upload own Image</Button>
+                            </FormControl>
 
+          <Button style={{ fontWeight: 'bold' }} variant="contained" color="primary" onClick={() => this.saveButton(this.props.findGroupReducer.name)}>Save</Button>
+          
           <Button style={{ fontWeight: 'bold' }} onClick={this.onEdit} variant="contained" size="small" startIcon={<EditIcon />} color="primary" ><Typography variant="button" style={{ fontWeight: 'bold' }}
-          >edit group</Typography></Button>
+          >Cancel</Typography></Button>
+          
+          </>
+          
+          }
+
           {/* conditional rendering only creator of group can delete group */}
           {this.props.findGroupReducer.creator === this.props.user.id &&
             < Button style={{ fontWeight: 'bold' }} onClick={(group) => this.onDelete(group)} variant="contained" size="small" startIcon={<DeleteIcon />} color="primary" style={{ fontWeight: 'bold' }} >DELETE GROUP</Button>

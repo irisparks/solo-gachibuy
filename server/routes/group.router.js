@@ -20,6 +20,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.send(results.rows);
         }).catch(error => {
             console.log('error in get groups error:', error)
+            res.sendStatus(500);
         })
 });
 
