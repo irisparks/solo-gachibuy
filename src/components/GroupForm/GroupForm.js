@@ -171,7 +171,7 @@ class GroupForm extends Component {
                     </Grid>
                 </Grid>
 
-                <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
             </>
         )
     }
