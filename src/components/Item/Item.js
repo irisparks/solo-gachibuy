@@ -191,7 +191,7 @@ class Item extends Component {
                     Shopping Date: {this.props.listReducer.shopping_date} */}
 
                 </div>
-                <pre> {JSON.stringify(this.state, null, 2)}</pre>
+                {/* <pre> {JSON.stringify(this.state, null, 2)}</pre> */}
             </>
         )
     }

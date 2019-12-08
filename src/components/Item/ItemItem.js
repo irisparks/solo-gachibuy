@@ -27,7 +27,7 @@ class ItemItem extends Component {
         // this.setState({
         //     showComplete: event.target.checked,
         // })
-        this.props.dispatch({ type: "COMPLETE_ITEM", payload: item })
+        this.props.dispatch({ type: "COMPLETE_ITEM", payload: {item:item.id, setId: this.props.findListReducer.id} })
         console.log('clicked on a item');
     }
 
