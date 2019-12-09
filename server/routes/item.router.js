@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
- * GET list
+ * GET item
  */
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in each list:', req.params.id, 'to get items')
@@ -22,7 +22,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         })
 });
 /**
- * POST route to add a list for the logged in user
+ * POST route to add a item for the logged in user
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('in post item', req.body)

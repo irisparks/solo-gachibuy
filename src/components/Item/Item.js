@@ -35,17 +35,18 @@ class Item extends Component {
         edit: true,
         shopping_date: "",
     }
-
+    // on mount, shows all items in a given list, payload is clicked on list's list id
     componentDidMount() {
         this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     }
-
+    // handles onchange to take in value of new item from textfield
     onChangeList = (event) => {
         // console.log(...this.state.listItems)
         this.setState({
             listItems: event.target.value
         })
     }
+    // on submit button, dispatches to "ADD_ITEM" saga with payload of items in a list and list id
     onSubmitAdd = () => {
         // let splitUsers = this.state.users.split(" , ");
         console.log('submit button to add new item clicked');
@@ -61,10 +62,11 @@ class Item extends Component {
 
     }
 
-
+    // takes back to list page
     onBack = () => {
         this.props.history.push('/list')
     }
+    // changes this.state.edit from truthy to falsey, to show textfield to edit 
     onEdit = () => {
         console.log('edit button clicked')
         this.setState({
@@ -72,7 +74,7 @@ class Item extends Component {
             edit: !this.state.edit
         })
     }
-
+    // saves changes from edit list, takes back to list page and gets updated list
     saveButton = (item) => {
         this.props.dispatch({ type: "EDIT_LIST", payload: { id: this.props.findListReducer.id, listName: this.state.listName } })
         this.setState({
@@ -83,7 +85,7 @@ class Item extends Component {
         this.props.dispatch({ type: "GET_LIST", payload: this.props.findListReducer.id });
 
     };
-
+    // handle change for list name
     handleChangeFor = (property, event) => {
         this.setState({
             ...this.state,

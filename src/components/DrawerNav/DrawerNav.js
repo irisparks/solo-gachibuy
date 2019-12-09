@@ -9,6 +9,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
+// drawer navigation to logout and go to about page
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({

@@ -40,14 +40,6 @@ const styles = {
 
 };
 class ListView extends Component {
-  componentDidMount() {
-    this.onGet();
-  }
-  onGet = () => {
-    console.log('in get list???/');
-    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer.group_id });
-
-  }
   state = {
     groupName: this.props.findGroupReducer.name,
     img_src: this.props.findGroupReducer.img_src,
@@ -55,14 +47,24 @@ class ListView extends Component {
     addUsers: "",
     seeUsers: false,
   }
+
+  componentDidMount() {
+    this.onGet();
+  }
+ // get list with payload of group id 
+  onGet = () => {
+    console.log('in get list???/');
+    this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer.group_id });
+  }
+// on back goes back to home page
   onBack = () => {
     this.props.history.push('/home')
   }
-
+// on create click, takes to list form page
   onCreate = () => {
     this.props.history.push('/Listform')
   }
-
+// on click see users, sees which users are in group
   onUsers = () => {
     this.setState({
       ...this.state,
@@ -70,13 +72,16 @@ class ListView extends Component {
     })
     this.props.dispatch({ type: "FIND_USERS", payload: this.props.findGroupReducer.group_id})
   }
-
+// takes to specific list with items in a list
   onListClick = (list) => {
+    // dispatches to "FIND_LIST" to grab that list id
     this.props.dispatch({ type: "FIND_LIST", payload: list })
+    // gets list
     this.onGet();
+    // goes back to item page
     this.props.history.push(`/item`)
   }
-
+// on edit turns from truthy to falsey
   onEdit = () => {
     console.log('edit button clicked')
     this.setState({
@@ -84,7 +89,7 @@ class ListView extends Component {
       edit: !this.state.edit
     })
   }
-
+// saves the new edits and takes back to home page
   saveButton = (group) => {
     this.props.dispatch({ type: "EDIT_GROUP", payload: { id: this.props.findGroupReducer.group_id, groupName: this.state.groupName, img_src: this.state.img_src } })
     this.setState({
@@ -92,9 +97,8 @@ class ListView extends Component {
       edit: true
     })
     this.props.history.push(`/home`)
-
   };
-
+// handles changes for
   handleChangeFor = (property, event) => {
     this.setState({
       ...this.state,

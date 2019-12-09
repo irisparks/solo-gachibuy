@@ -16,7 +16,7 @@ class ItemItem extends Component {
         check: false,
         strike: 'none'
     }
-
+// when input is clicked on item, indicates completed, turns on and off query from true to false
     onCompleteClick = (item) => {
         // this.setState({check: !this.state.check})
         // if (this.state.strike === 'none'){
@@ -30,30 +30,26 @@ class ItemItem extends Component {
         this.props.dispatch({ type: "COMPLETE_ITEM", payload: {item:item.id, setId: this.props.findListReducer.id} })
         console.log('clicked on a item');
     }
-
-    // componentDidMount() {
-    //     this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id  });
-    // }
-
+// deletes item
     onDelete = (item) => {
         this.props.dispatch({ type: "DELETE_ITEM", payload: {item: item, setId: this.props.findListReducer.id}})
         console.log('delete list item')
-        // this.props.dispatch({ type: "GET_ITEM", payload: this.props.findListReducer.id });
     }
-
+// edits item
     onEdit = () => {
         console.log('edit button clicked')
         this.setState({
             edit: !this.state.edit
         })
     }
-
+// handlechanges for
     handleChangeFor = (property, event) => {
         this.setState({
             ...this.state,
             [property]: event.target.value
         })
     }
+// saves new edits
     saveButton = (item) => {
         this.props.dispatch({ type: "EDIT_ITEM", payload: { id: item.id, ...this.state, list_name: this.props.findListReducer.list_name } })
         this.setState({
@@ -88,7 +84,7 @@ class ItemItem extends Component {
                     </ListItem>
                 </List>
                 <Divider variant="middle" />
-                {/* NEED TO FIX CONDITIONAL RENDERING FOR EACH ITEM ID BECAUSE SWITCHES WHEN ITEM IS DELETED */}
+                {/* conditional rendering for if this.state.edit is true or false */}
                 {this.state.edit ? <>
                 </>
                     : <>

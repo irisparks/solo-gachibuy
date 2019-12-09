@@ -19,7 +19,7 @@ class ListItem extends Component {
     onCancel = () => {
         this.props.history.push('/list')
     }
-
+    // submit new list
     onSubmitList = () => {
         this.props.dispatch({
             type: 'ADD_LIST', payload: {
@@ -32,11 +32,13 @@ class ListItem extends Component {
             listSaved: !false
         })
         console.log('onSave')
+        // dispatch get list to get most updated list 
         this.props.dispatch({ type: "GET_LIST", payload: this.props.findGroupReducer.group_id });
+        // goes back to list page
         this.props.history.push('/list')
 
     }
-
+// when list name is changed
     onListNameChange = (event) => {
         console.log(...this.state.list_name)
         this.setState({
@@ -44,7 +46,7 @@ class ListItem extends Component {
             list_name: event.target.value
         })
     }
-
+// takes in shopping list date
     onShoppingDate = (event) => {
         console.log(...this.state.shoppingDate)
         this.setState({

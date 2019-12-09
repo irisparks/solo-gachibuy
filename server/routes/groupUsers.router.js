@@ -3,6 +3,7 @@ const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
+// get all users username for add group users
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('getting users for group:', req.params.id, req.body)
     let queryText = `SELECT username FROM "group"

@@ -3,6 +3,7 @@ const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
+// search through all users
 router.get('/', rejectUnauthenticated, (req, res) => {
         let queryText = 'SELECT "id", "username" FROM "user" ORDER BY "username";';
         pool.query(queryText).then(result => {

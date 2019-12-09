@@ -12,16 +12,18 @@ import './GroupForm.css';
 
 const styles = {
     fabStyle: {
-        margin: -40,
-        top: 'auto',
-        right: 40,
-        left: 'auto',
-        position: 'fixed'
+        // margin: -40,
+        // top: 'auto',
+        // right: 40,
+        // left: 'auto',
+        // position: 'fixed'
     },
     radio: {
         margin: 15,
     }
 }
+
+//create new group form
 
 class GroupForm extends Component {
 
@@ -35,11 +37,11 @@ class GroupForm extends Component {
         creator: this.props.user.id,
         ownImage: false
     }
-
+// search through users function load on mount
     componentDidMount() {
         this.getInfo();
     }
-
+// as user types in name, searches through array of users and usernames
     getInfo = () => {
         axios.get('/api/search_users/')
             .then(({ data }) => {
@@ -54,11 +56,11 @@ class GroupForm extends Component {
                 })
             })
     }
-
+// add's user's username with userid
     addGroupUsers = (username) => {
         this.addGroupIds(username);
     }
-
+// add user id into group
     addGroupIds = (username) => {
         let idToAdd = 0
         this.state.searchResultsWithId.forEach(result => {
@@ -72,21 +74,23 @@ class GroupForm extends Component {
             userIds: [...this.state.userIds, idToAdd]
         });
     }
-
+// back to home page
     onBack = () => {
         this.props.history.push('/home')
     }
+// handle change for new group name and image source
     handleChangeFor = (property, event) => {
         this.setState({
             ...this.state,
             [property]: event.target.value
         })
     }
+// dispatches to "ADD_GROUP" saga with payload of localState and user's usernames and goes back to home page
     onSubmitAdd = () => {
         this.props.dispatch({ type: 'ADD_GROUP', payload: { localState: this.state, userArray: this.state.userIds, userNames: this.state.groupUsers} })
         this.props.history.push('/home')
     }
-
+// when clicked, shows textfield to add own image url
     onImageClick = () => {
         this.setState({
             ...this.state,

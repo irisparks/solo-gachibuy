@@ -11,8 +11,6 @@ const theme = createMuiTheme({
   },
   });
 
-//   primary: { main: '#EDE7F6', light: '#ffffff', dark: '#bbb5c3', contrastText: '#000'},
-//   secondary: { main: '#C8E6C9', light: '#fbfffc', dark: '#97b498', contrastText: '#000'}
 export default function Palette() {
   return (
     <ThemeProvider theme={theme}>
